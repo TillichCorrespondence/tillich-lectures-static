@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md pt-5">
                                 
-                                <xsl:apply-templates select=".//tei:ab"/>
+                                <xsl:apply-templates select=".//tei:p"/>
                             </div>
                         </div>
                     </div>
