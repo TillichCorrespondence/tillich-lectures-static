@@ -48,5 +48,21 @@
     </xsl:template>
     <xsl:template match="tei:del">
         <del><xsl:apply-templates/></del>
-    </xsl:template>    
+    </xsl:template>
+    <xsl:template match="tei:ref[@target]">
+        <xsl:choose>
+            <xsl:when test="starts-with(@target, 'http')">
+                <a href="{data(@target)}"><xsl:value-of select="."/></a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="tei:list">
+        <ul class="list-unstyled"><xsl:apply-templates/></ul>
+    </xsl:template>
+    <xsl:template match="tei:item">
+        <li><xsl:apply-templates/></li>
+    </xsl:template>
 </xsl:stylesheet>
