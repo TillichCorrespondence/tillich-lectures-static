@@ -72,9 +72,9 @@ for x in tqdm(files, total=len(files)):
         "resolver"
     ] = f"https://tillichcorrespondence.github.io/tillich-lectures-static/{record['id']}.html"
     record["rec_id"] = os.path.split(x)[-1].replace(".xml", "")
-    year = doc.any_xpath(".//tei:origin")[0].text
-    if len(year) > 4:
-        record["year"] = int(year[:4])
+    # year = doc.any_xpath(".//tei:origin")[0].text
+    # if len(year) > 4:
+    #     record["year"] = int(year[:4])
     cfts_record["rec_id"] = record["rec_id"]
     record["title"] = extract_fulltext(
         doc.any_xpath(".//tei:titleStmt/tei:title[1]")[0]
