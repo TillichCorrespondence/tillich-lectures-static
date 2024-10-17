@@ -21,13 +21,24 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
-                    <div class="container">
-                        <h1>
-                            <xsl:value-of select="$doc_title"/>
-                        </h1>
+                    <div class="container pt-3">
+                        
+                                <h1 class="text-center p3">Volltextsuche</h1>
+                                <div id="searchbox"></div>
+                                <div id="stats-container"></div>
+                                <div id="current-refinements"></div>
+                                <div id="clear-refinements"></div>
+                       
+                                <div id="pagination" class="p-3"></div>
+                                <div id="hits"></div>
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css" />
+                <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.46.0"></script>
+                <script
+                    src="https://cdn.jsdelivr.net/npm/typesense-instantsearch-adapter@2/dist/typesense-instantsearch-adapter.min.js"></script>
+                <script src="js/search.js"></script>
             </body>
         </html>
     </xsl:template>
