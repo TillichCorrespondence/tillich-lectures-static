@@ -36,7 +36,7 @@ const search = instantsearch({
     routing: {
         router: instantsearch.routers.history(),
         stateMapping: instantsearch.stateMappings.simple(),
-      },
+    },
 });
 
 search.addWidgets([
@@ -102,6 +102,65 @@ search.addWidgets([
         attributesToSnippet: ["full_text"],
     }),
 
+    // FACETS
+
+    instantsearch.widgets.panel({
+        collapsed: ({ state }) => {
+            return state.query.length === 0;
+        },
+        templates: {
+            header: 'Keywords',
+        },
+    })(instantsearch.widgets.refinementList)({
+        container: "#refinement-list-keywords ",
+        attribute: "keywords",
+        searchable: true,
+        showMore: true,
+        showMoreLimit: 50,
+        limit: 10,
+        searchablePlaceholder: "Search for Keywords",
+        cssClasses: DEFAULT_CSS_CLASSES,
+    }),
+
+    instantsearch.widgets.panel({
+        collapsed: ({ state }) => {
+            return state.query.length === 0;
+        },
+        templates: {
+            header: 'Lectures',
+        },
+    })(instantsearch.widgets.refinementList)({
+        container: "#refinement-list-lecture ",
+        attribute: "lecture",
+        searchable: true,
+        showMore: true,
+        showMoreLimit: 50,
+        limit: 10,
+        searchablePlaceholder: "Search for Lectures",
+        cssClasses: DEFAULT_CSS_CLASSES,
+    }),
+
+    instantsearch.widgets.panel({
+        collapsed: ({ state }) => {
+            return state.query.length === 0;
+        },
+        templates: {
+            header: 'Terms',
+        },
+    })(instantsearch.widgets.refinementList)({
+        container: "#refinement-list-term ",
+        attribute: "term",
+        searchable: true,
+        showMore: true,
+        showMoreLimit: 50,
+        limit: 10,
+        searchablePlaceholder: "Search for terms",
+        cssClasses: DEFAULT_CSS_CLASSES,
+    }),
+
 ]);
+
+
+
 
 search.start();
