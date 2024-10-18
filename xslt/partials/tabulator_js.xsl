@@ -4,9 +4,9 @@
     exclude-result-prefixes="xs"
     version="2.0">
     <xsl:template match="/" name="tabulator_js">
-        <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet"></link>
-        <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator_bootstrap5.min.css" rel="stylesheet"></link>
-        <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+        <link href="https://unpkg.com/tabulator-tables@6.3.0/dist/css/tabulator.min.css" rel="stylesheet"></link>
+        <link href="https://unpkg.com/tabulator-tables@6.3.0/dist/css/tabulator_bootstrap5.min.css" rel="stylesheet"></link>
+        <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script>
         <script src="tabulator-js/config.js"></script>
         <script>
             var table = new Tabulator("#myTable", config);
@@ -23,6 +23,12 @@
             //trigger download of data.html file
             document.getElementById("download-html").addEventListener("click", function(){
             table.download("html", "data.html", {style:true});
+            });
+            table.on("rowClick", function (e, row) {
+                var data = row.getData();
+                console.log(data)
+                var url = `${data["filename"].replace(".xml", ".html")}`
+                window.open(url, "_self");
             });
         </script>
     </xsl:template>

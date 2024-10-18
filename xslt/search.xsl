@@ -10,7 +10,7 @@
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="partials/html_footer.xsl"/>
     <xsl:template match="/">
-        <xsl:variable name="doc_title" select="'Volltextsuche'"/>
+        <xsl:variable name="doc_title" select="'Search'"/>
         <html class="h-100">
             <head>
                 <xsl:call-template name="html_head">
@@ -23,7 +23,7 @@
                 <main class="flex-shrink-0 flex-grow-1">
                     <div class="container pt-3">
                         
-                                <h1 class="text-center p3">Volltextsuche</h1>
+                                <h1 class="text-center display-2 pt-3"><xsl:value-of select="$doc_title"/></h1>
                                 <div id="searchbox"></div>
                                 <div id="stats-container"></div>
                                 <div id="current-refinements"></div>
