@@ -4,7 +4,7 @@ import os
 from typesense.api_call import ObjectNotFound
 from acdh_cfts_pyutils import TYPESENSE_CLIENT as client, CFTS_COLLECTION
 from acdh_tei_pyutils.tei import TeiReader
-from acdh_tei_pyutils.utils import extract_fulltext
+from acdh_tei_pyutils.utils import extract_fulltext, check_for_hash
 from tqdm import tqdm
 
 
@@ -42,11 +42,18 @@ current_schema = {
             "sort": True,
         },
         {
-            "name": "semester",
+            "name": "term",
             "type": "string",
             "optional": True,
             "facet": True,
             "sort": True,
+        },
+        {
+            "name": "keywords",
+            "type": "string[]",
+            "optional": True,
+            "facet": True,
+            "sort": False,
         },
     ],
 }
@@ -68,17 +75,29 @@ for x in tqdm(files, total=len(files)):
         continue
     record["id"] = os.path.split(x)[-1].replace(".xml", "")
     cfts_record["id"] = record["id"]
-    cfts_record[
-        "resolver"
-    ] = f"https://tillichcorrespondence.github.io/tillich-lectures-static/{record['id']}.html"
+    cfts_record["resolver"] = (
+        f"https://tillichcorrespondence.github.io/tillich-lectures-static/{record['id']}.html"
+    )
     record["rec_id"] = os.path.split(x)[-1].replace(".xml", "")
-    # year = doc.any_xpath(".//tei:origin")[0].text
-    # if len(year) > 4:
-    #     record["year"] = int(year[:4])
+    try:
+        year = doc.any_xpath(".//tei:setting/tei:date[@when-iso]")[0].text
+    except IndexError:
+        year = ""
+    if len(year) > 4:
+        record["year"] = int(year[:4])
+    try:
+        record["term"] = doc.any_xpath(".//tei:setting/tei:date[@type='term']")[0].text
+    except IndexError:
+        pass
     cfts_record["rec_id"] = record["rec_id"]
     record["title"] = extract_fulltext(
         doc.any_xpath(".//tei:titleStmt/tei:title[1]")[0]
     )
+    record["lecture"] = record["title"].split("(")[0].strip()
+    keywords = set()
+    for k in doc.any_xpath(".//tei:rs[@type='keyword']/@ref"):
+        keywords.add(check_for_hash(k))
+    record["keywords"] = list(keywords)
     cfts_record["title"] = record["title"]
     record["full_text"] = extract_fulltext(body, tag_blacklist=tag_blacklist)
     cfts_record["full_text"] = record["full_text"]

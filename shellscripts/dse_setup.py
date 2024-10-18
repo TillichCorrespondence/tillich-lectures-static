@@ -141,7 +141,7 @@ class DSESetup:
             content = zipfile.ZipFile(io.BytesIO(response[1]))
             content.extractall(saxon_destination_directory)
             logger.info("%s OK!", msg)
- 
+
     def fetch_data(self) -> None:
         """Fetch transcriptions from data repository"""
 
