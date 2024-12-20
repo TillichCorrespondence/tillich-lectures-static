@@ -29,5 +29,8 @@ add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.
 echo "denormalizing indices" 
 denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
 
+echo "remove notegroups from editions"
+python remove_notegrp_from_back.py
+
 echo "fetching imprint data"
 ./shellscripts/dl_imprint.sh
