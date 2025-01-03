@@ -8,10 +8,11 @@
     <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes" omit-xml-declaration="yes"/>
     
     <xsl:import href="./partials/shared.xsl"/>
+    <xsl:import href="./partials/entities.xsl"/>
     <xsl:import href="./partials/html_navbar.xsl"/>
     <xsl:import href="./partials/html_head.xsl"/>
     <xsl:import href="./partials/html_footer.xsl"/>
-    <xsl:import href="./partials/aot-options.xsl"/>
+
 
     <xsl:variable name="prev">
         <xsl:value-of select="replace(tokenize(data(tei:TEI/@prev), '/')[last()], '.xml', '.html')"/>
@@ -85,12 +86,110 @@
                         </div>
                         <div class="row">
                             <div class="col-md">
+                                <h2 class="visually-hidden">Facs</h2>
                                 <div style="width: 100%; height: 800px" id="osd_viewer"/>
                                 <figcaption class="figure-caption text-center">Tillich Lectures</figcaption>
                             </div>
                             <div class="col-md pt-5">
-                                
+                                <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body//tei:p"/>
+                            </div>
+                            <div class="col-md-2 pt-5">
+                                <h2 class="visually-hidden">Entities</h2>
+                                <xsl:if test=".//tei:back//tei:person[@xml:id]">
+                                    <div>
+                                        <h3 class="fs-4 p-1">Personen</h3>
+                                        
+                                        <div class="ps-4">
+                                            <xsl:for-each select=".//tei:back//tei:person[@xml:id]">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange="toggleHighlight(this)"
+                                                        value="{@xml:id}" id="check-{@xml:id}"/>
+                                                    <label class="form-check-label" for="check-{@xml:id}">
+                                                        <xsl:value-of select="./tei:persName[1]/text()"/>
+                                                    </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
+                                
+                                <xsl:if test=".//tei:back//tei:place[@xml:id]">
+                                    <div>
+                                        <h3 class="fs-4 p-1">Orte</h3>
+                                        <div class="ps-4">
+                                            <xsl:for-each select=".//tei:back//tei:place[@xml:id]">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange="toggleHighlight(this)"
+                                                        value="{@xml:id}" id="check-{@xml:id}"/>
+                                                    <label class="form-check-label" for="check-{@xml:id}">
+                                                        <xsl:value-of select="./tei:placeName[1]/text()"/>
+                                                    </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
+                                <xsl:if test=".//tei:back//tei:biblStruct[@xml:id]">
+                                    <div>
+                                        <h3 class="fs-4 p-1">Literatur</h3>
+                                        
+                                        <div class="ps-4">
+                                            <xsl:for-each
+                                                select=".//tei:back//tei:biblStruct[@xml:id]">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange="toggleHighlight(this)"
+                                                        value="{@xml:id}" id="check-{@xml:id}"/>
+                                                    <label class="form-check-label" for="check-{@xml:id}">
+                                                        <xsl:value-of select="./@n"/>
+                                                    </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
+                                <xsl:if test=".//tei:rs[@type='bible' and @ref]">
+                                    <div>
+                                        <h3 class="fs-4 p-1">Bibelstellen</h3>
+                                        <div class="ps-4">
+                                            <xsl:for-each
+                                                select="distinct-values(.//tei:rs[@type='bible' and @ref]/@ref)">
+                                                <xsl:variable name="biblId">
+                                                    <xsl:value-of select="lower-case(replace(replace(., ',', '-'), ' ', ''))"/>
+                                                </xsl:variable>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange="toggleHighlight(this)"
+                                                        value="{$biblId}" id="check-{$biblId}"/>
+                                                    <label class="form-check-label" for="check-{$biblId}">
+                                                        <xsl:value-of select="."/>
+                                                    </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
+                                <xsl:if test=".//tei:list[@xml:id = 'mentioned_letters']">
+                                    <div>
+                                        <h3 class="fs-4 p-1">Briefe</h3>
+                                        <div class="ps-4">
+                                            <xsl:for-each
+                                                select=".//tei:list[@xml:id = 'mentioned_letters']//tei:item[@xml:id]">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange="toggleHighlight(this)"
+                                                        value="{@xml:id}" id="check-{@xml:id}"/>
+                                                    <label class="form-check-label" for="check-{@xml:id}">
+                                                        <xsl:value-of select="./text()"/>
+                                                    </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
                             </div>
                         </div>
                     </div>
@@ -101,6 +200,7 @@
                     </xsl:for-each>
                 </main>
                 <xsl:call-template name="html_footer"/>
+                <script src="js/main.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script type="text/javascript">
                     var source = "<xsl:value-of select="$facs-url"/>";
