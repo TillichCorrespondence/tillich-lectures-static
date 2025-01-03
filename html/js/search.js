@@ -67,6 +67,11 @@ search.addWidgets([
               ? components.Snippet({ hit, attribute: "full_text" })
               : ""}
           </p>
+          ${hit.keywords.map(
+            (item) =>
+              html`<i class="bi bi-blockquote-right pe-1 ps-1"></i>${item}`
+          )}
+          <br />
 
           <br />
           ${hit.persons.map(
