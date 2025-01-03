@@ -26,6 +26,9 @@ add-attributes -g "./data/editions/*.xml" -b "https://tillich-lectures.acdh.oeaw
 add-attributes -g "./data/meta/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
+echo "search and replace 'Paul-Tillich-Korrespondenz:' with 'Paul Tillich Lectures:' in indices"
+find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespondenz:/Paul Tillich Lectures:/g' {} +
+
 echo "denormalizing indices" 
 denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
 
