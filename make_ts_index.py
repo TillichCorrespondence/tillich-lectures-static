@@ -4,7 +4,12 @@ import os
 from typesense.api_call import ObjectNotFound
 from acdh_cfts_pyutils import TYPESENSE_CLIENT as client, CFTS_COLLECTION
 from acdh_tei_pyutils.tei import TeiReader
-from acdh_tei_pyutils.utils import extract_fulltext, check_for_hash, get_xmlid, make_entity_label
+from acdh_tei_pyutils.utils import (
+    extract_fulltext,
+    check_for_hash,
+    get_xmlid,
+    make_entity_label,
+)
 from tqdm import tqdm
 
 
@@ -56,6 +61,7 @@ current_schema = {
             "sort": False,
         },
         {"name": "persons", "type": "object[]", "facet": True, "optional": True},
+        {"name": "places", "type": "object[]", "facet": True, "optional": True},
     ],
 }
 
@@ -106,6 +112,13 @@ for x in tqdm(files, total=len(files)):
         item = {"id": get_xmlid(y), "label": make_entity_label(y.xpath("./*[1]")[0])[0]}
         record["persons"].append(item)
         cfts_record["persons"].append(item["label"])
+
+    record["places"] = []
+    cfts_record["places"] = []
+    for y in doc.any_xpath(".//tei:back//tei:place"):
+        item = {"id": get_xmlid(y), "label": make_entity_label(y.xpath("./*[1]")[0])[0]}
+        record["places"].append(item)
+        cfts_record["places"].append(item["label"])
 
     cfts_record["title"] = record["title"]
     record["full_text"] = extract_fulltext(body, tag_blacklist=tag_blacklist)

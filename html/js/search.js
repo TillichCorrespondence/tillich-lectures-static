@@ -67,6 +67,7 @@ search.addWidgets([
               ? components.Snippet({ hit, attribute: "full_text" })
               : ""}
           </p>
+
           <br />
           ${hit.persons.map(
             (item) =>
@@ -128,9 +129,27 @@ search.addWidgets([
     showMore: true,
     showMoreLimit: 50,
     limit: 10,
-    searchablePlaceholder: "Suche nach Personen",
+    searchablePlaceholder: "Search for Persons",
     cssClasses: DEFAULT_CSS_CLASSES,
   }),
+
+//   instantsearch.widgets.panel({
+//     collapsed: ({ state }) => {
+//       return state.query.length === 0;
+//     },
+//     templates: {
+//       header: "Places",
+//     },
+//   })(instantsearch.widgets.refinementList)({
+//     container: "#refinement-list-places ",
+//     attribute: "places.label",
+//     searchable: true,
+//     showMore: true,
+//     showMoreLimit: 50,
+//     limit: 10,
+//     searchablePlaceholder: "Search for Places",
+//     cssClasses: DEFAULT_CSS_CLASSES,
+//   }),
 
   instantsearch.widgets.panel({
     collapsed: ({ state }) => {
