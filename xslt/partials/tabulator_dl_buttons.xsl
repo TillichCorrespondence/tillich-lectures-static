@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
-    <xsl:template match="/" name="tabulator_dl_buttons">
+    <xsl:template name="tabulator_dl_buttons">
         <div class="pt-3 text-end">
             <h4>Download Table</h4>
             <div class="button-group">

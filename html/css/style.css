@@ -1,123 +1,129 @@
 :root {
-    --dse-base-color: #017596;
-  }
-  
-  /* needed for interactive map in listplace.xsl */
-  div#map {
-    height: 50vh;
-  }
-  
-  /** Match bootstrap navlink focus outline color. */
-  :focus-visible {
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  }
-  
-  header {
-    border-bottom: solid;
-    border-bottom-color: var(--dse-base-color);
-  }
-  
-  .navbar-brand {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  
-  .btn-primary {
-    --bs-btn-bg: var(--dse-base-color);
-    --bs-btn-hover-bg: #017fa1;
-  }
-  
-  .btn-outline-primary {
-    --bs-btn-color: var(--dse-base-color);
-    --bs-btn-border-color: var(--dse-base-color);
-    --bs-btn-hover-bg: var(--dse-base-color);
-    --bs-btn-hover-border-color: var(--dse-base-color);
-    --bs-btn-active-bg: var(--dse-base-color);
-    --bs-btn-active-border-color: var(--dse-base-color);
-  }
-  
-  code {
-    font-size: 0.875em;
-    color: var(--dse-base-color);
-    background-color: aliceblue;
-    word-wrap: break-word;
-  }
-  
-  .pagebreak {
-    position: relative;
-    bottom: -0.2em;
-    font-weight: bold;
-    color: var(--dse-base-color);
-  }
-  
-  button.entity {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    text-align: inherit;
-    cursor: pointer;
-  }
-  
-  button.highlight {
-    background-color: var(--dse-base-color);
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  }
-  
-  .highlight {
-    background-color: var(--dse-base-color);
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  }
-  
-  dd {
-    margin-left: 1rem;
-  }
-  
-  .footerlogo {
-    height: 60px;
-  }
-  footer {
-    border-top: solid;
-    border-color: var(--dse-base-color);
-  }
-  
-  main {
-    min-height: 800px;
-  }
-  footer a {
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    color: var(--dse-base-color);
-  }
-  
-  /* define <hi rend> classes */
-  
-  .dse-sup {
-    position: relative;
-    top: -0.5em;
-    font-size: 80%;
-  }
-  
-  
-  .dse-u {
-    text-decoration: underline;
-  }
-  
-  .dse-uu {
-    text-decoration-line: underline;
-    text-decoration-style: double;
-  }
-  
-  .dse-i {
-    font-style: italic;
-  }
-  .dse-it {
-    font-style: italic;
-  }
+  --dse-base-color: #850196;
+  --dse-base-color-hover: #b417c9;
+}
+
+/* needed for interactive map in listplace.xsl */
+div#map {
+  height: 50vh;
+}
+
+/** Match bootstrap navlink focus outline color. */
+:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+header {
+  border-bottom: solid;
+  border-bottom-color: var(--dse-base-color);
+}
+a {
+  color: var(--dse-base-color);
+}
+
+a:hover {
+  color: var(--dse-base-color-hover);
+}
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--dse-base-color);
+  --bs-btn-hover-bg: #b417c9;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--dse-base-color);
+  --bs-btn-border-color: var(--dse-base-color);
+  --bs-btn-hover-bg: var(--dse-base-color);
+  --bs-btn-hover-border-color: var(--dse-base-color);
+  --bs-btn-active-bg: var(--dse-base-color);
+  --bs-btn-active-border-color: var(--dse-base-color);
+}
+
+code {
+  font-size: 0.875em;
+  color: var(--dse-base-color);
+  background-color: aliceblue;
+  word-wrap: break-word;
+}
+
+.pagebreak {
+  position: relative;
+  bottom: -0.2em;
+  font-weight: bold;
+  color: var(--dse-base-color);
+}
+
+button.entity {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+button.highlight {
+  background-color: var(--dse-base-color);
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.highlight {
+  background-color: var(--dse-base-color);
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+dd {
+  margin-left: 1rem;
+}
+
+.footerlogo {
+  height: 60px;
+}
+footer {
+  border-top: solid;
+  border-color: var(--dse-base-color);
+}
+
+main {
+  min-height: 800px;
+}
+footer a {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  color: var(--dse-base-color);
+}
+
+/* define <hi rend> classes */
+
+.dse-sup {
+  position: relative;
+  top: -0.5em;
+  font-size: 80%;
+}
+
+.dse-u {
+  text-decoration: underline;
+}
+
+.dse-uu {
+  text-decoration-line: underline;
+  text-decoration-style: double;
+}
+
+.dse-i {
+  font-style: italic;
+}
+.dse-it {
+  font-style: italic;
+}
