@@ -4,7 +4,7 @@
     exclude-result-prefixes="xs"
     version="2.0">
     
-    <xsl:template match="/" name="tabulator_js">
+    <xsl:template name="tabulator_js">
         <xsl:param name="clickme" select="true()"></xsl:param>
         <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet"></link>
         <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator_bootstrap5.min.css" rel="stylesheet"></link>

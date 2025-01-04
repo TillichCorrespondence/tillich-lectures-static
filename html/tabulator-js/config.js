@@ -6,6 +6,4 @@ var config = {
     responsiveLayout: "collapse",
     tooltips: true,
     dataLoader: true,
-    groupBy:"lecture",
-    groupStartOpen:true
 };
