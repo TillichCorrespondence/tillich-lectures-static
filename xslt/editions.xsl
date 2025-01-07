@@ -281,8 +281,7 @@
                 <script src="js/main.js"/>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script type="text/javascript">
-                    var source = "<xsl:value-of select="$facs-url"/>
-                    ";
+                    var source = "<xsl:value-of select="$facs-url"/>";
                     var viewer = OpenSeadragon({
                         id: "osd_viewer",
                         tileSources: {
