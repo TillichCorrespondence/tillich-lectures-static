@@ -276,20 +276,12 @@
                             <xsl:apply-templates/>
                         </xsl:for-each>
                     </div>
+                    <span id="url" class="visually-hidden" aria-hidden="true"><xsl:value-of select="$facs-url"/></span>
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="js/main.js"/>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
-                <script type="text/javascript">
-                    var source = "<xsl:value-of select="$facs-url"/>";
-                    var viewer = OpenSeadragon({
-                        id: "osd_viewer",
-                        tileSources: {
-                            type: 'image',
-                            url: source
-                        },
-                        prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-                    });</script>
+                <script src="js/facs.js"/>
             </body>
         </html>
     </xsl:template>
