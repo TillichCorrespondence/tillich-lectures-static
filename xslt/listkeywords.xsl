@@ -88,9 +88,9 @@
         </html>
         
         
-        <!--<xsl:for-each select=".//tei:person[@xml:id and ./tei:noteGrp]">
-            <xsl:variable name="filename" select="concat(./@xml:id, '.html')"/>
-            <xsl:variable name="name" select="normalize-space(string-join(./tei:persName[1]//text()))"></xsl:variable>
+        <xsl:for-each select=".//tei:item[./tei:term/@xml:id and ./tei:noteGrp]">
+            <xsl:variable name="filename" select="concat(./tei:term/@xml:id, '.html')"/>
+            <xsl:variable name="name" select="./tei:term/text()"></xsl:variable>
             <xsl:result-document href="{$filename}">
                 <html class="h-100" lang="de">
                     <head>
@@ -101,13 +101,13 @@
                     
                     <body class="d-flex flex-column h-100">
                         <xsl:call-template name="nav_bar"/>
-                        <nav style="-\-bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="listperson.html">Personenregister</a>
+                                    <a href="listkeywords.html">Keywords</a>
                                 </li>
                             </ol>
                         </nav>
@@ -116,13 +116,26 @@
                                 <h1 class="display-5 text-center">
                                     <xsl:value-of select="$name"/>
                                 </h1>
-                                <xsl:call-template name="person_detail"/>  
+                                <xsl:if test="//tei:noteGrp">
+                                    <hr/>
+                                    <h2>Erwähnungen</h2>
+                                    <ul>
+                                        <xsl:for-each select=".//tei:noteGrp//tei:note">
+                                            <li>
+                                                <a href="{replace(./@target, '.xml', '.html')}">
+                                                    <xsl:value-of select="./text()"/>
+                                                </a>
+                                            </li>
+                                        </xsl:for-each>
+                                    </ul>
+                                </xsl:if>
+                                  
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>
                     </body>
                 </html>
             </xsl:result-document>
-        </xsl:for-each>-->
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
