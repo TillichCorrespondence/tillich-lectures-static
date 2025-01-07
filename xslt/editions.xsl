@@ -45,7 +45,7 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
-                    <div class="container">
+                    <div class="container pt-3">
                         <div class="row">
                             <div class="col-md-2 col-lg-2 col-sm-12 text-start">
                                 <xsl:if test="ends-with($prev, '.html')">

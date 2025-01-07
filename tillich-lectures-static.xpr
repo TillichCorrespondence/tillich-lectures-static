@@ -10,11 +10,11 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>data/indices/listkeywords.xml</String>
+                                    <String>data/imprint.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>keywords</String>
+                                        <String>toc</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -30,11 +30,11 @@
                             </scenarioAssociation>
                             <scenarioAssociation>
                                 <field name="url">
-                                    <String>data/imprint.xml</String>
+                                    <String>data/indices/listkeywords.xml</String>
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>toc</String>
+                                        <String>keywords</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
