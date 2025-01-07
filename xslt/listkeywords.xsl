@@ -54,14 +54,11 @@
                                 <xsl:for-each select=".//tei:item[./tei:term/@xml:id and ./tei:noteGrp]">
                                     <xsl:sort select="./tei:term/@xml:id"></xsl:sort>
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="./tei:term/@xml:id"/>
+                                        <xsl:value-of select="data(./tei:term/@xml:id)||'.html'"/>
                                     </xsl:variable>
                                     <tr>
                                         <td>
-                                            <a>
-                                                <xsl:attribute name="href">
-                                                    <xsl:value-of select="concat($id, '.html')"/>
-                                                </xsl:attribute>
+                                            <a href="{$id}">
                                                 <xsl:value-of select="./tei:term/text()"/>
                                             </a>
                                         </td>

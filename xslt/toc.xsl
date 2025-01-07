@@ -17,7 +17,7 @@
 
     <xsl:template match="/">
         <xsl:variable name="doc_title" select="'Table of Contents'"/>
-        <html class="h-100">
+        <html lang="en" class="h-100">
             <head>
                 <xsl:call-template name="html_head">
                     <xsl:with-param name="html_title" select="$doc_title"></xsl:with-param>
@@ -56,18 +56,18 @@
             <xsl:variable name="full_path">
                 <xsl:value-of select="@xml:id"/>
             </xsl:variable>
+            <xsl:variable name="link">
+                <xsl:value-of
+                            select="replace(tokenize($full_path, '/')[last()], '.xml', '.html')"
+                            />
+            </xsl:variable>
             <tr>
                 <td>
                     <xsl:value-of
                         select="tokenize(.//tei:titleStmt/tei:title[1]/text(), '\(')[1]"/>
                 </td>
                 <td>
-                    <a>
-                        <xsl:attribute name="href">
-                            <xsl:value-of
-                            select="replace(tokenize($full_path, '/')[last()], '.xml', '.html')"
-                            />
-                        </xsl:attribute>
+                    <a href="{$link}">
                         <xsl:value-of
                         select="//tei:titleStmt/tei:title[1]/text()"/>
                     </a>
@@ -86,8 +86,7 @@
                         select=".//tei:setting/tei:date[1]/text()"/>
                 </td>
                 <td>
-                    <xsl:value-of select="tokenize($full_path, '/')[last()]"
-                    />
+                    <xsl:value-of select="$link"/>
                 </td>
             </tr>
         </xsl:for-each>

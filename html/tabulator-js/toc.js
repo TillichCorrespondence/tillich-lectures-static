@@ -32,6 +32,3 @@ table.on("tableBuilt", () => {
     headerFilterPlaceholder: "Filter by semester",
   });
 });
-
-
-console.log("HALLOOOOO")

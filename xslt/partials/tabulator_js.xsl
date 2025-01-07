@@ -30,7 +30,7 @@
             <xsl:if test="$clickme">
                 table.on("rowClick", function(e, row){
                 var data = row.getData();
-                var url = `${data["id"]}.html`;
+                var url = `${data["id"]}`;
                 window.open(url, "_self");
                 });
             </xsl:if>
