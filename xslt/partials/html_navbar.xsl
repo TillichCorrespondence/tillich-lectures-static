@@ -38,6 +38,9 @@
                                         <a class="dropdown-item" href="listperson.html">Personen</a>
                                     </li>
                                     <li>
+                                        <a class="dropdown-item" href="listkeywords.html">Keywords</a>
+                                    </li>
+                                    <!--<li>
                                         <a class="dropdown-item" href="listplace.html">Orte</a>
                                     </li>
                                     <li>
@@ -45,7 +48,7 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="listbibl.html">Werke</a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </li>
 

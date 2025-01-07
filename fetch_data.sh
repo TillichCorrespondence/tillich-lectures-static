@@ -29,6 +29,10 @@ add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.
 echo "search and replace 'Paul-Tillich-Korrespondenz:' with 'Paul Tillich Lectures:' in indices"
 find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespondenz:/Paul Tillich Lectures:/g' {} +
 
+python make_keyword_index.py
+add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+
+
 echo "denormalizing indices" 
 denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
 
