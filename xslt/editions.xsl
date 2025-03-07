@@ -41,6 +41,7 @@
                 <xsl:call-template name="html_head">
                     <xsl:with-param name="html_title" select="$doc_title"/>
                 </xsl:call-template>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
             </head>
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
@@ -63,7 +64,7 @@
                                 </xsl:if>
                             </div>
                             <div class="col-md-8 col-lg-8 col-sm-12 text-center">
-                                <h1>
+                                <h1 id="pdf-title">
                                     <xsl:value-of select="$doc_title"/>
                                 </h1>
                                 <div>
@@ -72,6 +73,12 @@
                                             visually-hidden="true">
                                             <span class="visually-hidden">Zum TEI/XML
                                                 Dokument</span>
+                                        </i>
+                                    </a>
+                                    <a id="download-pdf" href="#">
+                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Als PDF herunterladen"
+                                            visually-hidden="true">
+                                            <span class="visually-hidden">Als PDF herunterladen</span>
                                         </i>
                                     </a>
                                 </div>
@@ -99,11 +106,11 @@
                                 <figcaption class="figure-caption text-center">Tillich
                                     Lectures</figcaption>
                             </div>
-                            <div class="col-md pt-5">
+                            <div class="col-md pt-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body//tei:p"/>
                             </div>
-                            <div class="col-md-2 pt-5">
+                            <div class="col-md-2 pt-5" id="pdf-entities">
                                 <h2 class="visually-hidden">Entities</h2>
 
                                 <xsl:if test=".//tei:rs[@type = 'keyword' and @ref]">
@@ -277,9 +284,11 @@
                         </xsl:for-each>
                     </div>
                     <span id="url" class="visually-hidden" aria-hidden="true"><xsl:value-of select="$facs-url"/></span>
+                    <span id="filename" class="visually-hidden"><xsl:value-of select="replace($teiSource, '.xml', '.pdf')"/></span>
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="js/main.js"/>
+                <script src="js/pdf.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script src="js/facs.js"/>
             </body>
