@@ -133,3 +133,11 @@ footer a {
   text-indent: 1em;
   margin-bottom: 0.2rem;
 }
+
+.tei-authorship {
+  text-align: end;
+}
+
+.tei-title {
+  padding: 1rem;
+}

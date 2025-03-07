@@ -32,7 +32,7 @@
     <xsl:variable name="facs-url">
         <xsl:value-of select="data(.//tei:graphic[2]/@url)"/>
     </xsl:variable>
-    <xsl:template match="tei:lb"/>
+    
 
 
     <xsl:template match="/">
@@ -108,7 +108,7 @@
                             </div>
                             <div class="col-md pt-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
-                                <xsl:apply-templates select=".//tei:body//tei:p"/>
+                                <xsl:apply-templates select=".//tei:body"/>
                                 <div class="pt-3">
                                     <div class="ps-5 pe-5 visually-hidden" id="pdf-entities">
                                         <h2 class="visually-hidden">Register</h2>

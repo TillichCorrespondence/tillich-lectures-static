@@ -3,23 +3,19 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:local="http://dse-static.foo.bar"
     exclude-result-prefixes="xs"
     version="2.0">
-    <xsl:function name="local:makeId" as="xs:string">
-        <xsl:param name="currentNode" as="node()"/>
-        <xsl:variable name="nodeCurrNr">
-            <xsl:value-of select="count($currentNode//preceding-sibling::*) + 1"/>
-        </xsl:variable>
-        <xsl:value-of select="concat(name($currentNode), '__', $nodeCurrNr)"/>
-    </xsl:function>
+    
     <xsl:template match="tei:div">
         <div><xsl:apply-templates/></div>
     </xsl:template>
-    <xsl:template match="tei:pb">
-        <span class="anchor-pb"></span>
-        <span class="pb" source="{@facs}"><xsl:value-of select="./@n"/></span>
+    
+    <xsl:template match="tei:title">
+        <div class="tei-title">
+            <xsl:apply-templates/>
+        </div>
     </xsl:template>
+    
     <xsl:template match="tei:unclear">
         <abbr title="unclear"><xsl:apply-templates/></abbr>
     </xsl:template>
@@ -34,9 +30,6 @@
     </xsl:template>
     <xsl:template match="tei:date">
         <span class="date"><xsl:apply-templates/></span>
-    </xsl:template>
-    <xsl:template match="tei:lb">
-        <br/>
     </xsl:template>
     
     <xsl:template match="tei:note">
@@ -86,8 +79,19 @@
     <xsl:template match="tei:l">
         <xsl:apply-templates/><br/>
     </xsl:template>
+    <xsl:template match="tei:lb[@rend='lb-show']">
+        <br/>
+    </xsl:template>
     <xsl:template match="tei:p">
-        <p class="tei-p"><xsl:apply-templates/></p>
+        
+        <p class="tei-p">
+            <xsl:if test="@rend">
+                <xsl:attribute name="class">
+                    <xsl:value-of select="@rend"/> 
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </p>
     </xsl:template>
     
     <xsl:template match="tei:table">
