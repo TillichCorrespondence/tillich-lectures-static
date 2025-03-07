@@ -51,25 +51,16 @@
         </xsl:element>
     </xsl:template>
     
-    <xsl:template match="tei:list[@type='unordered']">
-        <xsl:choose>
-            <xsl:when test="ancestor::tei:body">
-                <ul class="yes-index">
-                    <xsl:apply-templates/>
-                </ul>
-            </xsl:when>
-        </xsl:choose>
+    <xsl:template match="tei:list">
+        <ul class="list-unstyled">
+            <xsl:apply-templates/>
+        </ul>
     </xsl:template>
+    
     <xsl:template match="tei:item">
-        <xsl:choose>
-            <xsl:when test="parent::tei:list[@type='unordered']|ancestor::tei:body">
-                <li><xsl:apply-templates/></li>
-            </xsl:when>
-        </xsl:choose>
+        <li class="ps-2"><xsl:apply-templates/></li>
     </xsl:template>
-    
-    
-    
+        
     <xsl:template match="tei:ref">
         <a class="ref {@type}" href="{@target}"><xsl:apply-templates/></a>
     </xsl:template>
