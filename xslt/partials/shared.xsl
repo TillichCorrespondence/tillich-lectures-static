@@ -87,7 +87,7 @@
         <xsl:apply-templates/><br/>
     </xsl:template>
     <xsl:template match="tei:p">
-        <p><xsl:apply-templates/></p>
+        <p class="tei-p"><xsl:apply-templates/></p>
     </xsl:template>
     
     <xsl:template match="tei:table">

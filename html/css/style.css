@@ -127,3 +127,9 @@ footer a {
 .dse-it {
   font-style: italic;
 }
+
+
+.tei-p {
+  text-indent: 1em;
+  margin-bottom: 0.2rem;
+}

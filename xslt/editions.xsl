@@ -69,7 +69,7 @@
                                 </h1>
                                 <div>
                                     <a href="{$teiSource}">
-                                        <i class="bi bi-download fs-2" title="Zum TEI/XML Dokument"
+                                        <i class="bi bi-filetype-xml fs-2" title="Zum TEI/XML Dokument"
                                             visually-hidden="true">
                                             <span class="visually-hidden">Zum TEI/XML
                                                 Dokument</span>
