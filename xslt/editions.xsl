@@ -109,6 +109,53 @@
                             <div class="col-md pt-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body//tei:p"/>
+                                <div class="pt-3">
+                                    <div class="ps-5 pe-5 visually-hidden" id="pdf-entities">
+                                        <h2 class="visually-hidden">Register</h2>
+                                        <xsl:for-each select=".//tei:rs[starts-with(@ref, '#') and @type]">
+                                            <xsl:variable name="rstype" select="@type"/>
+                                            <xsl:variable name="rsid" select="replace(@ref, '#', '')"/>
+                                            <xsl:variable name="ent" select="root()//tei:back//*[@xml:id=$rsid]"/>
+                                            <xsl:variable name="idxlabel">
+                                                <xsl:choose>
+                                                    <xsl:when test="$rstype=('person','place')">
+                                                        <xsl:value-of select="$ent/*[contains(name(), 'Name')][1]"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$rstype='work'">
+                                                        <xsl:value-of select="$ent/@n"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$rstype='bible'">
+                                                        <xsl:value-of select="./@ref"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$rstype='letter'">
+                                                        <xsl:value-of select="$ent//text()"/>
+                                                    </xsl:when>
+                                                    <xsl:when test="$rstype='keyword'">
+                                                        <xsl:value-of select="$rsid"/>
+                                                    </xsl:when>
+                                                </xsl:choose>
+                                            </xsl:variable>
+                                            <div>
+                                                <xsl:attribute name="id">
+                                                    <xsl:value-of select="$rsid"/>
+                                                    <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                                                    <xsl:text>endnote</xsl:text>
+                                                </xsl:attribute>
+                                                <sup>
+                                                    <a>
+                                                        <xsl:attribute name="href">
+                                                            <xsl:value-of select="concat('#', $rsid)"/>
+                                                            <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                                                            <xsl:text>anchor</xsl:text>
+                                                        </xsl:attribute>
+                                                        <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                                                    </a>
+                                                </sup>
+                                                <span class="ps-1"><xsl:value-of select="$idxlabel"/></span>
+                                            </div>
+                                        </xsl:for-each>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-2 pt-5" id="pdf-entities">
                                 <h2 class="visually-hidden">Entities</h2>

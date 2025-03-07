@@ -7,9 +7,25 @@
     
     <xsl:template match="tei:rs[starts-with(@ref, '#') and @type]">
         <xsl:variable name="entType" select="@type"/>
+        <xsl:variable name="entId" select="./@ref"/>
         <button class="{$entType} entity" data-bs-toggle="modal" data-bs-target="{@ref}">
             <xsl:apply-templates/>
         </button>
+            <a class="pdf-entitiy-footnote-markers visually-hidden">
+                <xsl:attribute name="name">
+                    <xsl:value-of select="replace($entId, '#', '')"/>
+                    <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                    <xsl:text>anchor</xsl:text>
+                </xsl:attribute>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$entId"/>
+                    <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                    <xsl:text>endnote</xsl:text>
+                </xsl:attribute>
+                <sup>
+                    <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
+                </sup>
+            </a>
     </xsl:template>
     
     <xsl:template match="tei:rs[@ref and @type='bible']">
