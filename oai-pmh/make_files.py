@@ -17,6 +17,7 @@ oai_folder = os.path.join("html", "oai-pmh")
 shutil.rmtree(oai_folder, ignore_errors=True)
 os.makedirs(oai_folder, exist_ok=True)
 files = sorted(glob.glob("./data/editions/*.xml"))
+cur_date = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 print("serializing Identify.xml")
 template = templateEnv.get_template("Identify.j2")
@@ -26,9 +27,24 @@ with open(output_path, "w", encoding="utf-8") as f:
         template.render(
             {
                 "project_data": project_data,
-                "current_date_time": datetime.datetime.now(datetime.UTC).strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"
-                ),
+                "current_date_time": cur_date,
+            }
+        )
+    )
+done_doc = TeiReader(output_path)
+done_doc.tree_to_file(output_path)
+print(f"saving {output_path}")
+
+
+print("serializing ListMetadataFormats.xml")
+template = templateEnv.get_template("ListMetadataFormats.j2")
+output_path = os.path.join(oai_folder, "ListMetadataFormats.xml")
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(
+        template.render(
+            {
+                "project_data": project_data,
+                "current_date_time": cur_date,
             }
         )
     )
@@ -54,9 +70,7 @@ with open(output_path, "w", encoding="utf-8") as f:
             {
                 "project_data": project_data,
                 "object_list": object_list,
-                "current_date_time": datetime.datetime.now(datetime.UTC).strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"
-                ),
+                "current_date_time": cur_date,
             }
         )
     )
@@ -73,9 +87,7 @@ with open(output_path, "w", encoding="utf-8") as f:
             {
                 "project_data": project_data,
                 "object_list": object_list,
-                "current_date_time": datetime.datetime.now(datetime.UTC).strftime(
-                    "%Y-%m-%dT%H:%M:%SZ"
-                ),
+                "current_date_time": cur_date,
             }
         )
     )

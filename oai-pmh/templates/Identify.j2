@@ -1,4 +1,5 @@
-{% extends 'header.j2' %}{% block content %} 
+{% extends 'header.j2' %}{% block content %}
+    <request verb="Identify">{{ project_data.base_url }}</request> 
     <Identify>
         <repositoryName>{{ project_data.project_title }}</repositoryName>
         <baseURL>{{ project_data.base_url }}</baseURL>
@@ -7,4 +8,5 @@
         <earliestDatestamp>{{ current_date_time }}</earliestDatestamp>
         <deletedRecord>no</deletedRecord>
         <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
-    </Identify>{% endblock content %}
+    </Identify>
+{% endblock content %}
