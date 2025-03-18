@@ -18,9 +18,9 @@ shutil.rmtree(oai_folder, ignore_errors=True)
 os.makedirs(oai_folder, exist_ok=True)
 files = sorted(glob.glob("./data/editions/*.xml"))
 
-print("serializing identify.xml")
-template = templateEnv.get_template("identify.j2")
-output_path = os.path.join(oai_folder, "identify.xml")
+print("serializing Identify.xml")
+template = templateEnv.get_template("Identify.j2")
+output_path = os.path.join(oai_folder, "Identify.xml")
 with open(output_path, "w", encoding="utf-8") as f:
     f.write(
         template.render(
@@ -32,10 +32,13 @@ with open(output_path, "w", encoding="utf-8") as f:
             }
         )
     )
+done_doc = TeiReader(output_path)
+done_doc.tree_to_file(output_path)
+print(f"saving {output_path}")
 
-print("serializing list-records.xml")
-template = templateEnv.get_template("list-records.j2")
-output_path = os.path.join(oai_folder, "list-records.xml")
+print("serializing ListRecords.xml")
+template = templateEnv.get_template("ListRecords.j2")
+output_path = os.path.join(oai_folder, "ListRecords.xml")
 object_list = []
 for x in files:
     doc = TeiReader(x)
@@ -57,3 +60,25 @@ with open(output_path, "w", encoding="utf-8") as f:
             }
         )
     )
+done_doc = TeiReader(output_path)
+done_doc.tree_to_file(output_path)
+print(f"saving {output_path}")
+
+print("serializing ListIdentifiers.xml")
+template = templateEnv.get_template("ListIdentifiers.j2")
+output_path = os.path.join(oai_folder, "ListIdentifiers.xml")
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(
+        template.render(
+            {
+                "project_data": project_data,
+                "object_list": object_list,
+                "current_date_time": datetime.datetime.now(datetime.UTC).strftime(
+                    "%Y-%m-%dT%H:%M:%SZ"
+                ),
+            }
+        )
+    )
+done_doc = TeiReader(output_path)
+done_doc.tree_to_file(output_path)
+print(f"saving {output_path}")
