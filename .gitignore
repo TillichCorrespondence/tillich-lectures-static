@@ -1,5 +1,6 @@
 # project specific
 *.html
+!/oai-pmh/*.html
 html/*.xml
 /saxon
 data/imprint.xml
@@ -8,6 +9,7 @@ data/indices/*.xml
 data/editions/*.xml
 data/meta/*.xml
 
+/html/oai-pmh/*.xml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
