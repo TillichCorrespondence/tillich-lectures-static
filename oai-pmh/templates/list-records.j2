@@ -1,6 +1,5 @@
 {% extends 'header.j2' %}
 {% block content %}
-<responseDate>{{ current_date_time }}</responseDate>
     <request verb="ListRecords" metadataPrefix="oai_dc">
         {{ project_data.base_url }}/oai-pmh/list-records.xml
     </request>

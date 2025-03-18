@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
          http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2025-03-18T07:50:19Z</responseDate>
 
-<responseDate>2025-03-18T07:39:31Z</responseDate>
     <request verb="ListRecords" metadataPrefix="oai_dc">
         https://tillich-lectures.acdh.oeaw.ac.at/oai-pmh/list-records.xml
     </request>
