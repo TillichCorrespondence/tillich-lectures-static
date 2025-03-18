@@ -82,3 +82,6 @@ with open(output_path, "w", encoding="utf-8") as f:
 done_doc = TeiReader(output_path)
 done_doc.tree_to_file(output_path)
 print(f"saving {output_path}")
+
+index_html_path = os.path.join("oai-pmh", "index.html")
+shutil.copy(index_html_path, oai_folder)

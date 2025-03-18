@@ -41,3 +41,6 @@ python remove_notegrp_from_back.py
 
 echo "fetching imprint data"
 ./shellscripts/dl_imprint.sh
+
+echo "OAI-PMH"
+python oai-pmh/make_files.py
