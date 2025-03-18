@@ -1,15 +1,15 @@
 {% extends 'header.j2' %}
 {% block content %}
-<responseDate>2025-03-17T12:00:00Z</responseDate>
+<responseDate>{{ current_date_time }}</responseDate>
     <request verb="ListRecords" metadataPrefix="oai_dc">
-        {{ base_url }}/oai-pmh
+        {{ project_data.base_url }}/oai-pmh/list-records.xml
     </request>
 <ListRecords>
 {% for object in object_list %}
     <record>
         <header>
             <identifier>{{ object.id }}</identifier>
-            <datestamp>{{ current_date }}</datestamp>
+            <datestamp>{{ object.datestamp }}</datestamp>
         </header>
         <metadata>
             <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
@@ -18,8 +18,7 @@
                         http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
                 <dc:title>{{ object.title }}</dc:title>
                 <dc:type>Text</dc:type>
-                <dc:identifier>{{ base_url }}{{ object.id }}</dc:identifier>
-                <dc:language>en</dc:language>
+                <dc:identifier>{{ project_data.base_url }}/{{ object.id }}</dc:identifier>
             </oai_dc:dc>
         </metadata>
     </record>
