@@ -9,6 +9,6 @@
     <xsl:param name="github_url">https://github.com/TillichCorrespondence/tillich-lectures-static</xsl:param>
     <xsl:param name="html_title">Tillich-Lectures</xsl:param>
     <xsl:param name="project_logo">images/logo.png</xsl:param>
-    <xsl:param name="base_url">https://tillich-lectures.acdh.oeaw.ac.at</xsl:param>
+    <xsl:param name="base_url">https://tillichcorrespondence.github.io/tillich-lectures-static</xsl:param>
     <xsl:param name="data_repo">https://github.com/TillichCorrespondence/tillich-lectures-data</xsl:param>
 </xsl:stylesheet>
