@@ -6,6 +6,16 @@
     exclude-result-prefixes="xs"
     version="2.0">
     
+    <xsl:template match="tei:hi[@style='font-style: italic;']">
+        <span class="dse-it"><xsl:apply-templates/></span>
+    </xsl:template>
+    <xsl:template match="tei:hi[@style='text-decoration: underline;']">
+        <span class="dse-u"><xsl:apply-templates/></span>
+    </xsl:template>
+    <xsl:template match="tei:hi[@style='superscript']">
+        <sup><xsl:apply-templates/></sup>
+    </xsl:template>
+    
     <xsl:template match="tei:div">
         <div><xsl:apply-templates/></div>
     </xsl:template>
