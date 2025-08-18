@@ -10,7 +10,7 @@ data/editions/*.xml
 data/meta/*.xml
 
 /html/oai-pmh/*.xml
-
+.DS_Store
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
