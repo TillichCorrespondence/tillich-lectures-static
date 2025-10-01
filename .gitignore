@@ -2,6 +2,7 @@
 *.html
 !/oai-pmh/*.html
 html/*.xml
+*.pdf
 /saxon
 data/imprint.xml
 
