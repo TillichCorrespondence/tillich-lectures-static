@@ -1,214 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-    exclude-result-prefixes="xs math"
-    version="3.0">
-    <xsl:output encoding="UTF-8" media-type="text" omit-xml-declaration="true" indent="no"/>
+    xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    version="2.0" >
     
-<xsl:template match="/">
-\documentclass{article}
-\usepackage{fontspec}        % For font management
-\usepackage{polyglossia}     % For multilingual support
-\usepackage[headings]{ragged2e}
-
-\setmainlanguage[babelshorthands=true]{german}  % Set main language
-\setotherlanguage{greek}  % Set other language
-\newfontfamily\greekfont{FreeSerif}
-%\setmainfont{FreeSerif}
-\setsansfont{FreeSans}
-
-\usepackage{ulem}
-\usepackage{hyphenat}
-
-\usepackage{titlesec}
-\titleformat{\section}
-  {\normalfont\sffamily\large}
-  {\thesection}{1em}{}
-
-% TOC setup
-\usepackage{tocloft}
-\renewcommand\cftsecfont{\fontsize{10}{10}\selectfont}
-\renewcommand\cftsecpagefont{\fontsize{9}{10}\selectfont}
-\setlength\cftbeforesecskip{0pt}
-
-% LOF setup % abuse list of figures for short miniTOC on titlepage
-\addto\captionsgerman{\renewcommand{\listfigurename}{}} %empty title for LOF
-
-% Footnote setup
-\usepackage{bigfoot} %improved fn management
-\usepackage[hang, norule]{footmisc} %hanging footnotes without rule separator
-% set low penalties for split footnotes
-\footnotewidowpenalty=10
-\footnoteclubpenalty=10
-\finalfootnotewidowpenalty=10
-\interfootnotelinepenalty=0
-
-% redefine skips to be extra stretchy
-\smallskipamount=3pt plus 3pt minus 1pt
-\medskipamount=6pt plus 4pt minus 4pt
-\bigskipamount=12pt plus 8pt minus 8pt
-
-% define an extra large break and skip for use between protocol heads
-\newlength{\headskipamount}
-\headskipamount=12pt plus 36pt minus 8pt
-% definition templates taken from ltspace.dtx and ltplain.dtx
-\def\headskip{\vspace\headskipamount}
-<xsl:text disable-output-escaping="yes">\def\headbreak{\par\ifdim\lastskip&lt;\headskipamount</xsl:text>
-  \removelastskip\penalty-200\headskip\fi}
-
-\usepackage{imakeidx}
-\makeatletter
-% we don't want a page break before the first subitem
-% https://tex.stackexchange.com/questions/130169/how-can-i-prevent-a-column-break-before-the-first-sub-entry-in-the-index
-% set index indent to 6pt 
-\newif\iffirst@subitem
-\def\@idxitem{%
-\pagebreak[2]\par\hangindent6\p@ % original
-\first@subitemtrue   % added
-}
-\def\subitem{%
-\par\hangindent12\p@~–\,
-    \iffirst@subitem
-    \nobreak
-    \first@subitemfalse
-    \fi
-    \hspace*{2\p@}}
-    \makeatother
-\setlength\parindent{2.6em}
-
-
-\title{Tillich-Lectures}
-\author{Tillich Lectures Team}
-\date{2025 \\{\tiny (version: \today)}}
-
-\indexsetup{level=\section}
-\makeindex[intoc,name=person,title=Personenindex,columnsep=14pt,columns=3]
-\makeindex[intoc,name=place,title=Ortsindex,columnsep=14pt,columns=3]
-\makeindex[intoc,name=work,title=Werkindex,columnsep=14pt,columns=1]
-\makeindex[intoc,name=letter,title=Briefindex,columnsep=14pt,columns=3]
-\makeindex[intoc,name=bible,title=Bibelindex,columnsep=14pt,columns=3]
-
-\usepackage[hidelinks]{hyperref}
-
-\begin{document}
-\maketitle
-
-\listoffigures
-\clearpage
-<xsl:for-each select="collection('../data/editions/?select=*.xml')/tei:TEI">
-    <xsl:sort select="./@xml:id"></xsl:sort>
-    <xsl:variable name="docId">
-        <xsl:value-of select="replace(./@xml:id, '.xml', '')"/>
-    </xsl:variable>
-    <xsl:variable name="title">
-        <xsl:call-template name="escape_character_latex"><xsl:with-param name="context" select="string-join(.//tei:titleStmt/tei:title[1]//text()[not(ancestor-or-self::tei:note)], '')"/></xsl:call-template>
-    </xsl:variable>
- \headskip
-    \section*{<xsl:text>(</xsl:text><xsl:value-of select="$docId"/><xsl:text>) </xsl:text><xsl:apply-templates select="//tei:titleStmt/tei:title[1]"/>}
-\phantomsection
-\addcontentsline{toc}{subsection}{<xsl:value-of select="$title"/>}
-\nopagebreak[4]
-<xsl:for-each select=".//tei:body//tei:div">
-    <xsl:for-each select=".//tei:p">
-    \par
-    <xsl:if test="position()=1">\noindent </xsl:if>
-    <xsl:apply-templates/>
-    \par 
-    </xsl:for-each>
-
-\medskip\nopagebreak[4]
-<xsl:apply-templates select=".//tei:closer"/>
-</xsl:for-each>
-</xsl:for-each>
-
-
-\back\small
-\clearpage
-\addcontentsline{lof}{section}{Personenindex\ref{persind}}\label{persind}\printindex[person]
-\addcontentsline{lof}{section}{Ortsindex\ref{placind}}\label{placind}\printindex[place]
-\addcontentsline{lof}{section}{Briefverweise\ref{lettind}}\label{lettind}\printindex[letter]
-\addcontentsline{lof}{section}{Bibelverweise\ref{biblind}}\label{biblind}\printindex[bible]
-\addcontentsline{lof}{section}{In Briefen zitierte Literatur\ref{workind}}\label{workind}\printindex[work]
-
-\clearpage
-{
-\footnotesize
-\tableofcontents
-}
-
-\end{document}
+    <xsl:output method="text" encoding="UTF-8"/>
+    
+    <xsl:template match="/">
+        <!-- LaTeX preamble -->
+        \documentclass[12pt,a4paper]{book}
+        \usepackage[utf8]{inputenc}
+        \usepackage[english]{babel}
+        \usepackage{hyperref}
+        \usepackage{fancyhdr}
+        \usepackage{geometry}
+        \usepackage{titlesec}
         
+        \geometry{margin=1in}
+        
+        \titleformat{\part}[display]
+        {\normalfont\huge\bfseries\centering}
+        {}
+        {0pt}
+        {\huge}
+        
+        \titleformat{\chapter}[display]
+        {\normalfont\Large\bfseries}
+        {}
+        {0pt}
+        {\Large}
+        
+        \titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+        
+        \newcommand{\lecturedate}[1]{\par\noindent\textit{#1}\par\vspace{0.3cm}}
+        \newcommand{\recorder}[1]{\par\noindent\textit{Recorded by: #1}\par\vspace{0.5cm}}
+        
+        \title{Religion and Culture by Paul Tillich\\[0.5cm]
+        \large A digital edition of Paul Tillich's Lecture "Religion and Culture"\\
+        Harvard University, 1955-56}
+        
+        \author{Transcribed by JJ Warren and Michaela Durst}
+        \date{}
+        
+        \begin{document}
+        
+        \maketitle
+        \tableofcontents
+        
+        <!-- Process all documents grouped by semester -->
+        <xsl:call-template name="process-by-semester"/>
+        
+        \end{document}
+    </xsl:template>
+    
+   <xsl:template name="process-by-semester">
+    <!-- Get all documents sorted by ID -->
+    <xsl:variable name="all-docs" select="collection('../data/editions/?select=*.xml')/tei:TEI"/>
+    
+    <!-- Group by semester -->
+    <xsl:for-each-group select="$all-docs" 
+        group-by=".//tei:settingDesc/tei:setting/tei:date[@type='term']">
+        <xsl:sort select="current-grouping-key()"/>
+        
+        <!-- Output semester part -->
+\part{<xsl:value-of select="current-grouping-key()"/>}
+
+        <!-- Group by lecture number extracted from title -->
+        <xsl:for-each-group select="current-group()" 
+            group-by="replace(.//tei:titleStmt/tei:title[@type='main'][1], '^((Lecture|Preface) [IVX]+).*$', '$1')">
+            <xsl:sort select="current-group()[1]/@xml:id"/>
+            
+            <!-- Get the first page (the one with subtype='first_page') -->
+            <xsl:variable name="first-page" 
+                select="current-group()[.//tei:title[@type='main'][@subtype='first_page']][1]"/>
+            
+            <!-- Fallback if no first_page found -->
+            <xsl:variable name="metadata-page" 
+                select="if ($first-page) then $first-page else current-group()[1]"/>
+            
+            <!-- Get the lecture title from first page -->
+            <xsl:variable name="lecture-title-raw" 
+    select="$metadata-page//tei:titleStmt/tei:title[@type='main'][1]"/>
+
+<!-- Extract just "Lecture I" or "Preface I" without the (Nr. XXXX) -->
+<xsl:variable name="lecture-title-clean" 
+    select="replace($lecture-title-raw, '^((Lecture|Preface) [IVX]+).*$', '$1')"/>
+
+<xsl:variable name="lecture-title">
+    <xsl:call-template name="escape_character_latex">
+        <xsl:with-param name="context" select="$lecture-title-clean"/>
+    </xsl:call-template>
+</xsl:variable>
+            
+            
+            
+            <!-- Output chapter header (once per lecture) -->
+\chapter{<xsl:value-of select="$lecture-title"/>}
+
+            <!-- Process all pages of this lecture, sorted by xml:id -->
+            <xsl:for-each select="current-group()">
+                <xsl:sort select="./@xml:id"/>
+                <xsl:apply-templates select=".//tei:body//tei:div"/>
+            </xsl:for-each>
+            
+        </xsl:for-each-group>
+    </xsl:for-each-group>
 </xsl:template>
     
-<xsl:template match="tei:dateline">
-<xsl:value-of select="replace(
-    normalize-space(string-join(.//text())),
-    ' , ', ', '
-    )"/>
+    <!-- Template for processing div content -->
+    <xsl:template match="tei:div">
+        <xsl:for-each select=".//tei:p[not(@rend='tei-authorship')]">
+            \par
+            <xsl:if test="position()=1">\noindent </xsl:if>
+            <xsl:apply-templates/>
+            \par
+        </xsl:for-each>
+    </xsl:template>
+
+    <!-- Add a template to handle text nodes -->
+<xsl:template match="text()">
+    <xsl:call-template name="escape_character_latex">
+        <xsl:with-param name="context" select="."/>
+    </xsl:call-template>
 </xsl:template>
     
-<xsl:template match="tei:del">\sout{<xsl:value-of select="."/>}</xsl:template>
-
-<xsl:template match="tei:formula[@notation='TeX']">$<xsl:value-of select="."/>$</xsl:template>
-
-<xsl:template match="tei:note">
-\footnote{<xsl:apply-templates/>}
-</xsl:template>
-
-<xsl:template match="tei:unclear">
-<xsl:text>[</xsl:text><xsl:apply-templates/><xsl:text>]</xsl:text>
-</xsl:template>
-
-<xsl:template match="tei:q">
-     <xsl:text>„</xsl:text><xsl:apply-templates/><xsl:text>“</xsl:text>  
-</xsl:template>
-
-    <xsl:template match="tei:foreign[@xml:lang='grc']"><xsl:text>\begin{greek}</xsl:text><xsl:apply-templates/><xsl:text>\end{greek}</xsl:text></xsl:template>
-    
-    <xsl:template match="tei:salute">
-        <xsl:apply-templates/>\par\smallskip
-    </xsl:template>
-
-    <xsl:template match="tei:rs[@type]">
-        <xsl:variable name="rstype" select="@type"/>
-        <xsl:variable name="rsid" select="substring-after(@ref, '#')"/>
-        <xsl:variable name="ent" select="root()//tei:back//*[@xml:id=$rsid]"/>
-        <xsl:variable name="idxlabel">
-            <xsl:choose>
-                <xsl:when test="$rstype=('person','place')">
-                    <xsl:value-of select="$ent/*[contains(name(), 'Name')][1]"/>
-                </xsl:when>
-                <xsl:when test="$rstype='work'">
-                    <xsl:value-of select="$ent/@n"/>
-                </xsl:when>
-                <xsl:when test="$rstype='bible'">
-                    <xsl:value-of select="./@ref"/>
-                </xsl:when>
-                <xsl:when test="$rstype='letter'">
-                    <xsl:value-of select="$ent//text()"/>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:variable>
-        <xsl:value-of select="'\index['||$rstype||']{'||$idxlabel||'} '"/>
-        <xsl:apply-templates/><xsl:text> [</xsl:text><xsl:value-of select="$idxlabel"/><xsl:text>] </xsl:text>
-    </xsl:template>
-
-    <xsl:template match="text()[not(ancestor-or-self::tei:index or ancestor-or-self::tei:rs)]">
-        <xsl:choose>
-            <xsl:when test="ancestor-or-self::tei:term">
-                <xsl:value-of select="normalize-space(.)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="escape_character_latex">
-                    <xsl:with-param name="context" select="."/>
-                </xsl:call-template>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <!--    escaping special characters-->
+    <!-- Template for escaping LaTeX special characters -->
+    <!--    escaping special characters-->    
     <xsl:template name="escape_character_latex">
         <xsl:param name="context"/>
         <xsl:analyze-string select="$context" regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))">
@@ -264,4 +180,14 @@
             </xsl:non-matching-substring>
         </xsl:analyze-string>
     </xsl:template>
+    
+    <!-- Add more templates for specific TEI elements as needed -->
+    <xsl:template match="tei:lb">
+        <xsl:text> </xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:head[@type='lecture']">
+        <!-- Skip lecture heads in body since we use them in chapter titles -->
+    </xsl:template>
+    
 </xsl:stylesheet>
