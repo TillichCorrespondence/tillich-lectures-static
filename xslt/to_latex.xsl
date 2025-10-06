@@ -6,16 +6,18 @@
     <xsl:output method="text" encoding="UTF-8"/>
     
     <xsl:template match="/">
-        <!-- LaTeX preamble -->
-       \documentclass[12pt,a4paper,oneside]{book}
+\documentclass[12pt,a4paper,oneside]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{hyperref}
-\usepackage{fancyhdr}
-\usepackage{geometry}
+\usepackage{fancyhdr} 
+\usepackage{geometry} 
 \usepackage{titlesec}
-\usepackage{imakeidx}
 \geometry{margin=1in}
+\usepackage{hyphenat}
+\usepackage{textcomp} 
+\usepackage{enumitem}
+
+\usepackage{imakeidx}
 
 % Configure page style with fancyhdr
 \pagestyle{fancy}
@@ -24,6 +26,12 @@
 \fancyfoot[C]{\thepage} % Center footer shows page number
 \renewcommand{\headrulewidth}{0.4pt} % Add line under header
 \renewcommand{\chaptermark}[1]{\markboth{#1}{#1}} % Set chapter mark to just the title
+
+% TOC setup
+\usepackage{tocloft}
+\renewcommand\cftsecfont{\fontsize{10}{10}\selectfont}
+\renewcommand\cftsecpagefont{\fontsize{9}{10}\selectfont}
+\setlength\cftbeforesecskip{0pt}
 
 % Remove "Chapter" and "Part" labels
 \titleformat{\part}[display]
@@ -45,13 +53,12 @@
         Harvard University, 1955-56}
         
         \author{Transcribed by JJ Warren and Michaela Durst}
-        \date{2025}
+        \date{2025 \\{\tiny (version: \today)}}
 
-        
-\makeindex[intoc, name=person,title=Person Index,columns=2]
-\makeindex[intoc, name=place,title=Place Index,columns=2]
-\makeindex[intoc, name=keyword,title=Keyword Index,columns=2]
-
+\indexsetup{level=\section}
+\makeindex[intoc,name=person,title=Index of people,columnsep=14pt,columns=2]
+\makeindex[intoc,name=keyword,title=Index of Keywords,columnsep=14pt,columns=2]
+\usepackage[hidelinks]{hyperref}
 
         \begin{document}
         
@@ -61,13 +68,15 @@
         <!-- Process all documents grouped by semester -->
         <xsl:call-template name="process-by-semester"/>
        
-\back\small
+\backmatter
 \clearpage
-\addcontentsline{lof}{part}{Personindex\ref{persind}}\label{persind}\printindex[person]
-\addcontentsline{lof}{part}{Placeindex\ref{placind}}\label{placind}\printindex[place]
-\addcontentsline{lof}{part}{Keywordindex\ref{keyword}}\label{kwind}\printindex[keyword]
+\addcontentsline{toc}{chapter}{Person Index}
+\printindex[person]
+\clearpage
+\addcontentsline{toc}{chapter}{Keyword Index}
+\printindex[keyword]
 
-        \end{document}
+\end{document}
     </xsl:template>
     
    <xsl:template name="process-by-semester">
@@ -124,14 +133,41 @@
     </xsl:for-each-group>
 </xsl:template>
     
-    <!-- Template for processing div content -->
-    <xsl:template match="tei:div">
-        <xsl:for-each select=".//tei:p[not(@rend='tei-authorship')]">
-            \par
-            <xsl:if test="position()=1">\noindent </xsl:if>
-            <xsl:apply-templates/>
-            \par
-        </xsl:for-each>
+    <!-- Process divs p lists ; skip page breaks -->
+   <!-- Match any div and process its children except pb -->
+<xsl:template match="tei:div">
+  <xsl:apply-templates select="./*[not(self::tei:pb)]"/>
+</xsl:template>
+
+<!-- Regular paragraphs -->
+<xsl:template match="tei:p[not(@rend='tei-authorship')]">
+  \par
+  <xsl:apply-templates/>
+  \par
+</xsl:template>
+
+<!-- Authorship paragraphs -->
+<xsl:template match="tei:p[@rend='tei-authorship']">
+\begin{flushright}
+    <xsl:apply-templates/>
+    \end{flushright}
+</xsl:template>
+
+    <xsl:template match="tei:p[not(@rend='tei-authorship')]//tei:list">
+        <xsl:apply-templates select="." mode="inline-list"/>
+    </xsl:template>
+
+
+
+    <xsl:template match="tei:list" mode="inline-list">
+\begin{itemize}
+        <xsl:apply-templates select="tei:item"/>
+\end{itemize}
+    </xsl:template>
+
+    <xsl:template match="tei:item">
+\item[] 
+        <xsl:apply-templates/>
     </xsl:template>
 
     <!-- Add a template to handle text nodes -->
@@ -142,13 +178,15 @@
 </xsl:template>
     
     <!-- Template for escaping LaTeX special characters -->
-    <xsl:template name="escape_character_latex">
+   <xsl:template name="escape_character_latex">
         <xsl:param name="context"/>
-        <xsl:analyze-string select="$context" regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))">
+        <xsl:analyze-string select="$context" 
+            regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))|([\\])|([~])|([\^])|([|])">
+            
             <xsl:matching-substring>
                 <xsl:choose>
                     <xsl:when test="regex-group(1)">
-                        <xsl:text disable-output-escaping="yes">\&amp;</xsl:text>
+                        <xsl:text>\&amp;</xsl:text> 
                     </xsl:when>
                     <xsl:when test="regex-group(2)">
                         <xsl:text>\_</xsl:text>
@@ -160,34 +198,43 @@
                         <xsl:text>\%</xsl:text>
                     </xsl:when>
                     <xsl:when test="regex-group(5)">
-                        <xsl:text>{</xsl:text>
+                        <xsl:text>\{</xsl:text>
                     </xsl:when>
                     <xsl:when test="regex-group(6)">
-                        <xsl:text>}</xsl:text>
+                        <xsl:text>\}</xsl:text>
                     </xsl:when>
                     <xsl:when test="regex-group(7)">
                         <xsl:text>\#</xsl:text>
                     </xsl:when>
                     <xsl:when test="regex-group(8)">
                         <xsl:value-of select="regex-group(9)"/>
-                        <xsl:text>"=</xsl:text>
-                        <!-- used with the hyphenat package to allow hyphenation of hyphenated-words -->
-                            <!--replaced by some TeX magic as this creates hassle in index-->
-                            <!-- 20220202 replaced by "- to allow breakpoints -->
+                        <xsl:text>-</xsl:text> 
                         <xsl:value-of select="regex-group(10)"/>
                     </xsl:when>
                     <xsl:when test="regex-group(11)">
-                        <xsl:text>{\slash}</xsl:text><!-- allow breaking at / -->
+                        <xsl:text>{\slash}</xsl:text>
                     </xsl:when>
                     <xsl:when test="regex-group(12)">
                         <xsl:text>§~</xsl:text>
                     </xsl:when>
-                    <xsl:when test="regex-group(13)"><!-- hairspace in dates -->
+                    <xsl:when test="regex-group(13)">
                         <xsl:value-of select="regex-group(14)"/>
                         <xsl:text>\,</xsl:text>
                         <xsl:value-of select="regex-group(15)"/>
                         <xsl:text> </xsl:text>
                         <xsl:value-of select="regex-group(16)"/>
+                    </xsl:when>
+                    <xsl:when test="regex-group(17)">
+                        <xsl:text>\textbackslash{}</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="regex-group(18)">
+                        <xsl:text>\textasciitilde{}</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="regex-group(19)">
+                        <xsl:text>\textasciicircum{}</xsl:text>
+                    </xsl:when>
+                    <xsl:when test="regex-group(20)">
+                        <xsl:text>\textbar{}</xsl:text>
                     </xsl:when>
                     <xsl:otherwise/>
                 </xsl:choose>
@@ -198,13 +245,22 @@
         </xsl:analyze-string>
     </xsl:template>
     
-    <!-- dont handle line breaks -->
+    <!-- handle line breaks -->
     <xsl:template match="tei:lb">
-        <xsl:text> </xsl:text>
-    </xsl:template>
+    <xsl:choose>
+        <xsl:when test="parent::tei:p[@rend='tei-authorship']">
+            <xsl:text>\\</xsl:text>
+        </xsl:when>
+        <xsl:when test="@rend='lb-show'">
+        <xsl:text>\\</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text> </xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
+</xsl:template>
 
- <!-- templates for indices ; person is in the back, keywords is not
- need to search for it  -->
+ <!-- templates for indices - keywords and persons -->
      <xsl:template match="tei:rs[@type]">
     <xsl:variable name="rstype" select="@type"/>    
     <xsl:variable name="rsid" select="substring-after(@ref, '#')"/>
@@ -212,13 +268,12 @@
     
     <xsl:variable name="idxlabel-raw">
         <xsl:choose>
-            <!-- If we have an entity in back for person, use it -->
+            <!-- for person use entity in back  -->
             <xsl:when test="$ent and @type='person'">
                 <xsl:value-of select="string($ent/tei:persName[1])"/>
             </xsl:when>
-            <!-- Otherwise, use the ref ID (cleaned) -->
+            <!-- for keyword use the ref ID (cleaned) -->
             <xsl:otherwise>
-            <!-- use regex to match - and _ used in the id -->
                 <xsl:value-of select="replace($rsid, '[_-]', ' ')"/>
             </xsl:otherwise>
         </xsl:choose>
