@@ -7,40 +7,52 @@
     
     <xsl:template match="/">
         <!-- LaTeX preamble -->
-        \documentclass[12pt,a4paper]{book}
-        \usepackage[utf8]{inputenc}
-        \usepackage[english]{babel}
-        \usepackage{hyperref}
-        \usepackage{fancyhdr}
-        \usepackage{geometry}
-        \usepackage{titlesec}
-        
-        \geometry{margin=1in}
-        
-        \titleformat{\part}[display]
-        {\normalfont\huge\bfseries\centering}
-        {}
-        {0pt}
-        {\huge}
-        
-        \titleformat{\chapter}[display]
-        {\normalfont\Large\bfseries}
-        {}
-        {0pt}
-        {\Large}
-        
-        \titlespacing*{\chapter}{0pt}{-20pt}{20pt}
-        
-        \newcommand{\lecturedate}[1]{\par\noindent\textit{#1}\par\vspace{0.3cm}}
-        \newcommand{\recorder}[1]{\par\noindent\textit{Recorded by: #1}\par\vspace{0.5cm}}
-        
+       \documentclass[12pt,a4paper,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{imakeidx}
+\geometry{margin=1in}
+
+% Configure page style with fancyhdr
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+\fancyhead[R]{\rightmark} % Right header shows section/chapter title
+\fancyfoot[C]{\thepage} % Center footer shows page number
+\renewcommand{\headrulewidth}{0.4pt} % Add line under header
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}} % Set chapter mark to just the title
+
+% Remove "Chapter" and "Part" labels
+\titleformat{\part}[display]
+  {\normalfont\huge\bfseries\centering}
+  {}
+  {0pt}
+  {\huge}
+
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {}
+  {0pt}
+  {\Large}
+
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+ 
         \title{Religion and Culture by Paul Tillich\\[0.5cm]
         \large A digital edition of Paul Tillich's Lecture "Religion and Culture"\\
         Harvard University, 1955-56}
         
         \author{Transcribed by JJ Warren and Michaela Durst}
-        \date{}
+        \date{2025}
+
         
+\makeindex[intoc, name=person,title=Person Index,columns=2]
+\makeindex[intoc, name=place,title=Place Index,columns=2]
+\makeindex[intoc, name=keyword,title=Keyword Index,columns=2]
+
+
         \begin{document}
         
         \maketitle
@@ -48,7 +60,13 @@
         
         <!-- Process all documents grouped by semester -->
         <xsl:call-template name="process-by-semester"/>
-        
+       
+\back\small
+\clearpage
+\addcontentsline{lof}{part}{Personindex\ref{persind}}\label{persind}\printindex[person]
+\addcontentsline{lof}{part}{Placeindex\ref{placind}}\label{placind}\printindex[place]
+\addcontentsline{lof}{part}{Keywordindex\ref{keyword}}\label{kwind}\printindex[keyword]
+
         \end{document}
     </xsl:template>
     
@@ -124,7 +142,6 @@
 </xsl:template>
     
     <!-- Template for escaping LaTeX special characters -->
-    <!--    escaping special characters-->    
     <xsl:template name="escape_character_latex">
         <xsl:param name="context"/>
         <xsl:analyze-string select="$context" regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))">
@@ -181,10 +198,55 @@
         </xsl:analyze-string>
     </xsl:template>
     
-    <!-- Add more templates for specific TEI elements as needed -->
+    <!-- dont handle line breaks -->
     <xsl:template match="tei:lb">
         <xsl:text> </xsl:text>
     </xsl:template>
+
+ <!-- templates for indices ; person is in the back, keywords is not
+ need to search for it  -->
+     <xsl:template match="tei:rs[@type]">
+    <xsl:variable name="rstype" select="@type"/>    
+    <xsl:variable name="rsid" select="substring-after(@ref, '#')"/>
+    <xsl:variable name="ent" select="root()//tei:back//*[@xml:id=$rsid]"/>
+    
+    <xsl:variable name="idxlabel-raw">
+        <xsl:choose>
+            <!-- If we have an entity in back for person, use it -->
+            <xsl:when test="$ent and @type='person'">
+                <xsl:value-of select="string($ent/tei:persName[1])"/>
+            </xsl:when>
+            <!-- Otherwise, use the ref ID (cleaned) -->
+            <xsl:otherwise>
+            <!-- use regex to match - and _ used in the id -->
+                <xsl:value-of select="replace($rsid, '[_-]', ' ')"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:variable name="idxlabel">
+        <xsl:call-template name="escape_character_latex">
+            <xsl:with-param name="context" select="$idxlabel-raw"/>
+        </xsl:call-template>
+    </xsl:variable>
+    
+    <xsl:if test="$idxlabel!=''">
+        <xsl:text>\index[</xsl:text>
+        <xsl:value-of select="$rstype"/>
+        <xsl:text>]{</xsl:text>
+        <xsl:value-of select="$idxlabel"/>
+        <xsl:text>}</xsl:text>
+    </xsl:if>
+    <xsl:apply-templates/>
+</xsl:template>
+
+    <xsl:template match="tei:q">
+     <xsl:text>"</xsl:text><xsl:apply-templates/><xsl:text>"</xsl:text>  
+</xsl:template>
+
+<xsl:template match="tei:note">
+\footnote{<xsl:apply-templates/>}
+</xsl:template>
     
     <xsl:template match="tei:head[@type='lecture']">
         <!-- Skip lecture heads in body since we use them in chapter titles -->
