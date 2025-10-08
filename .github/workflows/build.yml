@@ -44,14 +44,14 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install Saxon, Ant and Fundament
         run: |
-          apt-get update && apt-get install openjdk-11-jre-headless ant -y --no-install-recommend
+          apt-get update && apt-get install openjdk-11-jre-headless ant texlive-xetex texlive-latex-extra  -y --no-install-recommend
           ./shellscripts/dl_saxon.sh
       - name: Fetch the data
         run: ./fetch_data.sh
       - name: Typesense Index
         run: python make_ts_index.py
-      - name: Build the app
-        run: ant
+      - name: Build the app and generate pdf
+        run: ant all
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
