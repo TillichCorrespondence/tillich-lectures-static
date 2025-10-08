@@ -48,14 +48,14 @@
 
 \titlespacing*{\chapter}{0pt}{-20pt}{20pt}
  
-        \title{Religion and Culture by Paul Tillich\\[0.5cm]
-        \large A digital edition of Paul Tillich's Lecture "Religion and Culture"\\
-        Harvard University, 1955-56}
-        
-        \author{Transcribed by JJ Warren and Michaela Durst}
-        \date{2025 \\{\tiny (version: \today)}}
+\title{Religion and Culture by Paul Tillich\\[0.5cm]
+\large A digital edition of Paul Tillich's Lecture "Religion and Culture"\\
+Harvard University, 1955-56}
 
-\indexsetup{level=\section}
+\author{Transcribed by JJ Warren and Michaela Durst}
+\date{2025 \\{\tiny (version: \today)}}
+
+
 \makeindex[intoc,name=person,title=Index of people,columnsep=14pt,columns=2]
 \makeindex[intoc,name=keyword,title=Index of Keywords,columnsep=14pt,columns=2]
 \usepackage[hidelinks]{hyperref}
@@ -70,10 +70,8 @@
        
 \backmatter
 \clearpage
-\addcontentsline{toc}{chapter}{Person Index}
 \printindex[person]
 \clearpage
-\addcontentsline{toc}{chapter}{Keyword Index}
 \printindex[keyword]
 
 \end{document}
@@ -90,6 +88,7 @@
         
         <!-- Output semester part -->
 \part{<xsl:value-of select="current-grouping-key()"/>}
+
 
         <!-- Group by lecture number extracted from title -->
         <xsl:for-each-group select="current-group()" 
@@ -120,8 +119,9 @@
             
             
             
-            <!-- Output chapter header (once per lecture) -->
-\chapter{<xsl:value-of select="$lecture-title"/>}
+            <!-- Output chapter header (once per lecture) in TOC no number only the title-->
+\chapter*{<xsl:value-of select="$lecture-title"/>}
+\addcontentsline{toc}{chapter}{<xsl:value-of select="$lecture-title"/>}
 
             <!-- Process all pages of this lecture, sorted by xml:id -->
             <xsl:for-each select="current-group()">
