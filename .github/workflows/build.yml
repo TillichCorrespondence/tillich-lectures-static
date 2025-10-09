@@ -50,8 +50,10 @@ jobs:
         run: ./fetch_data.sh
       - name: Typesense Index
         run: python make_ts_index.py
-      - name: Build the app and generate pdf
-        run: ant all
+      - name: Build the app
+        run: ant
+      - name: Create PDF
+        run: ./shellscripts/make_pdf.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

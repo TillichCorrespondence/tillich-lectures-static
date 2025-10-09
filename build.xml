@@ -64,38 +64,4 @@
         </copy>
     </target>
     
-    <!-- PDF Generation target -->
-    <target name="pdf" description="Generate PDF from TEI XML files">
-        <mkdir dir="tex"/>
-        <echo message="Running XSLT transformation for PDF..."/>
-        <xslt in="${index}" out="tex/tmp.tex" style="./xslt/to_latex.xsl">
-            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-            <classpath location="${basedir}/saxon/saxon9he.jar"/>
-        </xslt>
-        
-        <echo message="Compiling LaTeX to PDF (pass 1)..."/>
-        <exec executable="xelatex" dir="tex" failonerror="false">
-            <arg value="-interaction=nonstopmode"/>
-            <arg value="tmp.tex"/>
-        </exec>
-        
-        <echo message="Compiling LaTeX to PDF (pass 2)..."/>
-        <exec executable="xelatex" dir="tex" failonerror="false">
-            <arg value="-interaction=nonstopmode"/>
-            <arg value="tmp.tex"/>
-        </exec>
-        
-        <move file="tex/tmp.pdf" tofile="${target}/tillich-lectures.pdf" failonerror="false"/>
-        
-        <echo message="Cleaning up temporary files..."/>
-        <delete>
-            <fileset dir="tex" includes="tmp.*,*.aux,*.log,*.toc,*.out,*.idx,*.ilg,*.ind"/>
-        </delete>
-        
-        <echo message="PDF generated: ${target}/tillich-lectures.pdf"/>
-    </target>
-    
-    <!-- Combined target to build everything including PDF -->
-    <target name="all" depends="build,pdf" description="Build HTML and PDF"/>
-    
 </project>
