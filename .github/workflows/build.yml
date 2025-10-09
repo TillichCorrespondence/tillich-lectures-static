@@ -45,7 +45,7 @@ jobs:
       - name: Install Saxon
         run: ./shellscripts/dl_saxon.sh
       - name: Install Latex
-        run: sudo apt-get update && apt-get install texlive-xetex texlive-latex-extra -y
+        run: sudo apt-get update && sudo apt-get install texlive-xetex texlive-latex-extra -y
       - name: Fetch the data
         run: ./fetch_data.sh
       - name: Typesense Index
