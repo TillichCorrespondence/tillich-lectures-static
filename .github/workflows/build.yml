@@ -42,10 +42,10 @@ jobs:
           python-version: "3.12"
       - name: install python things
         run: pip install -r requirements.txt
-      - name: Install Saxon, Ant and Fundament
-        run: |
-          sudo apt-get update && apt-get install openjdk-11-jre-headless ant texlive-xetex texlive-latex-extra  -y
-          ./shellscripts/dl_saxon.sh
+      - name: Install Saxon
+        run: /shellscripts/dl_saxon.sh
+      - name: install Latex
+        run: sudo apt-get update && apt-get install texlive-xetex texlive-latex-extra -y
       - name: Fetch the data
         run: ./fetch_data.sh
       - name: Typesense Index
