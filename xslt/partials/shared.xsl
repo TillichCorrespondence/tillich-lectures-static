@@ -6,6 +6,10 @@
     exclude-result-prefixes="xs"
     version="2.0">
     
+    <xsl:template match="tei:emph">
+        <span class="dse-it"><xsl:apply-templates/></span>
+    </xsl:template>
+    
     <xsl:template match="tei:hi[@style='font-style: italic;']">
         <span class="dse-it"><xsl:apply-templates/></span>
     </xsl:template>

@@ -49,7 +49,7 @@
 \titlespacing*{\chapter}{0pt}{-20pt}{20pt}
  
 \title{Religion and Culture by Paul Tillich\\[0.5cm]
-\large A digital edition of Paul Tillich's Lecture "Religion and Culture"\\
+\large A digital edition of Paul Tillich's Lecture “Religion and Culture”\\
 Harvard University, 1955-56}
 
 \author{Transcribed by JJ Warren and Michaela Durst}
@@ -139,11 +139,24 @@ Harvard University, 1955-56}
   <xsl:apply-templates select="./*[not(self::tei:pb)]"/>
 </xsl:template>
 
-<!-- Regular paragraphs -->
+<!-- Regular paragraphs with punctuation/capitalization check -->
 <xsl:template match="tei:p[not(@rend='tei-authorship')]">
-  \par
-  <xsl:apply-templates/>
-  \par
+  <!-- Get the full text content of the paragraph -->
+  <xsl:variable name="para-text" select="normalize-space(string(.))"/>
+  
+  <!-- Get first character (after trimming whitespace) -->
+  <xsl:variable name="first-char" select="substring($para-text, 1, 1)"/>
+  
+  <!-- Get last character -->
+  <xsl:variable name="last-char" select="substring($para-text, string-length($para-text), 1)"/>
+  
+  <!-- Add opening \par if starts with capital letter -->
+  <xsl:if test="matches($first-char, '[A-Z]')">
+    <xsl:text>\par&#xA;</xsl:text>
+  </xsl:if>
+  
+  <xsl:apply-templates/> 
+ 
 </xsl:template>
 
 <!-- Authorship paragraphs -->
@@ -157,7 +170,10 @@ Harvard University, 1955-56}
         <xsl:apply-templates select="." mode="inline-list"/>
     </xsl:template>
 
-
+<!-- page numbers as margin note -->
+<xsl:template match="tei:fw">  
+  <xsl:text>\marginpar{\small </xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>
+</xsl:template>
 
     <xsl:template match="tei:list" mode="inline-list">
 \begin{itemize}
@@ -297,6 +313,10 @@ Harvard University, 1955-56}
 
     <xsl:template match="tei:q">
      <xsl:text>"</xsl:text><xsl:apply-templates/><xsl:text>"</xsl:text>  
+</xsl:template>
+
+<xsl:template match="tei:emph">
+     <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
 </xsl:template>
 
 <xsl:template match="tei:note">
