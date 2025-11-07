@@ -58,7 +58,7 @@ search.addWidgets([
       item: "w-100",
     },
     templates: {
-      empty: "Keine Resultate für <q>{{ query }}</q>",
+      empty: "No results found for <q>{{ query }}</q>",
       item(hit, { html, components }) {
         return html` <div>
           <div class="fs-3"><a href="${hit.rec_id}.html">${hit.title}</a></div>

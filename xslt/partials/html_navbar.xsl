@@ -13,13 +13,13 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <nav aria-label="Haupt Navigation" class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projekt</a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Project</a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="about.html">Über das Projekt</a>
+                                        <a class="dropdown-item" href="about.html">About the Project</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="imprint.html">Impressum</a>
@@ -28,14 +28,14 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="toc.html">Editionseinheiten</a>
+                                <a class="nav-link" href="toc.html">Lectures</a>
                             </li>
 
                             <li class="nav-item dropdown disabled">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Register</a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Indices</a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="listperson.html">Personen</a>
+                                        <a class="dropdown-item" href="listperson.html">Persons</a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="listkeywords.html">Keywords</a>
@@ -53,10 +53,10 @@
                             </li>
 
                             <li class="nav-item">
-                                <a title="Suche" class="nav-link" href="search.html">Suche</a>
+                                <a title="Suche" class="nav-link" href="search.html">Search</a>
                             </li>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
             </nav>
         </header>

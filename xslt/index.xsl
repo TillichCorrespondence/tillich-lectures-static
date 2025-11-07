@@ -39,7 +39,7 @@
                                         class="btn btn-primary btn-lg px-4 me-md-2">Fulltext Search
                                     </a>
                                     <a href="toc.html" type="button"
-                                        class="btn btn-outline-secondary btn-lg px-4">Browse the Lectures</a>
+                                        class="btn btn-outline-primary btn-lg px-4">Browse the Lectures</a>
                                 </div>
                             </div>
                             <div class="col-10 col-sm-8 col-lg-6">

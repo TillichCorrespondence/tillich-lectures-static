@@ -69,16 +69,21 @@
                                 </h1>
                                 <div>
                                     <a href="{$teiSource}">
-                                        <i class="bi bi-filetype-xml fs-2" title="Zum TEI/XML Dokument"
+                                        <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
                                             visually-hidden="true">
-                                            <span class="visually-hidden">Zum TEI/XML
-                                                Dokument</span>
+                                            <span class="visually-hidden">Go to TEI/XML document</span>
                                         </i>
                                     </a>
                                     <a id="download-pdf" href="#">
-                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Als PDF herunterladen"
+                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current page as a PDF"
                                             visually-hidden="true">
-                                            <span class="visually-hidden">Als PDF herunterladen</span>
+                                            <span class="visually-hidden">Download current page as a PDF</span>
+                                        </i>
+                                    </a>
+                                     <a id="download-whole-pdf" href="#">
+                                        <i class="ps-1 bi bi-file-earmark-pdf fs-2" title="Download complete PDF"
+                                            visually-hidden="true">
+                                            <span class="visually-hidden">Download all lectures as a PDF</span>
                                         </i>
                                     </a>
                                 </div>
