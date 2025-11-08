@@ -108,16 +108,16 @@
                         </div>
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
                             <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
-                            <button class="btn btn-primary btn-sm" id="btn-entities">Entities</button>                            
+                            <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>                            
                         </div>
                         <div class="row">                            
-                            <div class="d-none d-lg-block col-lg-6" id="facs-container">
+                            <div class="d-none d-lg-block col-lg-6 p-5 border-end" id="facs-container">
                                 <h2 class="visually-hidden">Facs</h2>
                                 <div style="width: 100%; height: 800px" id="osd_viewer"/>
                                 <figcaption class="figure-caption text-center">Tillich
                                     Lectures</figcaption>
                             </div>                            
-                            <div class="col-11 col-lg-4 pt-5 mx-auto" id="pdf-transcript">
+                            <div class="col-12 col-lg-4 pt-5 mx-auto p-lg-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body"/>
                                 <div class="pt-3">
@@ -168,7 +168,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-none d-lg-block col-lg-2 pt-5" id="pdf-entities">
+                            <div class="col-lg-2 mb-5">
+                                <div class="p-2 border rounded" id="pdf-entities">
                                 <h2 class="visually-hidden">Entities</h2>
 
                                 <xsl:if test=".//tei:rs[@type = 'keyword' and @ref]">
@@ -299,7 +300,8 @@
                                         </div>
                                     </div>
                                 </xsl:if>
-                            </div>
+                            </div></div>
+                            
                         </div>
                     </div>
                     <div class="tei-back">

@@ -29,7 +29,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
                         </ol>
                     </nav>
-                    <div class="container-fluid d-md-px-5 pb-4">
+                    <div class="container-fluid w-75 d-md-px-5 pb-4">
                         <h1 class="display-5 text-center">
                             <xsl:value-of select="$doc_title"/>
                         </h1>
@@ -63,7 +63,7 @@
                                     
                                     <!-- Brief Section -->
                                     <div class="card shadow-sm mb-3">
-                                        <div class="card-body bg-light-blue">
+                                        <div class="card-body">
                                             <h3 class="card-title h5 fw-bold mb-3">
                                                 <i class="bi bi-envelope"></i> Lectures
                                             </h3>
@@ -75,7 +75,7 @@
                                     
                                     <!-- Entitäten Section -->
                                     <div class="card shadow-sm mb-3">
-                                        <div class="card-body bg-light-blue">
+                                        <div class="card-body">
                                             <h3 class="card-title h5 fw-bold mb-3">
                                                 <i class="bi bi-tags"></i> Entities
                                             </h3>
@@ -87,7 +87,7 @@
                                     
                                     <!-- Sortierung Section -->
                                     <div class="card shadow-sm mb-3">
-                                        <div class="card-body bg-light-blue">
+                                        <div class="card-body">
                                             <h3 class="card-title h5 fw-bold mb-3">
                                                 <i class="bi bi-sort-down"></i> Sortierung
                                             </h3>

@@ -39,6 +39,30 @@ const search = instantsearch({
   },
 });
 
+// Helpers function to convert Roman numerals to numbers
+function romanToNumber(roman) {
+  const romanValues = {
+    'I': 1, 'V': 5, 'X': 10, 'L': 50,
+    'C': 100, 'D': 500, 'M': 1000
+  };
+  
+  let total = 0;
+  
+  for (let i = 0; i < roman.length; i++) {
+    const current = romanValues[roman[i]];
+    const next = romanValues[roman[i + 1]];
+    
+    // If current value is less than next, subtract it (like IV = 4)
+    if (next && current < next) {
+      total -= current;
+    } else {
+      total += current;
+    }
+  }
+  
+  return total;
+}
+
 search.addWidgets([
   instantsearch.widgets.searchBox({
     container: "#searchbox",
@@ -190,6 +214,16 @@ search.addWidgets([
     limit: 10,
     searchablePlaceholder: "Search for Lectures",
     cssClasses: DEFAULT_CSS_CLASSES,
+    transformItems(items) {
+    return items.sort((a, b) => {
+      // Extract the Roman numeral from each label
+      const romanA = a.label.replace('Lecture ', '');
+      const romanB = b.label.replace('Lecture ', '');
+      
+      // Convert to numbers and compare
+      return romanToNumber(romanA) - romanToNumber(romanB);
+    });
+  }
   }),
 
   instantsearch.widgets.panel({
@@ -212,3 +246,4 @@ search.addWidgets([
 ]);
 
 search.start();
+

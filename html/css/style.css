@@ -4,6 +4,10 @@
   --dse-base-color-light: #f9f5fada;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* needed for interactive map in listplace.xsl */
 div#map {
   height: 50vh;
@@ -17,6 +21,10 @@ div#map {
 }
 .btn:focus-visible {
   outline-offset: 2px;
+}
+
+.border, .border-end, .border-start, .border-top, .border-bottom, .border-left, .border-right {
+  border-color: var(--dse-base-color) !important;
 }
 
 header {
@@ -47,6 +55,11 @@ a:hover {
   --bs-btn-hover-border-color: var(--dse-base-color);
   --bs-btn-active-bg: var(--dse-base-color);
   --bs-btn-active-border-color: var(--dse-base-color);
+}
+
+.card-body {
+  background-color: var(--dse-base-color-light);
+  color: var(--dse-base-color)
 }
 
 code {
