@@ -42,3 +42,8 @@ function replaceCurrentDate() {
     replaceCurrentDateYYYYMMDD();
   });
   
+  document.querySelector('#btn-facsimile').addEventListener('click', function() {
+    document.getElementById('facs-container').classList.toggle('d-none');
+  });
+  
+  

@@ -46,9 +46,10 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
-                    <div class="container pt-3">
-                        <div class="row">
-                            <div class="col-md-2 col-lg-2 col-sm-12 text-start">
+                    <div class="mx-auto" style="width: 90%;">
+                        <div class="mx-auto p-5" style="width: 85%;">
+                            <div class="row">
+                            <div class="col-2 text-start">
                                 <xsl:if test="ends-with($prev, '.html')">
                                     <a>
                                         <xsl:attribute name="href">
@@ -63,27 +64,32 @@
                                     </a>
                                 </xsl:if>
                             </div>
-                            <div class="col-md-8 col-lg-8 col-sm-12 text-center">
+                            <div class="col-8 text-center">
                                 <h1 id="pdf-title">
                                     <xsl:value-of select="$doc_title"/>
                                 </h1>
                                 <div>
                                     <a href="{$teiSource}">
-                                        <i class="bi bi-filetype-xml fs-2" title="Zum TEI/XML Dokument"
+                                        <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
                                             visually-hidden="true">
-                                            <span class="visually-hidden">Zum TEI/XML
-                                                Dokument</span>
+                                            <span class="visually-hidden">Go to TEI/XML document</span>
                                         </i>
                                     </a>
                                     <a id="download-pdf" href="#">
-                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Als PDF herunterladen"
+                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current page as a PDF"
                                             visually-hidden="true">
-                                            <span class="visually-hidden">Als PDF herunterladen</span>
+                                            <span class="visually-hidden">Download current page as a PDF</span>
+                                        </i>
+                                    </a>
+                                     <a href="tillich-lectures.pdf">
+                                        <i class="ps-1 bi bi-file-earmark-pdf fs-2" title="Download complete PDF"
+                                            visually-hidden="true">
+                                            <span class="visually-hidden">Download all lectures as a PDF</span>
                                         </i>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-md-2 col-lg-2 col-sm-12 text-start">
+                            <div class="col-2 text-start">
                                 <xsl:if test="ends-with($next, '.html')">
                                     <a>
                                         <xsl:attribute name="href">
@@ -99,14 +105,19 @@
                                 </xsl:if>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md">
+                        </div>
+                        <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
+                            <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
+                            <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>                            
+                        </div>
+                        <div class="row">                            
+                            <div class="d-none d-lg-block col-lg-6 p-5 border-end" id="facs-container">
                                 <h2 class="visually-hidden">Facs</h2>
                                 <div style="width: 100%; height: 800px" id="osd_viewer"/>
                                 <figcaption class="figure-caption text-center">Tillich
                                     Lectures</figcaption>
-                            </div>
-                            <div class="col-md pt-5" id="pdf-transcript">
+                            </div>                            
+                            <div class="col-12 col-lg-4 pt-5 mx-auto p-lg-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body"/>
                                 <div class="pt-3">
@@ -157,7 +168,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 pt-5" id="pdf-entities">
+                            <div class="col-lg-2 mb-5">
+                                <div class="p-2 border rounded" id="pdf-entities">
                                 <h2 class="visually-hidden">Entities</h2>
 
                                 <xsl:if test=".//tei:rs[@type = 'keyword' and @ref]">
@@ -288,7 +300,8 @@
                                         </div>
                                     </div>
                                 </xsl:if>
-                            </div>
+                            </div></div>
+                            
                         </div>
                     </div>
                     <div class="tei-back">

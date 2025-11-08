@@ -29,34 +29,82 @@
                             <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
                         </ol>
                     </nav>
-                    <div class="container pt-3">
-
+                    <div class="container-fluid w-75 d-md-px-5 pb-4">
+                        <h1 class="display-5 text-center">
+                            <xsl:value-of select="$doc_title"/>
+                        </h1>
                         <div class="text-center p-3">
-                            <h1 class="text-center display-2 pt-3">
-                                <xsl:value-of select="$doc_title"/>
-                            </h1>
-                            <div id="searchbox"/>
+                            <div class="d-flex gap-2 align-items-center mb-3">
+                                 <button
+                                    id="filter-button"
+                                    aria-label="filter"
+                                    class="btn btn-outline-secondary d-md-none d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 2rem; height: 2rem; padding: 0;"
+                                    type="button"
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#filterOffcanvas"
+                                >
+                                    <i class="bi bi-sliders" aria-hidden="true"></i>
+                                </button>
+                                <div class="flex-grow-1" id="searchbox"></div>
+                            </div>
                             <div id="stats-container"/>
-                            <div id="current-refinements"/>
-                            <div id="clear-refinements"/>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div id="current-refinements" class="col-auto"/>
+                                <div id="clear-refinements" class="col-auto"/>
+                            </div>
                         </div>
                         
                         <div class="row">
+                             <!-- Facets column - sticky -->                             
                             <div class="col-md-3">
-                                <h2>Facets</h2>
-                                <div id="refinement-list-keywords" class="pb-3"></div>
-                                <div id="refinement-list-persons" class="pb-3"></div>
-                                <div id="refinement-list-places" class="pb-3"></div>
-                                <div id="refinement-list-term" class="pb-3"></div>
-                                <div id="refinement-list-lecture" class="pb-3"></div>
+                                <div class="d-none d-md-block sticky-sidebar" id="refinements-section">
+                                    <h2 class="visually-hidden">Facets</h2>
+                                    
+                                    <!-- Brief Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-envelope"></i> Lectures
+                                            </h3>
+                                            <div id="refinement-list-lecture" class="pb-3"></div>
+                                            <div id="refinement-list-term" class="pb-3"></div>
+                                            <div id="refinement-list-keywords" class="pb-3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Entitäten Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-tags"></i> Entities
+                                            </h3>
+                                            <div id="refinement-list-persons" class="pb-3"></div>
+                                            <div id="refinement-list-places" class="pb-3"></div>
+                                            <div id="refinement-list-paintings" class="pb-3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Sortierung Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-sort-down"></i> Sortierung
+                                            </h3>
+                                            <div id="sort-by"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <!-- Results column scrollable and pagination at the bottom -->
                             <div class="col-md-9">
+                                <div id="hits" style="max-height: 70vh; overflow-y: auto;"/>
                                 <div id="pagination" class="p-3"/>
-                                <div id="hits"/>
                             </div>
                         </div>
-                        
                     </div>
+                  
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <link rel="stylesheet"
