@@ -169,11 +169,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 mb-5">
-                                <div class="p-2 border rounded" id="pdf-entities">
+                            <hr class="d-lg-none"/>
+                                <div class="p-2" id="pdf-entities">
                                 <h2 class="visually-hidden">Entities</h2>
 
                                 <xsl:if test=".//tei:rs[@type = 'keyword' and @ref]">
-                                    <div>
+                                    <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Keywords</h3>
 
                                         <div class="ps-4">
@@ -200,7 +201,7 @@
                                 </xsl:if>
 
                                 <xsl:if test=".//tei:back//tei:person[@xml:id]">
-                                    <div>
+                                     <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Personen</h3>
 
                                         <div class="ps-4">
@@ -220,7 +221,7 @@
                                 </xsl:if>
 
                                 <xsl:if test=".//tei:back//tei:place[@xml:id]">
-                                    <div>
+                                     <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Orte</h3>
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:place[@xml:id]">
@@ -238,7 +239,7 @@
                                     </div>
                                 </xsl:if>
                                 <xsl:if test=".//tei:back//tei:biblStruct[@xml:id]">
-                                    <div>
+                                     <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Literatur</h3>
 
                                         <div class="ps-4">
@@ -258,7 +259,7 @@
                                     </div>
                                 </xsl:if>
                                 <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
-                                    <div>
+                                     <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Bibelstellen</h3>
                                         <div class="ps-4">
                                             <xsl:for-each
@@ -282,7 +283,7 @@
                                     </div>
                                 </xsl:if>
                                 <xsl:if test=".//tei:list[@xml:id = 'mentioned_letters']">
-                                    <div>
+                                     <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Briefe</h3>
                                         <div class="ps-4">
                                             <xsl:for-each
