@@ -34,3 +34,13 @@
 ### run image from GitHub Container Registry
 
 `docker run -p 80:80 --rm --name tillich-lectures-static ghcr.io/TillichCorrespondence/tillich-lectures-static:main`
+
+## Licenses
+
+This project is released under the [MIT License](LICENSE)
+
+### third-party JavaScript libraries
+The code for all third-party JavaScript libraries used is included in the `html/vendor` folder, their respective licenses can be found either in a `LICENSE.txt` file or directly in the header of the `.js` file
+
+### SAXON-HE
+The projects also includes Saxon-HE, which is licensed separately under the Mozilla Public License, Version 2.0 (MPL 2.0). See the dedicated [LICENSE.txt](saxon/notices/LICENSE.txt)

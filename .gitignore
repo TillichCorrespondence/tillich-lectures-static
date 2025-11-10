@@ -3,7 +3,6 @@
 !/oai-pmh/*.html
 html/*.xml
 *.pdf
-/saxon
 data/imprint.xml
 
 data/indices/*.xml
