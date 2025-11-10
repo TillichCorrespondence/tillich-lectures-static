@@ -46,65 +46,65 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
                 <main class="flex-shrink-0 flex-grow-1">
-                    <div class="mx-auto" style="width: 90%;">
-                        <div class="mx-auto p-5" style="width: 85%;">
+                    <div class="mx-auto custom-width px-3 py-4">
+                        <div class="mb-4">
                             <div class="row">
-                            <div class="col-2 text-start">
-                                <xsl:if test="ends-with($prev, '.html')">
-                                    <a>
-                                        <xsl:attribute name="href">
-                                            <xsl:value-of select="$prev"/>
-                                        </xsl:attribute>
-                                        <i class="fs-2 bi bi-chevron-left"
-                                            title="Zurück zum vorigen Dokument"
-                                            visually-hidden="true">
-                                            <span class="visually-hidden">Zurück zum vorigen
-                                                Dokument</span>
-                                        </i>
-                                    </a>
-                                </xsl:if>
-                            </div>
-                            <div class="col-8 text-center">
-                                <h1 id="pdf-title">
-                                    <xsl:value-of select="$doc_title"/>
-                                </h1>
-                                <div>
-                                    <a href="{$teiSource}">
-                                        <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
-                                            visually-hidden="true">
-                                            <span class="visually-hidden">Go to TEI/XML document</span>
-                                        </i>
-                                    </a>
-                                    <a id="download-pdf" href="#">
-                                        <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current page as a PDF"
-                                            visually-hidden="true">
-                                            <span class="visually-hidden">Download current page as a PDF</span>
-                                        </i>
-                                    </a>
-                                     <a href="tillich-lectures.pdf">
-                                        <i class="ps-1 bi bi-file-earmark-pdf fs-2" title="Download complete PDF"
-                                            visually-hidden="true">
-                                            <span class="visually-hidden">Download all lectures as a PDF</span>
-                                        </i>
-                                    </a>
+                                <div class="col-2 text-start">
+                                    <xsl:if test="ends-with($prev, '.html')">
+                                        <a>
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="$prev"/>
+                                            </xsl:attribute>
+                                            <i class="fs-2 bi bi-chevron-left"
+                                                title="Zurück zum vorigen Dokument"
+                                                visually-hidden="true">
+                                                <span class="visually-hidden">Zurück zum vorigen
+                                                    Dokument</span>
+                                            </i>
+                                        </a>
+                                    </xsl:if>
+                                </div>
+                                <div class="col-8 text-center">
+                                    <h1 id="pdf-title">
+                                        <xsl:value-of select="$doc_title"/>
+                                    </h1>
+                                    <div>
+                                        <a href="{$teiSource}">
+                                            <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
+                                                visually-hidden="true">
+                                                <span class="visually-hidden">Go to TEI/XML document</span>
+                                            </i>
+                                        </a>
+                                        <a id="download-pdf" href="#">
+                                            <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current page as a PDF"
+                                                visually-hidden="true">
+                                                <span class="visually-hidden">Download current page as a PDF</span>
+                                            </i>
+                                        </a>
+                                        <a href="tillich-lectures.pdf">
+                                            <i class="ps-1 bi bi-file-earmark-pdf fs-2" title="Download complete PDF"
+                                                visually-hidden="true">
+                                                <span class="visually-hidden">Download all lectures as a PDF</span>
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-2 text-start">
+                                    <xsl:if test="ends-with($next, '.html')">
+                                        <a>
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="$next"/>
+                                            </xsl:attribute>
+                                            <i class="fs-2 bi bi-chevron-right"
+                                                title="Weiter zum nächsten Dokument"
+                                                visually-hidden="true">
+                                                <span class="visually-hidden">Weiter zum nächsten
+                                                    Dokument</span>
+                                            </i>
+                                        </a>
+                                    </xsl:if>
                                 </div>
                             </div>
-                            <div class="col-2 text-start">
-                                <xsl:if test="ends-with($next, '.html')">
-                                    <a>
-                                        <xsl:attribute name="href">
-                                            <xsl:value-of select="$next"/>
-                                        </xsl:attribute>
-                                        <i class="fs-2 bi bi-chevron-right"
-                                            title="Weiter zum nächsten Dokument"
-                                            visually-hidden="true">
-                                            <span class="visually-hidden">Weiter zum nächsten
-                                                Dokument</span>
-                                        </i>
-                                    </a>
-                                </xsl:if>
-                            </div>
-                        </div>
                         </div>
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
                             <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>

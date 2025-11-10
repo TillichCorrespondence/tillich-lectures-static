@@ -29,7 +29,7 @@
                     <div class="container col-xxl-8 px-2">
                         <div class="row flex-lg-row align-items-center g-5 py-5">
                             <div class="col-lg-6">
-                                <h1 class="display-5 text-body-emphasis lh-1 mb-3">
+                                <h1 class="display-5 text-body-emphasis lh-1 font-weight-bold mb-3 text-center text-lg-start">
                                     Religion and Culture by Paul Tillich
                                 </h1>
                                 <p class="lead">A digital edition of Paul Tillich's Lecture "Religion and Culture", Harvard 1955-1956.
@@ -42,7 +42,7 @@
                                         class="btn btn-outline-primary btn-lg px-4">Browse the Lectures</a>
                                 </div>
                             </div>
-                            <div class="col-10 col-sm-8 col-lg-6">
+                            <div class="col-10 col-sm-8 col-lg-6 mx-auto">
                                 <figure class="figure">
                                     <img src="images/title-image.jpg" class="d-block mx-lg-auto img-fluid"
                                         alt="Bust of Paul Johannes Tillich by James Rosati in New Harmony, Indiana, U.S.A." width="400" height="600" loading="lazy"/>
