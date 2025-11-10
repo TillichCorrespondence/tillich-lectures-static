@@ -65,7 +65,7 @@ a:hover {
 /* 75% width on large screens (992px and up) */
 @media (min-width: 992px) {
     .custom-width {
-        width: 75%;
+        width: 85%;
         margin-left: auto;
         margin-right: auto;
     }
