@@ -56,9 +56,25 @@
                                 <a title="Suche" class="nav-link" href="search.html">Search</a>
                             </li>
                         </ul>
+                        <form id="searchForm" class="d-none d-lg-flex gap-2" role="search">
+                        <label for="searchInput" class="visually-hidden">Search</label>
+                            <input
+                                type="text"
+                                id="searchInput"
+                                class="form-control form-control-sm"
+                                aria-label="fulltext search in lectures"
+                            />
+                            <button
+                                id="searchButton"
+                                type="submit"
+                                class="btn btn-primary btn-sm"
+                                aria-label="Submit search">Search
+                            </button>
+                        </form>
                     </nav>
                 </div>
             </nav>
-        </header>
+        </header>        
+    <script src="js/navbar_search.js"></script>
     </xsl:template>
 </xsl:stylesheet>
