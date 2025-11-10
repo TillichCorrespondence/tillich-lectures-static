@@ -57,6 +57,20 @@ a:hover {
   --bs-btn-active-border-color: var(--dse-base-color);
 }
 
+/* Default: full width on small screens */
+.custom-width {
+    width: 100%;
+}
+
+/* 75% width on large screens (992px and up) */
+@media (min-width: 992px) {
+    .custom-width {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 .card-body {
   background-color: var(--dse-base-color-light);
   color: var(--dse-base-color)
@@ -243,6 +257,10 @@ footer a {
 .ais-SearchBox-form .ais-SearchBox-input:focus-visible {
    outline: 0;
   box-shadow: 0 0 0 0.25rem var(--dse-base-color);
+}
+
+.ais-RefinementList-showMore--disabled {
+   visibility: hidden;
 }
 
 .sticky-sidebar {

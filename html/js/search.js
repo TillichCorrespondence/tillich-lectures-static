@@ -26,6 +26,7 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   },
   additionalSearchParameters: {
     query_by: main_search_field,
+    sort_by: "rec_id:asc",
   },
 });
 
@@ -64,6 +65,7 @@ function romanToNumber(roman) {
 }
 
 search.addWidgets([
+  
   instantsearch.widgets.searchBox({
     container: "#searchbox",
     autofocus: true,
@@ -209,6 +211,7 @@ search.addWidgets([
     container: "#refinement-list-lecture ",
     attribute: "lecture",
     searchable: true,
+    sortBy: ["name:asc"],
     showMore: true,
     showMoreLimit: 50,
     limit: 10,
@@ -243,7 +246,92 @@ search.addWidgets([
     searchablePlaceholder: "Search for terms",
     cssClasses: DEFAULT_CSS_CLASSES,
   }),
+
+  // Mobile Keywords facet
+    instantsearch.widgets.panel({
+      collapsed: ({ state }) => {
+        return state.query.length === 0;
+      },
+      templates: {
+        header: "Keywords",
+      },
+    })(instantsearch.widgets.refinementList)({
+      container: "#refinement-list-keywords-mobile",
+      attribute: "keywords",
+      searchable: true,
+      showMore: true,
+      showMoreLimit: 50,
+      limit: 10,
+      searchablePlaceholder: "Search for Keywords",
+      cssClasses: DEFAULT_CSS_CLASSES,
+    }),
+
+     instantsearch.widgets.panel({
+    collapsed: ({ state }) => {
+      return state.query.length === 0;
+    },
+    templates: {
+      header: "Lectures",
+    },
+  })(instantsearch.widgets.refinementList)({
+    container: "#refinement-list-lecture-mobile ",
+    attribute: "lecture",
+    searchable: true,
+    showMore: true,
+    showMoreLimit: 50,
+    limit: 10,
+    searchablePlaceholder: "Search for Lectures",
+    cssClasses: DEFAULT_CSS_CLASSES,
+    transformItems(items) {
+    return items.sort((a, b) => {
+      // Extract the Roman numeral from each label
+      const romanA = a.label.replace('Lecture ', '');
+      const romanB = b.label.replace('Lecture ', '');
+      
+      // Convert to numbers and compare
+      return romanToNumber(romanA) - romanToNumber(romanB);
+    });
+  }
+  }),
+
+  instantsearch.widgets.panel({
+    collapsed: ({ state }) => {
+      return state.query.length === 0;
+    },
+    templates: {
+      header: "Terms",
+    },
+  })(instantsearch.widgets.refinementList)({
+    container: "#refinement-list-term-mobile ",
+    attribute: "term",
+    searchable: true,
+    showMore: true,
+    showMoreLimit: 50,
+    limit: 10,
+    searchablePlaceholder: "Search for terms",
+    cssClasses: DEFAULT_CSS_CLASSES,
+  }),
+
+  instantsearch.widgets.panel({
+    collapsed: ({ state }) => {
+      return state.query.length === 0;
+    },
+    templates: {
+      header: "Personen",
+    },
+  })(instantsearch.widgets.refinementList)({
+    container: "#refinement-list-persons-mobile ",
+    attribute: "persons.label",
+    searchable: true,
+    showMore: true,
+    showMoreLimit: 50,
+    limit: 10,
+    searchablePlaceholder: "Search for Persons",
+    cssClasses: DEFAULT_CSS_CLASSES,
+  }),
 ]);
+
+
 
 search.start();
 

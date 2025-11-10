@@ -29,7 +29,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
                         </ol>
                     </nav>
-                    <div class="container-fluid w-75 d-md-px-5 pb-4">
+                    <div class="container-fluid custom-width pb-4">
                         <h1 class="display-5 text-center">
                             <xsl:value-of select="$doc_title"/>
                         </h1>
@@ -48,6 +48,46 @@
                                 </button>
                                 <div class="flex-grow-1" id="searchbox"></div>
                             </div>
+
+                            <!-- Mobile Filter Offcanvas -->
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="filterOffcanvas" aria-labelledby="filterOffcanvasLabel">
+                                <div class="offcanvas-header">
+                                    <h2 class="offcanvas-title h5" id="filterOffcanvasLabel">
+                                        <i class="bi bi-sliders"></i> Filters
+                                    </h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <!-- Copy your filters from the desktop sidebar here -->
+                                    
+                                    <!-- Lectures Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-envelope"></i> Lectures
+                                            </h3>
+                                            <div id="refinement-list-lecture-mobile" class="pb-3"></div>
+                                            <div id="refinement-list-term-mobile" class="pb-3"></div>
+                                            <div id="refinement-list-keywords-mobile" class="pb-3"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Entities Section -->
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body">
+                                            <h3 class="card-title h5 fw-bold mb-3">
+                                                <i class="bi bi-tags"></i> Entities
+                                            </h3>
+                                            <div id="refinement-list-persons-mobile" class="pb-3"></div>
+                                            <div id="refinement-list-places-mobile" class="pb-3"></div>
+                                            <div id="refinement-list-paintings-mobile" class="pb-3"></div>
+                                        </div>
+                                    </div>                                    
+                                   
+                                </div>
+                            </div>
+
+                            
                             <div id="stats-container"/>
                             <div class="d-flex justify-content-between align-items-center">
                               <div id="current-refinements" class="col-auto"/>
@@ -85,15 +125,7 @@
                                         </div>
                                     </div>
                                     
-                                    <!-- Sortierung Section -->
-                                    <div class="card shadow-sm mb-3">
-                                        <div class="card-body">
-                                            <h3 class="card-title h5 fw-bold mb-3">
-                                                <i class="bi bi-sort-down"></i> Sortierung
-                                            </h3>
-                                            <div id="sort-by"></div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                             
