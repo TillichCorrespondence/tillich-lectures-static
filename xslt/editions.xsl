@@ -348,12 +348,15 @@
                     </div>
                     <span id="url" class="visually-hidden" aria-hidden="true"><xsl:value-of select="$facs-url"/></span>
                     <span id="filename" class="visually-hidden"><xsl:value-of select="replace($teiSource, '.xml', '.pdf')"/></span>
+                    <span id="prev-url" class="visually-hidden"><xsl:value-of select="$prev"/></span>
+                    <span id="next-url" class="visually-hidden"><xsl:value-of select="$next"/></span>
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="js/main.js"/>
                 <script src="js/pdf.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script src="js/facs.js"/>
+                <script src="js/swipe.js"/>
             </body>
         </html>
     </xsl:template>
