@@ -108,7 +108,9 @@
                         </div>
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
                             <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
-                            <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>                            
+                            <xsl:if test=".//tei:rs[@type = 'keyword' and @ref] or .//tei:back//tei:person[@xml:id] or .//tei:back//tei:place[@xml:id] or .//tei:back//tei:biblStruct[@xml:id]">
+                            <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>
+                            </xsl:if>
                         </div>
                         <div class="row">                            
                             <div class="d-none d-lg-block col-lg-6 p-5 border-end" id="facs-container">
@@ -258,7 +260,7 @@
                                         </div>
                                     </div>
                                 </xsl:if>
-                                <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
+                                <!-- <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
                                      <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Bibelstellen</h3>
                                         <div class="ps-4">
@@ -280,7 +282,7 @@
                                                 </div>
                                             </xsl:for-each>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </xsl:if>
                                 <xsl:if test=".//tei:list[@xml:id = 'mentioned_letters']">
                                      <div class="border rounded card-body mb-3 p-2">
@@ -300,7 +302,7 @@
                                             </xsl:for-each>
                                         </div>
                                     </div>
-                                </xsl:if>
+                                </xsl:if>-->
                             </div></div>
                             
                         </div>

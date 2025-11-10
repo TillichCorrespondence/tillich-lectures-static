@@ -1,7 +1,7 @@
 :root {
-  --dse-base-color: #850196;
-  --dse-base-color-hover: #b417c9;
-  --dse-base-color-light: #f9f5fada;
+  --dse-base-color: #004d00;
+  --dse-base-color-hover: #008000;
+  --dse-base-color-light: #effcef8e;
 }
 
 html {
@@ -45,7 +45,7 @@ a:hover {
 
 .btn-primary {
   --bs-btn-bg: var(--dse-base-color);
-  --bs-btn-hover-bg: #b417c9;
+  --bs-btn-hover-bg: var(--dse-base-color-hover);
 }
 
 .btn-outline-primary {
