@@ -52,7 +52,7 @@
                 <div class="row justify-content-md-center">
                     
                     <div class="col-lg">
-                        <img src="./images/fwf-logo.svg" alt="FWF Logo" class="Austrian Science Fund logo"/>
+                        <img src="./images/fwf-logo.svg" alt="Austrian Science Fund logo" class="footerlogo"/>
                         <div class="text-center">
                             Funded by the Austrian Science Fund (FWF) <a href="https://www.fwf.ac.at/forschungsradar/10.55776/P37167" class="dse-dotted">10.55776/P37167</a>
                         </div>
