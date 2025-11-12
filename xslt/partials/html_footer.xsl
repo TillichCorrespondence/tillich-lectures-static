@@ -15,15 +15,15 @@
                 <div class="row justify-content-md-center pt-2">
                     <div class="col-lg">
                         <div>
-                            <a href="https://www.oeaw.ac.at/acdh/acdh-ch-home">
-                                <img class="footerlogo" src="./images/acdh-ch-logo-with-text.svg" alt="ACDH-CH"/>
+                            <a href="https://www.oeaw.ac.at/acdh/acdh-home">
+                                <img class="footerlogo" src="./images/acdh-logo-with-text-color.svg" alt="ACDH logo"/>
                             </a>
                         </div>
                         <div class="text-center p-4">
-                            ACDH-CH Austrian Centre for Digital Humanities and Cultural Heritage Österreichische
+                            ACDH Austrian Centre for Digital Humanities <br/>Österreichische
                                 Akademie der Wissenschaften
                             <br />
-                            <a href="mailto:acdh-ch-helpdesk@oeaw.ac.at">acdh-ch-helpdesk@oeaw.ac.at</a>
+                            <a href="mailto:acdh-helpdesk@oeaw.ac.at">acdh-helpdesk@oeaw.ac.at</a>
                         </div>
                     </div>
                     <div class="col-lg">
@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div class="text-end pe-3">
+            <div class="text-center pe-3">
                 <a href="{$github_url}">
                     <i aria-hidden="true" class="bi bi-github fs-2"></i>
                     <span class="visually-hidden">GitHub repo</span>
