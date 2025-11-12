@@ -4,21 +4,21 @@
     <xsl:template name="tabulator_dl_buttons">
         <div class="pt-3 text-end">
             <h4>Download Table</h4>
-            <div class="button-group">
-                <button type="button" class="btn btn-outline-secondary" id="download-csv"
+            <div class="btn-group py-3">
+                <button type="button" class="btn btn-outline-primary" id="download-csv"
                     title="Download CSV">
                     <i class="bi bi-filetype-csv"/>
-                    <span class="visually-hidden">Download CSV</span>
+                    <span class="ps-2">Download CSV</span>
                 </button>
-                <button type="button" class="btn btn-outline-secondary" id="download-json"
+                <button type="button" class="btn btn-outline-primary" id="download-json"
                     title="Download JSON">
                     <i class="bi bi-filetype-json"/>
-                    <span class="visually-hidden">Download JSON</span>
+                    <span class="ps-2">Download JSON</span>
                 </button>
-                <button type="button" class="btn btn-outline-secondary" id="download-html"
+                <button type="button" class="btn btn-outline-primary" id="download-html"
                     title="Download HTML">
                     <i class="bi bi-filetype-html"/>
-                    <span class="visually-hidden">Download HTML</span>
+                    <span class="ps-2">Download HTML</span>
                 </button>
             </div>
         </div>

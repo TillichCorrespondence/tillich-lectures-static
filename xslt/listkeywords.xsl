@@ -39,14 +39,14 @@
                     </nav>
                     <div class="container">
                         <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
-                        <div class="text-center p-1"><span id="counter1"></span> von <span id="counter2"></span> Keywords</div>
+                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> Keywords</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Name</th>
-                                    <th scope="col" tabulator-visible="false" tabulator-download="true">name_</th>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Erwähnungen</th>
+                                    <th scope="col" tabulator-visible="false" tabulator-download="true">Name_</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Mentions</th>
                                     <th scope="col" tabulator-visible="false">ID</th>
                                 </tr>
                             </thead>
@@ -115,7 +115,7 @@
                                 </h1>
                                 <xsl:if test="//tei:noteGrp">
                                     <hr/>
-                                    <h2>Erwähnungen</h2>
+                                    <h2>Mentions</h2>
                                     <ul>
                                         <xsl:for-each select=".//tei:noteGrp//tei:note">
                                             <li>

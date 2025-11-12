@@ -6,7 +6,7 @@
     <xsl:template match="tei:person" name="person_detail">
         <dl>
             <xsl:if test="./tei:persName[@type]">
-                <dt>genannt</dt>
+                <dt>named</dt>
                 <xsl:for-each select="./tei:persName[@type]">
                     <dd>
                         <abbr>
@@ -20,7 +20,7 @@
             </xsl:if>
             
             <xsl:if test="./tei:birth/tei:date">
-                <dt>geboren</dt>
+                <dt>born</dt>
                 <dd>
                     <xsl:value-of select="./tei:birth/tei:date/text()"/>
                     <xsl:if test="./tei:birth//tei:placeName">, <a>
@@ -36,7 +36,7 @@
             </xsl:if>
             
             <xsl:if test="./tei:death/tei:date">
-                <dt>gestorben</dt>
+                <dt>died</dt>
                 <dd>
                     <xsl:value-of select="./tei:death/tei:date/text()"/>
                     <xsl:if test="./tei:death//tei:placeName">, <a>
@@ -48,7 +48,7 @@
             </xsl:if>
             
             <xsl:if test=".//tei:occupation">
-                <dt>tätig als</dt>
+                <dt>active as</dt>
                 <xsl:for-each select=".//tei:occupation">
                     <dd>
                         <xsl:value-of select="./text()"/>
@@ -56,7 +56,7 @@
                 </xsl:for-each>
             </xsl:if>
             <xsl:if test=".//tei:note[@type='bio']">
-                <dt>Kurzbiographie</dt>
+                <dt>Short biography</dt>
                 <xsl:for-each select=".//tei:note[@type='bio']">
                     <dd>
                         <xsl:value-of select=".//text()"/>
@@ -65,7 +65,7 @@
             </xsl:if>
             
             <xsl:if test=".//tei:affiliation">
-                <dt>steht in Verbindung zu</dt>
+                <dt>connected to</dt>
                 <xsl:for-each select=".//tei:affiliation">
                     <dd>
                         <xsl:value-of select="./tei:term"/>: <a><xsl:value-of
@@ -90,7 +90,7 @@
         </dl>
         <xsl:if test="//tei:noteGrp">
             <hr/>
-            <h2>Erwähnungen</h2>
+            <h2>Mentions</h2>
             <ul>
                 <xsl:for-each select=".//tei:noteGrp//tei:note">
                     <li>

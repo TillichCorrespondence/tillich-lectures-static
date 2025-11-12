@@ -30,14 +30,14 @@ const columns = [
     provide a string val in your html-table */
   {
     headerFilter: "input",
-    title: "Ortsname",
+    title: "Name",
     field: "Ortsname",
     formatter: linkToDetailView,
     resizable: true,
   },
   {
     headerFilter: "input",
-    title: "Erwähnungen",
+    title: "Mentions",
     field: "mentions",
     formatter: "plaintext",
     resizable: true,

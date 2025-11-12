@@ -10,7 +10,7 @@
                 <xsl:if test="./tei:author">
                 <tr>
                     <th>
-                        Autor(en)
+                        Autor(s)
                     </th>
                     <td>
                         <ul>
@@ -28,7 +28,7 @@
                 <xsl:if test="./tei:date">
                     <tr>
                         <th>
-                            Datum
+                            Date
                         </th>
                         <td>
                             <xsl:value-of select="./tei:date"/>
@@ -74,7 +74,7 @@
                 <xsl:if test="./tei:noteGrp/tei:note[@type='mentions']">
                     <tr>
                         <th>
-                            Erwähnt in
+                            Mentioned in
                         </th>
                         <td>
                             <ul>

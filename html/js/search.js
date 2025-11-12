@@ -151,7 +151,7 @@ search.addWidgets([
       return state.query.length === 0;
     },
     templates: {
-      header: "Personen",
+      header: "Persons",
     },
   })(instantsearch.widgets.refinementList)({
     container: "#refinement-list-persons ",

@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 window.location.href = searchUrl;
             }
+            else {
+                window.location.href = "search.html";
+            }
         });
     }
 });

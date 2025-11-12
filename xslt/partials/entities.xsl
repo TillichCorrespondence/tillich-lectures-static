@@ -69,7 +69,7 @@
                         <a href="{$selfLink}"><xsl:value-of select="$label"/></a> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -92,10 +92,10 @@
                     </div>
                     <div class="modal-body">
                         <dl>
-                            <dt>Kurzzitat</dt>
+                            <dt>Short citation</dt>
                             <dd><a href="{$selfLink}"><xsl:value-of select="$label"/></a></dd>
                             
-                            <dt>Volle Bibliographische Angabe</dt>
+                            <dt>Full bibliographical data</dt>
                             <dd><a>
                                     <xsl:attribute name="href">
                                         <xsl:value-of select="@corresp"/>
@@ -106,7 +106,7 @@
                         </dl>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         <xsl:call-template name="person_detail"/> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                         <xsl:call-template name="place_detail"/> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

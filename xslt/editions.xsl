@@ -204,7 +204,7 @@
 
                                 <xsl:if test=".//tei:back//tei:person[@xml:id]">
                                      <div class="border rounded card-body mb-3 p-2">
-                                        <h3 class="fs-4 p-1">Personen</h3>
+                                        <h3 class="fs-4 p-1">Persons</h3>
 
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:person[@xml:id]">
@@ -224,7 +224,7 @@
 
                                 <xsl:if test=".//tei:back//tei:place[@xml:id]">
                                      <div class="border rounded card-body mb-3 p-2">
-                                        <h3 class="fs-4 p-1">Orte</h3>
+                                        <h3 class="fs-4 p-1">Places</h3>
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:place[@xml:id]">
                                                 <div class="form-check">
@@ -242,7 +242,7 @@
                                 </xsl:if>
                                 <xsl:if test=".//tei:back//tei:biblStruct[@xml:id]">
                                      <div class="border rounded card-body mb-3 p-2">
-                                        <h3 class="fs-4 p-1">Literatur</h3>
+                                        <h3 class="fs-4 p-1">Literature</h3>
 
                                         <div class="ps-4">
                                             <xsl:for-each
@@ -336,7 +336,7 @@
 
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Schließen</button>
+                                                data-bs-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>

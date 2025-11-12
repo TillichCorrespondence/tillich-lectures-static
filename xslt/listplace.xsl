@@ -43,8 +43,8 @@
                         <table id="placesTable">
                             <thead>
                                 <tr>
-                                    <th scope="col">Ortsname</th>
-                                    <th scope="col">Erwähnungen</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Mentions</th>
                                     <th scope="col">lat</th>
                                     <th scope="col">lng</th>
                                     <th scope="col">linkToEntity</th>

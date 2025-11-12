@@ -6,7 +6,7 @@
     exclude-result-prefixes="#all"
     version="2.0">
     <xsl:template match="/" name="html_footer">
-        <footer class="py-3">
+        <footer class="py-3 bg-body-tertiary">
             
             <div class="container text-center">
                 <!-- <div class="pb-2">
@@ -20,20 +20,27 @@
                             </a>
                         </div>
                         <div class="text-center p-4">
-                            ACDH Austrian Centre for Digital Humanities <br/>Österreichische
-                                Akademie der Wissenschaften
+                            ACDH Austrian Centre for Digital Humanities 
+                            <a href="https://acdh.oeaw.ac.at/"><i class="bi bi-box-arrow-up-right"></i><span class="visually-hidden">Center's website</span></a>
+                            <br/>
+                            Austrian Academy of Sciences
+                            <a href="https://oeaw.ac.at/"><i class="bi bi-box-arrow-up-right"></i><span class="visually-hidden">Academy's website</span></a>
                             <br />
                             <a href="mailto:acdh-helpdesk@oeaw.ac.at">acdh-helpdesk@oeaw.ac.at</a>
                         </div>
                     </div>
                     <div class="col-lg">
                         <div>
-                            <a href="https://etf.univie.ac.at/">
-                                <img class="footerlogo" src="./images/uni-wien-logo.png" alt="Univeristät Wien, Institut für Systematische Theologie und Religionswissenschaft"/>
+                            <a href="https://univie.ac.at/">
+                                <img class="footerlogo" src="./images/uni-wien-logo.png" alt="University of Vienna, Faculty of Protestant Theology logo"/>
                             </a>
                         </div>
                         <div class="text-center p-4">
-                            Evangelisch-Theologische Fakultät der Universität Wien, Institut für Systematische Theologie und Religionswissenschaft
+                            Faculty of Protestant Theology, Vienna University
+                            <a href="https://etf.univie.ac.at/"><i class="bi bi-box-arrow-up-right"></i><span class="visually-hidden">Faculty's website</span></a>
+                            <br/>
+                            Department of Systematic Theology and the Study of Religions
+                            <a href="https://etfst.univie.ac.at/"><i class="bi bi-box-arrow-up-right"></i><span class="visually-hidden">Department's website</span></a>
                             <br />
                             <a href="mailto:christian.danz@univie.ac.at">christian.danz@univie.ac.at</a>
                         </div>
@@ -45,15 +52,15 @@
                 <div class="row justify-content-md-center">
                     
                     <div class="col-lg">
-                        <img src="./images/fwf-logo.svg" alt="FWF Logo" class="footerlogo"/>
+                        <img src="./images/fwf-logo.svg" alt="FWF Logo" class="Austrian Science Fund logo"/>
                         <div class="text-center">
-                            Gefördert aus Mitteln Wissenschaftsfonds FWF <a href="https://www.fwf.ac.at/forschungsradar/10.55776/P37167" class="dse-dotted">10.55776/P37167</a>
+                            Funded by the Austrian Science Fund (FWF) <a href="https://www.fwf.ac.at/forschungsradar/10.55776/P37167" class="dse-dotted">10.55776/P37167</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center pe-3">
+            <div class="text-center py-3">
                 <a href="{$github_url}">
                     <i aria-hidden="true" class="bi bi-github fs-2"></i>
                     <span class="visually-hidden">GitHub repo</span>

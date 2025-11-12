@@ -8,7 +8,7 @@
             <tbody>
                 <tr>
                     <th>
-                        Ortsname
+                        Name
                     </th>
                     <td>
                         <xsl:choose>
@@ -24,7 +24,7 @@
                 <xsl:if test="./tei:location[@type='located_in_place']">
                     <tr>
                         <th>
-                            Teil von
+                            Part of
                         </th>
                         <td>
                             <ul>
@@ -44,7 +44,7 @@
                 <xsl:if test="./tei:country">
                 <tr>
                     <th>
-                        Land
+                        Country
                     </th>
                     <td>
                         <xsl:value-of select="./tei:country"/>
@@ -54,7 +54,7 @@
                 <xsl:if test="./tei:settlement">
                 <tr>
                     <th>
-                        Ortstyp
+                        Type
                     </th>
                     <td>
                         <xsl:value-of select="./tei:settlement/@type"/>, <xsl:value-of select="./tei:desc[@type='entity_type']"/>
@@ -120,7 +120,7 @@
                 <xsl:if test="./tei:noteGrp/tei:note[@type='mentions']">
                     <tr>
                         <th>
-                            Erwähnt in
+                            Mentioned in
                         </th>
                         <td>
                             <ul>

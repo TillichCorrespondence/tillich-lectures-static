@@ -20,7 +20,7 @@
                 <xsl:if test="./tei:desc">
                     <tr>
                         <th>
-                            Beschreibung
+                            Description
                         </th>
                         <td>
                             <xsl:value-of select="./tei:desc"/>
@@ -66,7 +66,7 @@
                 <xsl:if test="./tei:note">
                     <tr>
                         <th>
-                            Notiz
+                            Notice
                         </th>
                         <td>
                             <xsl:value-of select="./tei:note"/>
@@ -76,7 +76,7 @@
                 <xsl:if test="./tei:noteGrp/tei:note[@type='mentions']">
                     <tr>
                         <th>
-                            Erwähnt in
+                            Mentioned in
                         </th>
                         <td>
                             <ul>

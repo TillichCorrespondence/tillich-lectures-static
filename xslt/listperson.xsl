@@ -39,15 +39,15 @@
                     </nav>
                     <div class="container">
                         <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
-                        <div class="text-center p-1"><span id="counter1"></span> von <span id="counter2"></span> Personen</div>
+                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> Persons</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Name</th>
                                     <th scope="col" tabulator-visible="false" tabulator-download="true">name_</th>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="textarea">Beruf</th>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Erwähnungen</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="textarea">Profession</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Mentions</th>
                                     <th scope="col" tabulator-visible="false">ID</th>
                                 </tr>
                             </thead>
@@ -106,7 +106,7 @@
                                     <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="listperson.html">Personenregister</a>
+                                    <a href="listperson.html">Index of persons</a>
                                 </li>
                             </ol>
                         </nav>

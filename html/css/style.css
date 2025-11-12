@@ -1,7 +1,8 @@
 :root {
   --dse-base-color: #004d00;
   --dse-base-color-hover: #008000;
-  --dse-base-color-light: #effcef8e;
+  --dse-base-color-light: #f5faf5;
+  --dse-base-color-dark: #d6dbd6;
 }
 
 html {
@@ -268,4 +269,22 @@ footer a {
   top: 20px; 
   max-height: calc(100vh - 40px); 
   overflow-y: auto
+}
+
+.tabulator-tableholder .tabulator-table .tabulator-row-even {
+  background-color: var(--dse-base-color-light);
+}
+.tabulator-tableholder .tabulator-table .tabulator-row,
+.tabulator-col-content {
+  transition: background-color .12s ease;
+}
+
+.tabulator-tableholder .tabulator-table .tabulator-row:hover,
+.tabulator-col-content:hover {
+  background-color: var(--dse-base-color-dark);
+}
+
+#myTable {
+  border: solid 1px lightgray;
+  border-radius: 5px;
 }
