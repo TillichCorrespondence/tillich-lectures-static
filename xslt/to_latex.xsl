@@ -92,7 +92,7 @@ Harvard University, 1955-56}
 
         <!-- Group by lecture number extracted from title -->
         <xsl:for-each-group select="current-group()" 
-            group-by="replace(.//tei:titleStmt/tei:title[@type='main'][1], '^((Lecture|Preface) [IVX]+).*$', '$1')">
+            group-by="replace(.//tei:titleStmt/tei:title[@type='main'][1], '^((Lecture|Preface) [IVXL]+).*$', '$1')">
             <xsl:sort select="current-group()[1]/@xml:id"/>
             
             <!-- Get the first page (the one with subtype='first_page') -->
@@ -109,7 +109,7 @@ Harvard University, 1955-56}
 
 <!-- Extract just "Lecture I" or "Preface I" without the (Nr. XXXX) -->
 <xsl:variable name="lecture-title-clean" 
-    select="replace($lecture-title-raw, '^((Lecture|Preface) [IVX]+).*$', '$1')"/>
+    select="replace($lecture-title-raw, '^((Lecture|Preface) [IVXL]+).*$', '$1')"/>
 
 <xsl:variable name="lecture-title">
     <xsl:call-template name="escape_character_latex">
@@ -139,24 +139,24 @@ Harvard University, 1955-56}
   <xsl:apply-templates select="./*[not(self::tei:pb)]"/>
 </xsl:template>
 
+<!-- No-indent paragraphs -->
+<xsl:template match="tei:p[@rend='tei-p-no-indent']">
+  <xsl:text>\noindent&#xA;</xsl:text>
+  <xsl:apply-templates/>
+</xsl:template>
+
 <!-- Regular paragraphs with punctuation/capitalization check -->
 <xsl:template match="tei:p[not(@rend='tei-authorship')]">
   <!-- Get the full text content of the paragraph -->
   <xsl:variable name="para-text" select="normalize-space(string(.))"/>
-  
   <!-- Get first character (after trimming whitespace) -->
   <xsl:variable name="first-char" select="substring($para-text, 1, 1)"/>
   
-  <!-- Get last character -->
-  <xsl:variable name="last-char" select="substring($para-text, string-length($para-text), 1)"/>
-  
-  <!-- Add opening \par if starts with capital letter -->
-  <xsl:if test="matches($first-char, '[A-Z]')">
+  <!-- Add opening \par if starts with capital letter OR a number-->
+  <xsl:if test="matches($first-char, '[A-Z0-9]')">
     <xsl:text>\par&#xA;</xsl:text>
   </xsl:if>
-  
   <xsl:apply-templates/> 
- 
 </xsl:template>
 
 <!-- Authorship paragraphs -->
