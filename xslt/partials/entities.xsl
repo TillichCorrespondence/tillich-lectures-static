@@ -8,7 +8,7 @@
     <xsl:template match="tei:rs[starts-with(@ref, '#') and @type]">
         <xsl:variable name="entType" select="@type"/>
         <xsl:variable name="entId" select="./@ref"/>
-        <button class="{$entType} entity" data-bs-toggle="modal" data-bs-target="{@ref}">
+        <button class="{$entType} entity dse-dotted" data-bs-toggle="modal" data-bs-target="{@ref}">
             <xsl:apply-templates/>
         </button>
             <a class="pdf-entitiy-footnote-markers visually-hidden">
@@ -69,7 +69,7 @@
                         <a href="{$selfLink}"><xsl:value-of select="$label"/></a> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                         </dl>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         <xsl:call-template name="person_detail"/> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -161,7 +161,7 @@
                         <xsl:call-template name="place_detail"/> 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

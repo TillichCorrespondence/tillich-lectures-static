@@ -5,10 +5,10 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
     <xsl:template match="/" name="nav_bar">
         <header>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg ">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.html">
-                        <xsl:value-of select="$project_short_title"/>
+                        <img src="./images/logo_tl.png" alt="Tillich Lecures" class="navbar-logo"/>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
