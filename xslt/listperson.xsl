@@ -16,7 +16,7 @@
         <xsl:variable name="doc_title">
             Index of persons
         </xsl:variable>
-        <html class="h-100" lang="de">
+        <html class="h-100" lang="en">
             
             <head>
                 <xsl:call-template name="html_head">
@@ -54,7 +54,7 @@
                             <tbody>
                                 <xsl:for-each select=".//tei:person[@xml:id and ./tei:noteGrp]">
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="data(@xml:id)||'.html'"/>
+                                        <xsl:value-of select="concat(@xml:id, '.html')"/>
                                     </xsl:variable>
                                     <tr>
                                         <td>

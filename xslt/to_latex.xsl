@@ -175,6 +175,10 @@ Harvard University, 1955-56}
   <xsl:text>\marginpar{\small </xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>
 </xsl:template>
 
+<xsl:template match="tei:pb">
+  <xsl:text> | </xsl:text>
+</xsl:template>
+
     <xsl:template match="tei:list" mode="inline-list">
 \begin{itemize}
         <xsl:apply-templates select="tei:item"/>

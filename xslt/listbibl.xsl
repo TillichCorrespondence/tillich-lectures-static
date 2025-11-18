@@ -14,7 +14,7 @@
 
     <xsl:template match="/">
         <xsl:variable name="doc_title">
-            <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
+            Index of bibliographic entries
         </xsl:variable>
         <html lang="en" class="h-100">
 
@@ -27,47 +27,53 @@
             <body class="d-flex flex-column h-100">
                 <xsl:call-template name="nav_bar"/>
 
-                <main class="flex-shrink-0 flex-grow-1">                    
+                <main class="flex-shrink-0 flex-grow-1">     
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
+                        </ol>
+                    </nav>
                     <div class="container">                        
                         <h1>
                             <xsl:value-of select="$doc_title"/>
                         </h1>
+                         <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> Persons</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
-                                    <th scope="col" tabulator-headerFilter="input">Titel</th>
-                                    <th scope="col" tabulator-headerFilter="input">Autor</th>
-                                    <th scope="col" tabulator-headerFilter="input">Datum</th>
-                                    <th scope="col" tabulator-headerFilter="input">ID</th>
+                                    <th scope="col" tabulator-headerFilter="input">Author / Editor</th>
+                                    <th scope="col" tabulator-headerFilter="input">Title</th>
+                                    <th scope="col" tabulator-headerFilter="input">Year</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <xsl:for-each select=".//tei:bibl">
+                                <xsl:for-each select=".//tei:biblStruct">
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="data(@xml:id)"/>
+                                        <xsl:value-of select="concat(@xml:id, '.html')"/>
                                     </xsl:variable>
-                                    <tr>
+                                    <tr>                            
                                         <td>
-                                            <a>
-                                              <xsl:attribute name="href">
-                                              <xsl:value-of select="concat($id, '.html')"/>
-                                              </xsl:attribute>
-                                              <i class="bi bi-link-45deg"/>
+                                            <a href="{$id}">                                                
+                                                <i class="bi bi-link-45deg"/>
                                             </a>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:title[1]/text()"/>
+                                            <xsl:value-of select="string-join(.//tei:author/(concat(tei:forename, ' ', tei:surname)), '; ')"/>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:author[1]//text()"/>
+                                            <xsl:for-each select=".//tei:title">
+                                                <xsl:value-of select="normalize-space(.)"/>
+                                            </xsl:for-each>
+                                            
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:date[1]/text()"/>
-                                        </td>
-                                        <td>
-                                            <xsl:value-of select="$id"/>
+                                            <xsl:value-of select="normalize-space(.//tei:date)"/>
                                         </td>
                                     </tr>
                                 </xsl:for-each>
@@ -80,25 +86,77 @@
                 <xsl:call-template name="tabulator_js"/>
             </body>
         </html>
-        <xsl:for-each select=".//tei:bibl[@xml:id]">
+        <xsl:for-each select=".//tei:biblStruct[@xml:id]">
             <xsl:variable name="filename" select="concat(./@xml:id, '.html')"/>
-            <xsl:variable name="name" select="normalize-space(string-join(./tei:title[1]//text()))"></xsl:variable>
+            <xsl:variable name="name" select="@n"></xsl:variable>
             <xsl:result-document href="{$filename}">
-                <html lang="en" class="h-100">
+                <html class="h-100" lang="de">
                     <head>
                         <xsl:call-template name="html_head">
-                        <xsl:with-param name="html_title" select="$name"></xsl:with-param>
-                    </xsl:call-template>
+                            <xsl:with-param name="html_title" select="$name"></xsl:with-param>
+                        </xsl:call-template>
                     </head>
-
+                    
                     <body class="d-flex flex-column h-100">
                         <xsl:call-template name="nav_bar"/>
+                        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">Tillich-Lectures</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="listbibl.html"><xsl:value-of select="$doc_title"/></a>
+                                </li>
+                            </ol>
+                        </nav>
                         <main class="flex-shrink-0 flex-grow-1">
                             <div class="container">
-                                <h1>
+                                <h1 class="display-5 text-center">
                                     <xsl:value-of select="$name"/>
                                 </h1>
-                                <xsl:call-template name="bibl_detail"/>
+                               
+                                <dl>
+                                <dt>Author(s) / Editor(s):</dt>
+                                <dd>
+                                    <xsl:value-of select="string-join(.//tei:author/(concat(tei:forename, ' ', tei:surname)), '; ')"/>
+                                </dd>
+                                <dt>Title:</dt>
+                                <dd>
+                                     <xsl:for-each select=".//tei:title">
+                                                <xsl:value-of select="normalize-space(.)"/>
+                                            </xsl:for-each>
+                                </dd>
+                                <dt>Year of publication:</dt>
+                                <dd>
+                                     <xsl:value-of select="normalize-space(.//tei:date)"/>
+                                </dd>
+                                <dt>Zotero entry:</dt>
+                                <dd>
+                                    <a>
+                                        <xsl:attribute name="href">
+                                            <xsl:value-of select="@corresp"/>
+                                        </xsl:attribute>
+                                        Zotero
+                                    </a>
+                                </dd>
+                                </dl>
+                                <h2 class="fs-4">Mentions</h2>
+                                <ul>
+                                    <xsl:for-each select=".//tei:note[@type='mentions']">
+                                        <li>
+                                            <xsl:value-of select="./text()"/>
+                                            <xsl:text></xsl:text>
+                                            <a class="link-underline-light">
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="replace(@target, '.xml', '.html')"/>
+                                                </xsl:attribute>
+                                                <xsl:text> </xsl:text><i class="bi bi-box-arrow-up-right"></i>
+                                                <span class="visually-hidden">Go to <xsl:value-of select="./text()"/></span>
+                                            </a>
+                                        </li>
+                                    </xsl:for-each>
+                                </ul>
+                                
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>
