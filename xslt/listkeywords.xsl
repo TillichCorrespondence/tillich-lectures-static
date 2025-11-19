@@ -16,7 +16,7 @@
         <xsl:variable name="doc_title">
             <xsl:value-of select="'Keywords'"/>
         </xsl:variable>
-        <html class="h-100" lang="de">
+        <html class="h-100" lang="en">
             
             <head>
                 <xsl:call-template name="html_head">

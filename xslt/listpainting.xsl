@@ -53,7 +53,7 @@
                             <tbody>
                                 <xsl:for-each select=".//tei:bibl[@xml:id]">
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="concat(@xml:id, '.html')"/>
+                                        <xsl:value-of select="data(./@xml:id)||'.html'"/>
                                     </xsl:variable>
                                     <tr>
                                         <td>
@@ -86,8 +86,11 @@
         
         <xsl:for-each select=".//tei:bibl[@xml:id]">
             <xsl:variable name="filename" select="concat(./@xml:id, '.html')"/>
-            <xsl:variable name="name">
-                <xsl:value-of select=".//tei:author"/>: <xsl:value-of select=".//tei:title"/>
+            <xsl:variable name="name">                
+                    <xsl:if test=".//tei:author">
+                        <xsl:value-of select=".//tei:author"/>:
+                    </xsl:if>
+                 <xsl:value-of select=".//tei:title"/>
             </xsl:variable>
             <xsl:result-document href="{$filename}">
                 <html class="h-100" lang="de">
