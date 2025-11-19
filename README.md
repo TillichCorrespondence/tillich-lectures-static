@@ -6,11 +6,38 @@
 * build with [DSE-Static-Cookiecutter](https://github.com/acdh-oeaw/dse-static-cookiecutter)
 
 
-## initial (one time) setup
+## Setup
 
-* run `./shellscripts/script.sh`
-* run `./fetch_data.sh`
-* run `ant`
+### Prerequisites
+* Python 3.x installed (`python3 --version` to check)
+* Java (for running Saxon/Ant)
+* curl, wget, unzip
+
+### Create and activate venv
+```bash
+   python3 -m venv venv
+   source venv/bin/activate
+```
+
+### Install dependencies - (one time) setup
+```bash
+   pip install -r requirements.txt
+```
+
+### Download Saxon and imprint data - (one time) setup
+```bash
+   ./shellscripts/script.sh
+```
+
+### Fetch fresh data from repositories
+```bash
+   ./fetch_data.sh
+```
+
+### Build the site
+```bash
+   ant
+```
 
 
 ## start dev server

@@ -43,6 +43,9 @@
                                     <li>
                                         <a class="dropdown-item" href="listbibl.html">Bibliography</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item" href="listpainting.html">Artworks</a>
+                                    </li>
                                     <!--<li>
                                         <a class="dropdown-item" href="listplace.html">Orte</a>
                                     </li>

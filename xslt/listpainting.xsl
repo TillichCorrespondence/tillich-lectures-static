@@ -14,7 +14,7 @@
     
     <xsl:template match="/">
         <xsl:variable name="doc_title">
-            <xsl:value-of select="'Keywords'"/>
+            Index of artworks
         </xsl:variable>
         <html class="h-100" lang="en">
             
@@ -39,36 +39,35 @@
                     </nav>
                     <div class="container">
                         <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
-                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> Keywords</div>
+                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> artworks</div>
                         
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Name</th>
-                                    <th scope="col" tabulator-visible="false" tabulator-download="true">Name_</th>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Mentions</th>
-                                    <th scope="col" tabulator-visible="false">ID</th>
+                                    <th scope="col" width="20" tabulator-formatter="html" tabulator-headerSort="false" tabulator-download="false">#</th>
+                                    <th scope="col" tabulator-headerFilter="input">Artist</th>
+                                    <th scope="col" tabulator-headerFilter="input">Title</th>
+                                    <th scope="col" tabulator-visible="false">ID</th>  
                                 </tr>
                             </thead>
                             <tbody>
-                                <xsl:for-each select=".//tei:item[./tei:term/@xml:id and ./tei:noteGrp]">
-                                    <xsl:sort select="./tei:term/@xml:id"></xsl:sort>
+                                <xsl:for-each select=".//tei:bibl[@xml:id]">
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="data(./tei:term/@xml:id)||'.html'"/>
+                                        <xsl:value-of select="data(./@xml:id)||'.html'"/>
                                     </xsl:variable>
                                     <tr>
                                         <td>
                                             <a href="{$id}">
-                                                <xsl:value-of select="./tei:term/text()"/>
+                                                <i class="bi bi-link-45deg"/>
                                             </a>
                                         </td>
                                         <td>
-                                            <xsl:value-of select="./tei:term/text()"/>
+                                            <xsl:value-of select=".//tei:author/text()"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select=".//tei:title/text()"/>
                                         </td>
                                         
-                                        <td>
-                                            <xsl:value-of select="count(.//tei:noteGrp//tei:note)"/>
-                                        </td>
                                         <td>
                                             <xsl:value-of select="$id"/>
                                         </td>
@@ -85,9 +84,14 @@
         </html>
         
         
-        <xsl:for-each select=".//tei:item[./tei:term/@xml:id and ./tei:noteGrp]">
-            <xsl:variable name="filename" select="concat(./tei:term/@xml:id, '.html')"/>
-            <xsl:variable name="name" select="./tei:term/text()"></xsl:variable>
+        <xsl:for-each select=".//tei:bibl[@xml:id]">
+            <xsl:variable name="filename" select="concat(./@xml:id, '.html')"/>
+            <xsl:variable name="name">                
+                    <xsl:if test=".//tei:author">
+                        <xsl:value-of select=".//tei:author"/>:
+                    </xsl:if>
+                 <xsl:value-of select=".//tei:title"/>
+            </xsl:variable>
             <xsl:result-document href="{$filename}">
                 <html class="h-100" lang="de">
                     <head>
@@ -101,38 +105,67 @@
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="ps-5 p-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
+                                    <a href="index.html">Tillich-Lectures</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="listkeywords.html">Keywords</a>
+                                    <a href="listpainting.html"><xsl:value-of select="$doc_title"/></a>
                                 </li>
                             </ol>
                         </nav>
                         <main class="flex-shrink-0 flex-grow-1">
                             <div class="container">
-                                <h1 class="display-5 text-center">
+                                <h1 class="display-5 text-center mb-4">
                                     <xsl:value-of select="$name"/>
                                 </h1>
-                                <xsl:if test="//tei:noteGrp">
-                                    <hr/>
-                                    <h2>Mentions</h2>
-                                    <ul>
-                                        <xsl:for-each select=".//tei:noteGrp//tei:note">
-                                            <li>
-                                                <a href="{replace(./@target, '.xml', '.html')}">
-                                                    <xsl:value-of select="./text()"/>
-                                                </a>
-                                            </li>
+                                
+                                <dl>
+                                   <!-- <dt>Artist:</dt>
+                                    <dd>
+                                        <xsl:value-of select=".//tei:author"/>
+                                    </dd>
+                                    <dt>Title:</dt>
+                                    <dd>
+                                        <xsl:for-each select=".//tei:title">
+                                            <xsl:value-of select="normalize-space(.)"/>
                                         </xsl:for-each>
-                                    </ul>
-                                </xsl:if>
-                                  
+                                    </dd>-->
+                                    <xsl:if test=".//tei:idno">
+                                        <dt>Reference:</dt>
+                                            <dd>
+                                                
+                                                <a>
+                                                    <xsl:attribute name="href">
+                                                        <xsl:value-of select=".//tei:idno/text()"/>
+                                                    </xsl:attribute>
+                                                    Wikidata entry <i class="bi bi-box-arrow-up-right"></i>
+                                                </a>
+                                            </dd>
+                                    </xsl:if>
+                                </dl>
+                                <h2 class="fs-4">Mentions</h2>
+                                <ul>
+                                    <xsl:for-each select=".//tei:note[@type='mentions']">
+                                        <li>
+                                            <xsl:value-of select="./text()"/>
+                                            <xsl:text></xsl:text>
+                                            <a class="link-underline-light">
+                                                <xsl:attribute name="href">
+                                                    <xsl:value-of select="replace(@target, '.xml', '.html')"/>
+                                                </xsl:attribute>
+                                                <xsl:text> </xsl:text><i class="bi bi-box-arrow-up-right"></i>
+                                                <span class="visually-hidden">Go to <xsl:value-of select="./text()"/></span>
+                                            </a>
+                                        </li>
+                                    </xsl:for-each>
+                                </ul>
+                                
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>
                     </body>
                 </html>
             </xsl:result-document>
+            
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
