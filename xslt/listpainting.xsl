@@ -14,7 +14,7 @@
     
     <xsl:template match="/">
         <xsl:variable name="doc_title">
-            Index of paintings
+            Index of artworks
         </xsl:variable>
         <html class="h-100" lang="en">
             
@@ -39,7 +39,7 @@
                     </nav>
                     <div class="container">
                         <h1 class="display-5 text-center"><xsl:value-of select="$doc_title"/></h1>
-                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> paintings</div>
+                        <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> artworks</div>
                         
                         <table id="myTable">
                             <thead>
