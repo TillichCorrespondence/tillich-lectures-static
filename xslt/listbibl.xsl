@@ -40,7 +40,7 @@
                         <h1>
                             <xsl:value-of select="$doc_title"/>
                         </h1>
-                         <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> Persons</div>
+                         <div class="text-center p-1"><span id="counter1"></span> out of <span id="counter2"></span> entries</div>
                         
                         <table id="myTable">
                             <thead>
@@ -49,7 +49,7 @@
                                     <th scope="col" tabulator-headerFilter="input">Author / Editor</th>
                                     <th scope="col" tabulator-headerFilter="input">Title</th>
                                     <th scope="col" tabulator-headerFilter="input">Year</th>
-                                    
+                                    <th scope="col" tabulator-visible="false">ID</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,6 +74,9 @@
                                         </td>
                                         <td>
                                             <xsl:value-of select="normalize-space(.//tei:date)"/>
+                                        </td>
+                                        <td>
+                                            <xsl:value-of select="$id"/>
                                         </td>
                                     </tr>
                                 </xsl:for-each>
@@ -111,12 +114,12 @@
                         </nav>
                         <main class="flex-shrink-0 flex-grow-1">
                             <div class="container">
-                                <h1 class="display-5 text-center">
+                                <h1 class="display-5 text-center mb-4">
                                     <xsl:value-of select="$name"/>
                                 </h1>
                                
                                 <dl>
-                                <dt>Author(s) / Editor(s):</dt>
+                                <dt>Author(s) | Editor(s):</dt>
                                 <dd>
                                     <xsl:value-of select="string-join(.//tei:author/(concat(tei:forename, ' ', tei:surname)), '; ')"/>
                                 </dd>
@@ -136,7 +139,7 @@
                                         <xsl:attribute name="href">
                                             <xsl:value-of select="@corresp"/>
                                         </xsl:attribute>
-                                        Zotero
+                                        Zotero <i class="bi bi-box-arrow-up-right"></i>
                                     </a>
                                 </dd>
                                 </dl>
