@@ -55,7 +55,7 @@
                             <tbody>
                                 <xsl:for-each select=".//tei:biblStruct">
                                     <xsl:variable name="id">
-                                        <xsl:value-of select="cdata(./tei:bibl/@xml:id)||'.html'"/>
+                                        <xsl:value-of select="data(./tei:bibl/@xml:id)||'.html'"/>
                                     </xsl:variable>
                                     <tr>                            
                                         <td>
