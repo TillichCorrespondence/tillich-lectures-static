@@ -5,7 +5,7 @@
     <xsl:import href="./person.xsl"/>
     <xsl:import href="./place.xsl"/>
     
-    <xsl:template match="tei:rs[starts-with(@ref, '#') and @type]">
+    <xsl:template match="tei:rs[starts-with(@ref, '#') and @type and not(@type='keyword')]">
         <xsl:variable name="entType" select="@type"/>
         <xsl:variable name="entId" select="./@ref"/>
         <button class="{$entType} entity dse-dotted" data-bs-toggle="modal" data-bs-target="{@ref}">
@@ -26,6 +26,14 @@
                     <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
                 </sup>
             </a>
+    </xsl:template>
+    
+    <xsl:template match="tei:rs[starts-with(@ref, '#') and @type='keyword']">
+        <xsl:variable name="entType" select="@type"/>
+        <xsl:variable name="entId" select="./@ref"/>
+        <span class="{$entType} entity" data-bs-target="{@ref}">
+            <xsl:apply-templates/>
+        </span>        
     </xsl:template>
     
     <xsl:template match="tei:rs[@ref and @type='bible']">

@@ -284,31 +284,14 @@
                                         </div>
                                     </div> 
                                 </xsl:if>
-                                <xsl:if test=".//tei:list[@xml:id = 'mentioned_letters']">
-                                     <div class="border rounded card-body mb-3 p-2">
-                                        <h3 class="fs-4 p-1">Briefe</h3>
-                                        <div class="ps-4">
-                                            <xsl:for-each
-                                                select=".//tei:list[@xml:id = 'mentioned_letters']//tei:item[@xml:id]">
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox"
-                                                  onchange="toggleHighlight(this)" value="{@xml:id}"
-                                                  id="check-{@xml:id}"/>
-                                                  <label class="form-check-label"
-                                                  for="check-{@xml:id}">
-                                                  <xsl:value-of select="./text()"/>
-                                                  </label>
-                                                </div>
-                                            </xsl:for-each>
-                                        </div>
-                                    </div>
-                                </xsl:if>-->
+                               -->
                             </div></div>
                             
                         </div>
                     </div>
                     <div class="tei-back">
-                        <xsl:for-each select="distinct-values(.//tei:rs[@type = 'keyword']/@ref)">
+<!--                        NO modal for keywords - dont have info to display -->
+                       <!-- <xsl:for-each select="distinct-values(.//tei:rs[@type = 'keyword']/@ref)">
                             <xsl:variable name="label">
                                 <xsl:value-of select="replace(replace(., '#', ''), '_', ' ')"/>
                             </xsl:variable>
@@ -341,7 +324,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </xsl:for-each>
+                        </xsl:for-each>-->
                         <xsl:for-each select="//tei:back">
                             <xsl:apply-templates/>
                         </xsl:for-each>
