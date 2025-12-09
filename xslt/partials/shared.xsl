@@ -119,6 +119,9 @@
             <xsl:apply-templates/>
         </xsl:element>
     </xsl:template>
+    <xsl:template match="tei:gap">
+         <xsl:text>...</xsl:text>
+    </xsl:template>
     
     
 </xsl:stylesheet>

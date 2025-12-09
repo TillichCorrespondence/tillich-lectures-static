@@ -4,6 +4,7 @@
     version="2.0" >
     
     <xsl:output method="text" encoding="UTF-8"/>
+    <xsl:strip-space elements="*"/>
     
     <xsl:template match="/">
 \documentclass[12pt,a4paper,oneside]{book}
@@ -133,10 +134,9 @@ Harvard University, 1955-56}
     </xsl:for-each-group>
 </xsl:template>
     
-    <!-- Process divs p lists ; skip page breaks -->
-   <!-- Match any div and process its children except pb -->
-<xsl:template match="tei:div">
-  <xsl:apply-templates select="./*[not(self::tei:pb)]"/>
+    <!-- Process divs and children p, list, pb -->
+<xsl:template match="tei:div">   
+  <xsl:apply-templates/>
 </xsl:template>
 
 <!-- No-indent paragraphs -->
@@ -166,9 +166,9 @@ Harvard University, 1955-56}
     \end{flushright}
 </xsl:template>
 
-    <xsl:template match="tei:p[not(@rend='tei-authorship')]//tei:list">
-        <xsl:apply-templates select="." mode="inline-list"/>
-    </xsl:template>
+<xsl:template match="tei:p[not(@rend='tei-authorship')]//tei:list">
+    <xsl:apply-templates select="." mode="inline-list"/>
+</xsl:template>
 
 <!-- page numbers as margin note -->
 <xsl:template match="tei:fw">  
@@ -176,7 +176,14 @@ Harvard University, 1955-56}
 </xsl:template>
 
 <xsl:template match="tei:pb">
-  <xsl:text> | </xsl:text>
+    <xsl:choose>
+        <xsl:when test="@break='true'">
+            <xsl:text>\clearpage</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:text>|</xsl:text>
+        </xsl:otherwise>
+    </xsl:choose>
 </xsl:template>
 
     <xsl:template match="tei:list" mode="inline-list">
@@ -320,6 +327,14 @@ Harvard University, 1955-56}
 </xsl:template>
 
 <xsl:template match="tei:emph">
+     <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
+</xsl:template>
+
+<xsl:template match="tei:gap">
+     <xsl:text> ... </xsl:text>  
+</xsl:template>
+
+<xsl:template match="tei:hi[@rend='italic']">
      <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
 </xsl:template>
 
