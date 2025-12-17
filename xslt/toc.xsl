@@ -52,16 +52,34 @@
     </thead>
     <tbody>
         <xsl:for-each
-            select="collection('../data/editions?select=*.xml')//tei:TEI">
+            select="collection('../data/lectures?select=*.xml')//tei:TEI">
             <xsl:sort select="@xml:id"/>
-            <xsl:variable name="full_path">
-                <xsl:value-of select="@xml:id"/>
-            </xsl:variable>
-            <xsl:variable name="link">
-                <xsl:value-of
-                            select="replace(tokenize($full_path, '/')[last()], '.xml', '.html')"
-                            />
-            </xsl:variable>
+            <!-- first pb facs, cleaned -->
+            <xsl:variable name="full_path" as="xs:string?"
+                select="
+                replace(
+                (.//tei:pb[@facs][1]/@facs, '')[1],
+                '^#', ''
+                )
+                "/>
+            <xsl:variable name="first_page" as="xs:string?"
+                select="
+                replace(
+                normalize-space(string((.//tei:fw)[1])),
+                '^\[|\]$',
+                ''
+                )
+                "/>
+            
+            
+            <!-- filename converted to .html -->
+            <xsl:variable name="link" as="xs:string?"
+                select="
+                replace(
+                tokenize($full_path, '/')[last()],
+                '\.jpg$', '.html'
+                )
+                "/>
             <tr>
                 <td>
                     <xsl:value-of
@@ -69,8 +87,8 @@
                 </td>
                 <td>
                     <a href="{$link}">
-                        <xsl:value-of
-                        select="//tei:titleStmt/tei:title[1]/text()"/>
+                       <xsl:text>p. </xsl:text> <xsl:value-of
+                            select="$first_page"/>
                     </a>
                 </td>
                 
