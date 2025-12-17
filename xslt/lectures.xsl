@@ -40,7 +40,6 @@
     <!-- ============================ -->
     
     <xsl:template match="/">
-         <xsl:message>DEBUG: editionsDir = <xsl:value-of select="$editionsDir"/></xsl:message>
 <!--        Lectures -->
         <xsl:for-each-group
             select="$lecture-docs"
