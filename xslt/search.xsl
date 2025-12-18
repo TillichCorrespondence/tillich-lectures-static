@@ -29,7 +29,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><xsl:value-of select="$doc_title"/></li>
                         </ol>
                     </nav>
-                    <div class="container-fluid custom-width pb-4">
+                    <div class="container-fluid search-width pb-4">
                         <h1 class="display-5 text-center">
                             <xsl:value-of select="$doc_title"/>
                         </h1>

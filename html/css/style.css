@@ -68,8 +68,12 @@ a:hover {
     width: 100%;
 }
 
+.search-width {
+    width: 85%;
+}
+
 /* 75% width on large screens (992px and up) */
-@media (min-width: 992px) {
+@media (min-width: 2400px) {
     .custom-width {
         width: 85%;
         margin-left: auto;
