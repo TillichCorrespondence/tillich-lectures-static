@@ -30,7 +30,7 @@
         <xsl:value-of select="concat($lecture, '.xml')"/>
     </xsl:variable>
     <xsl:variable name="link_pdf">
-        <xsl:value-of select="concat($lecture, '.pdf')"/>
+        <xsl:value-of select="concat('lectures/', $lecture, '.pdf')"/>
     </xsl:variable>
     <xsl:variable name="doc_title">
         <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
