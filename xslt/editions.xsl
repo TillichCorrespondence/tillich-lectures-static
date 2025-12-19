@@ -23,8 +23,14 @@
     <xsl:variable name="teiSource">
         <xsl:value-of select="data(tei:TEI/@xml:id)"/>
     </xsl:variable>
+    <xsl:variable name="lecture">
+        <xsl:value-of select="data(.//tei:title[@type='main']/@n)"/>
+    </xsl:variable>
     <xsl:variable name="link">
-        <xsl:value-of select="replace($teiSource, '.xml', '.html')"/>
+        <xsl:value-of select="concat($lecture, '.xml')"/>
+    </xsl:variable>
+    <xsl:variable name="link_pdf">
+        <xsl:value-of select="concat($lecture, '.pdf')"/>
     </xsl:variable>
     <xsl:variable name="doc_title">
         <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
@@ -69,20 +75,20 @@
                                         <xsl:value-of select="$doc_title"/>
                                     </h1>
                                     <div>
-                                        <a href="{$teiSource}">
+                                        <a href="{$link}">
                                             <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
                                                 visually-hidden="true">
                                                 <span class="visually-hidden">Go to TEI/XML document</span>
                                             </i>
                                         </a>
-                                        <a id="download-pdf" href="#">
-                                            <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current page as a PDF"
+                                        <a href="{$link_pdf}">
+                                            <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current lecture as a PDF"
                                                 visually-hidden="true">
-                                                <span class="visually-hidden">Download current page as a PDF</span>
+                                                <span class="visually-hidden">Download lecture as a PDF</span>
                                             </i>
                                         </a>
                                         <a href="tillich-lectures.pdf">
-                                            <i class="ps-1 bi bi-file-earmark-pdf fs-2" title="Download complete PDF"
+                                            <i class="ps-1 bi bi-book fs-2" title="Download all lectures as a single PDF"
                                                 visually-hidden="true">
                                                 <span class="visually-hidden">Download all lectures as a PDF</span>
                                             </i>
