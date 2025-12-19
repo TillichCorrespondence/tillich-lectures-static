@@ -33,3 +33,33 @@ cd ..
 rm -rf tex
 
 echo "✓ PDF generated: html/tillich-lectures.pdf"
+
+echo "Generating individual lecture PDFs..."
+
+mkdir -p tex_single html/lectures
+
+for xml in data/lectures/*.xml; do
+    base=$(basename "$xml" .xml)
+
+    echo " → Processing $base"
+
+    java -jar saxon/saxon9he.jar \
+        -s:"$xml" \
+        -xsl:xslt/to_latex_single.xsl \
+        -o:"tex_single/$base.tex"
+
+    cd tex_single
+
+    xelatex -interaction=nonstopmode "$base.tex" > /dev/null
+    xelatex -interaction=nonstopmode "$base.tex" > /dev/null
+
+    mv "$base.pdf" "../html/lectures/$base.pdf"
+
+    cd ..
+
+    rm -f "tex_single/$base."{aux,log,tex}
+done
+
+rm -rf tex_single 
+
+echo "✓ Individual lecture PDFs generated in html/lectures/"
