@@ -56,29 +56,27 @@
                                 </ul>
                             </li>
 
-                            <li class="nav-item">
-                                <a title="Suche" class="nav-link" href="search.html">Search</a>
+                            <li class="nav-item d-lg-none">
+                                <a class="nav-link" href="search.html">Suche</a>
                             </li>
                         </ul>
-                        <form id="searchForm" class="d-none d-lg-flex gap-2" role="search">
-                        <label for="searchInput" class="visually-hidden">Search</label>
-                            <input
-                                type="text"
-                                id="searchInput"
-                                class="form-control form-control-sm"
-                                aria-label="fulltext search in lectures"
-                            />
-                            <button
-                                id="searchButton"
-                                type="submit"
-                                class="btn btn-primary btn-sm"
-                                aria-label="Submit search">Search
-                            </button>
-                        </form>
+                        <div class="d-none d-lg-block">
+                            <form class="d-flex" role="search" action="search.html" method="get">
+                                <label for="search-input" class="visually-hidden">Suche</label>
+                                <input
+                                    class="form-control me-2"
+                                    type="text"
+                                    id="search-input"
+                                    name="tillich-lectures[query]"
+                                    placeholder="Suche"
+                                    aria-label="Search"
+                                />
+                                <button class="btn btn-primary" type="submit">Suchen</button>
+                            </form>
+                        </div>
                     </nav>
                 </div>
             </nav>
-        </header>        
-    <script src="js/navbar_search.js"></script>
+        </header>  
     </xsl:template>
 </xsl:stylesheet>
