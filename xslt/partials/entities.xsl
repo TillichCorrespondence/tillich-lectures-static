@@ -4,6 +4,7 @@
     version="2.0" exclude-result-prefixes="xsl tei xs">
     <xsl:import href="./person.xsl"/>
     <xsl:import href="./place.xsl"/>
+    <xsl:import href="./painting.xsl"/>
     
     <xsl:template match="tei:rs[starts-with(@ref, '#') and @type and not(@type='keyword')]">
         <xsl:variable name="entType" select="@type"/>
@@ -47,6 +48,9 @@
     </xsl:template>
     
     <xsl:template match="tei:listPerson">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="tei:listBibl">
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="tei:listPlace">
@@ -175,7 +179,48 @@
             </div>
         </div>
     </xsl:template>
-    
-    
+ 
+    <xsl:template match="tei:bibl[@xml:id]">
+        <xsl:variable name="selfLink" select="concat(@xml:id, '.html')"/>
+        <xsl:variable name="label" select="tei:title[1]"/>
+        
+        <div class="modal modal fade"
+            id="{@xml:id}"
+            data-bs-keyboard="true"
+            tabindex="-1"
+            aria-label="{$label}"
+            aria-hidden="true">
+            
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">
+                            <a href="{$selfLink}">
+                                <xsl:value-of select="$label"/>
+                            </a>
+                        </h1>
+                        <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"/>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <xsl:call-template name="painting_detail"/>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button"
+                            class="btn btn-primary"
+                            data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </xsl:template>
     
 </xsl:stylesheet>

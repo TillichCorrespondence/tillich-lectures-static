@@ -11,6 +11,8 @@
     <xsl:import href="partials/tabulator_dl_buttons.xsl"/>
     <xsl:import href="partials/tabulator_js.xsl"/>
     <xsl:import href="./partials/person.xsl"/>
+     <xsl:import href="./partials/painting.xsl"/>
+      <xsl:import href="./partials/bibl.xsl"/>
     
     <xsl:template match="/">
         <xsl:variable name="doc_title">
@@ -114,51 +116,13 @@
                         </nav>
                         <main class="flex-shrink-0 flex-grow-1">
                             <div class="container">
-                                <h1 class="display-5 text-center mb-4">
+                                <h1>
                                     <xsl:value-of select="$name"/>
                                 </h1>
-                                
-                                <dl>
-                                   <!-- <dt>Artist:</dt>
-                                    <dd>
-                                        <xsl:value-of select=".//tei:author"/>
-                                    </dd>
-                                    <dt>Title:</dt>
-                                    <dd>
-                                        <xsl:for-each select=".//tei:title">
-                                            <xsl:value-of select="normalize-space(.)"/>
-                                        </xsl:for-each>
-                                    </dd>-->
-                                    <xsl:if test=".//tei:idno">
-                                        <dt>Reference:</dt>
-                                            <dd>
-                                                
-                                                <a>
-                                                    <xsl:attribute name="href">
-                                                        <xsl:value-of select=".//tei:idno/text()"/>
-                                                    </xsl:attribute>
-                                                    Wikidata entry <i class="bi bi-box-arrow-up-right"></i>
-                                                </a>
-                                            </dd>
-                                    </xsl:if>
-                                </dl>
-                                <h2 class="fs-4">Mentions</h2>
-                                <ul>
-                                    <xsl:for-each select=".//tei:note[@type='mentions']">
-                                        <li>
-                                            <xsl:value-of select="./text()"/>
-                                            <xsl:text></xsl:text>
-                                            <a class="link-underline-light">
-                                                <xsl:attribute name="href">
-                                                    <xsl:value-of select="replace(@target, '.xml', '.html')"/>
-                                                </xsl:attribute>
-                                                <xsl:text> </xsl:text><i class="bi bi-box-arrow-up-right"></i>
-                                                <span class="visually-hidden">Go to <xsl:value-of select="./text()"/></span>
-                                            </a>
-                                        </li>
-                                    </xsl:for-each>
-                                </ul>
-                                
+                                <xsl:call-template name="painting_detail"/>
+                                <xsl:if test="./tei:location/tei:geo">
+                                <div id="map_detail"/>
+                                </xsl:if>
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>
@@ -169,3 +133,5 @@
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
+
+                         
