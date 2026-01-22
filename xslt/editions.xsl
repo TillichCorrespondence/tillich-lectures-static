@@ -114,7 +114,7 @@
                         </div>
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
                             <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
-                            <xsl:if test=".//tei:rs[@type = 'keyword' and @ref] or .//tei:back//tei:person[@xml:id] or .//tei:back//tei:place[@xml:id] or .//tei:back//tei:biblStruct[@xml:id]">
+                            <xsl:if test=".//tei:rs[@type = 'keyword' and @ref] or .//tei:back//tei:bibl[@xml:id] or .//tei:back//tei:person[@xml:id] or .//tei:back//tei:place[@xml:id] or .//tei:back//tei:biblStruct[@xml:id]">
                             <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>
                             </xsl:if>
                         </div>
@@ -129,6 +129,7 @@
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body"/>
                                 <div class="pt-3">
+                                <!-- Entities for pdf -->
                                     <div class="ps-5 pe-5 visually-hidden" id="pdf-entities">
                                         <h2 class="visually-hidden">Register</h2>
                                         <xsl:for-each select=".//tei:rs[starts-with(@ref, '#') and @type]">
@@ -143,6 +144,7 @@
                                                     <xsl:when test="$rstype='work'">
                                                         <xsl:value-of select="$ent/@n"/>
                                                     </xsl:when>
+                                                   
                                                     <xsl:when test="$rstype='bible'">
                                                         <xsl:value-of select="./@ref"/>
                                                     </xsl:when>
@@ -240,6 +242,24 @@
                                                   <label class="form-check-label"
                                                   for="check-{@xml:id}">
                                                   <xsl:value-of select="./tei:placeName[1]/text()"/>
+                                                  </label>
+                                                </div>
+                                            </xsl:for-each>
+                                        </div>
+                                    </div>
+                                </xsl:if>
+                                <xsl:if test=".//tei:back//tei:bibl[@xml:id]">
+                                     <div class="border rounded card-body mb-3 p-2">
+                                        <h3 class="fs-4 p-1">Artworks</h3>
+                                        <div class="ps-4">
+                                            <xsl:for-each select=".//tei:back//tei:bibl[@xml:id]">
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox"
+                                                  onchange="toggleHighlight(this)" value="{@xml:id}"
+                                                  id="check-{@xml:id}"/>
+                                                  <label class="form-check-label"
+                                                  for="check-{@xml:id}">
+                                                  <xsl:value-of select="./tei:title/text()"/>
                                                   </label>
                                                 </div>
                                             </xsl:for-each>
