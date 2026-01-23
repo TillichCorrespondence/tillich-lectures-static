@@ -128,8 +128,9 @@
                                     
                                     
                                     <xsl:variable name="mentions" select="count(.//tei:note[@type='mentions'])"/>
-                                    <!--  when bibl in editions check if test="text() and $mentions &gt; 0"-->
-                                    <xsl:if test="text() "> 
+                                    <!--  Show only bibl with mentions; skip irrelevant tillich bibl if test="text() and $mentions &gt; 0"-->
+                                  
+                                    <xsl:if test="text() and $mentions &gt; 0"> 
                                         <tr>
                                             <td>
                                                 <xsl:choose>
@@ -200,29 +201,29 @@
                                 </h1>
                                
                                 <dl>
-                                <dt>Author(s) | Editor(s):</dt>
-                                <dd>
-                                    <xsl:value-of select="string-join(.//tei:author/(concat(tei:forename, ' ', tei:surname)), '; ')"/>
-                                </dd>
-                                <dt>Title:</dt>
-                                <dd>
-                                     <xsl:for-each select=".//tei:title">
-                                                <xsl:value-of select="normalize-space(.)"/>
-                                            </xsl:for-each>
-                                </dd>
-                                <dt>Year of publication:</dt>
-                                <dd>
-                                     <xsl:value-of select="normalize-space(.//tei:date)"/>
-                                </dd>
-                                <dt>Zotero entry:</dt>
-                                <dd>
-                                    <a>
-                                        <xsl:attribute name="href">
-                                            <xsl:value-of select="@corresp"/>
-                                        </xsl:attribute>
-                                        Zotero <i class="bi bi-box-arrow-up-right"></i>
-                                    </a>
-                                </dd>
+                                    <dt>Author(s) | Editor(s):</dt>
+                                    <dd>
+                                        <xsl:value-of select="string-join(.//tei:author/(concat(tei:forename, ' ', tei:surname)), '; ')"/>
+                                    </dd>
+                                    <dt>Title:</dt>
+                                    <dd>
+                                        <xsl:for-each select=".//tei:title">
+                                                    <xsl:value-of select="normalize-space(.)"/>
+                                                </xsl:for-each>
+                                    </dd>
+                                    <dt>Year of publication:</dt>
+                                    <dd>
+                                        <xsl:value-of select="normalize-space(.//tei:date)"/>
+                                    </dd>
+                                    <dt>Zotero entry:</dt>
+                                    <dd>
+                                        <a>
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="@corresp"/>
+                                            </xsl:attribute>
+                                            Zotero <i class="bi bi-box-arrow-up-right"></i>
+                                        </a>
+                                    </dd>
                                 </dl>
                                 <h2 class="fs-4">Mentions</h2>
                                 <ul>

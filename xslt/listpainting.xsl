@@ -64,7 +64,14 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <xsl:value-of select=".//tei:author/text()"/>
+                                        <xsl:choose>
+                                            <xsl:when test=".//tei:author">
+                                                <xsl:value-of select=".//tei:author/text()"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:text>[Unknown Artist]</xsl:text>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                         </td>
                                         <td>
                                             <xsl:value-of select=".//tei:title/text()"/>
