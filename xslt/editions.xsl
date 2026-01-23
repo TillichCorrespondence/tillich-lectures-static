@@ -128,6 +128,36 @@
                             <div class="col-12 col-lg-4 pt-5 mx-auto p-lg-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
                                 <xsl:apply-templates select=".//tei:body"/>
+                                 <hr/>
+                                <div class="pt-3">
+                                    <div class="ps-5 pe-5" id="pdf-footnotes">
+                                        <h2 class="visually-hidden">Footnotes, Editorial notes</h2>
+                                        <xsl:for-each select=".//tei:note[@type='ea' or @type='eb']">
+                                            <div class="footnotes">
+                                                <xsl:element name="a">
+                                                    <xsl:attribute name="name">
+                                                        <xsl:text>fn</xsl:text>
+                                                        <xsl:number level="any" format="1" count="tei:note"
+                                                        />
+                                                    </xsl:attribute>
+                                                    <a>
+                                                        <xsl:attribute name="href">
+                                                            <xsl:text>#fna_</xsl:text>
+                                                            <xsl:number level="any" format="1"
+                                                                count="tei:note"/>
+                                                        </xsl:attribute>
+                                                        <span
+                                                            style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
+                                                            <xsl:number level="any" format="1"
+                                                                count="tei:note"/>
+                                                        </span>
+                                                    </a>
+                                                </xsl:element>
+                                                <xsl:apply-templates/>
+                                            </div>
+                                        </xsl:for-each>
+                                    </div>
+                                </div>
                                 <div class="pt-3">
                                 <!-- Entities for pdf -->
                                     <div class="ps-5 pe-5 visually-hidden" id="pdf-entities">
