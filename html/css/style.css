@@ -194,6 +194,14 @@ footer a {
   padding: 0.5rem;
 }
 
+.painting-figure img {
+  max-width: 100%;
+  max-height: 600px;     /* pick a sensible cap */
+  height: auto;
+  width: auto;
+  display: block;
+}
+
 /* Algolia search */
 
 .ais-Hits-item {

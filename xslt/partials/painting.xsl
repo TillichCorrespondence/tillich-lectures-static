@@ -6,35 +6,41 @@
     
     <xsl:template match="tei:bibl" name="painting_detail">
         <xsl:variable name="selfLink" select="concat(@xml:id, '.html')"/>
+        <xsl:variable name="image" select="string(.//tei:ref[@type='wikidata_image'])"/>
+        <xsl:variable name="title" select="normalize-space(.//tei:title)"/>
+        <xsl:variable name="author" select="normalize-space(.//tei:author)"/>
+        <xsl:variable name="title_aut" select="concat($title, ' — ', $author)"/>
+        
         <table class="table entity-table">
             <tbody>
                 <dl>
                      <dt>Artist:</dt>
                     <dd>
-                        <xsl:value-of select=".//tei:author"/>
+                        <xsl:value-of select="tei:author"/>
                     </dd>
                     <dt>Title:</dt>
                     <dd>
-                        <xsl:for-each select=".//tei:title">
+                        <xsl:for-each select="tei:title">
                             <xsl:value-of select="normalize-space(.)"/>
                         </xsl:for-each>
                     </dd>
-                    <xsl:if test=".//tei:idno">
+                    <xsl:if test="tei:idno">
                         <dt>Reference:</dt>
                         <dd>
                             
                             <a>
                                 <xsl:attribute name="href">
-                                    <xsl:value-of select=".//tei:idno/text()"/>
+                                    <xsl:value-of select="tei:idno/text()"/>
                                 </xsl:attribute>
                                 Wikidata entry <i class="bi bi-box-arrow-up-right"></i>
                             </a>
                         </dd>
                     </xsl:if>
-                    <xsl:if test="//tei:noteGrp">
+                   
+                    <xsl:if test="tei:noteGrp">
                     <dt>Mentions:</dt>
                     <dd> 
-                    <xsl:for-each select="./tei:noteGrp/tei:note[@type='mentions']">
+                    <xsl:for-each select="tei:noteGrp/tei:note[@type='mentions']">
                                     <li>
                                         <a href="{replace(@target, '.xml', '.html')}">
                                             <xsl:value-of select="./text()"/>
@@ -43,9 +49,17 @@
                                 </xsl:for-each>
                                 </dd>
                     </xsl:if>
-                </dl>
-                
-                
+                </dl>                
+                 <xsl:if test="tei:ref[@type='wikidata_image']">
+                     <figure class="painting-figure">
+                         <img src="{$image}" alt="{$title_aut}"/>                         
+                         <figcaption>
+                             <xsl:value-of select="$title_aut"/>
+                             <xsl:text> via  </xsl:text>
+                             <a href="{$image}">Wikimedia Commons (Public Domain) <i class="bi bi-box-arrow-up-right"></i></a>                                
+                         </figcaption>                         
+                     </figure>                     
+                 </xsl:if>                
             </tbody>
         </table>
     </xsl:template>
