@@ -119,11 +119,23 @@
                             </xsl:if>
                         </div>
                         <div class="row">                            
-                            <div class="d-none d-lg-block col-lg-6 p-5 border-end" id="facs-container">
+                            <div class="d-none d-lg-block col-lg-6 border-end position-relative" id="facs-container">
                                 <h2 class="visually-hidden">Facs</h2>
-                                <div style="width: 100%; height: 800px" id="osd_viewer"/>
-                                <figcaption class="figure-caption text-center">Tillich
-                                    Lectures</figcaption>
+                                 <div class="d-flex justify-content-end">
+                                    <button
+                                        class="btn btn-outline-primary position-absolute top-0 end-0 m-2 z-1"
+                                        id="toggle-facs"
+                                        title="Hide / show facsimile"
+                                        aria-label="Toggle facsimile">
+                                        <span id="toggle-facs-label">Hide facsimile</span>
+                                        <i class="bi bi-caret-left-fill"></i>
+                                    </button>
+                                </div>
+                                <div id="facs-content" class="p-2">
+                                    <div style="width: 100%; height: 800px" id="osd_viewer"></div>
+                                    <figcaption class="figure-caption text-center">Tillich
+                                        Lectures</figcaption>
+                                </div>
                             </div>                            
                             <div class="col-12 col-lg-4 pt-5 mx-auto p-lg-5" id="pdf-transcript">
                                 <h2 class="visually-hidden">Transcript</h2>
@@ -399,7 +411,6 @@
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="js/main.js"/>
-                <script src="js/pdf.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script src="js/facs.js"/>
                 <script src="js/swipe.js"/>

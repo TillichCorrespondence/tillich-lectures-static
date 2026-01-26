@@ -55,6 +55,7 @@ a:hover {
 
 .btn-outline-primary {
   --bs-btn-color: var(--dse-base-color);
+  --bs-btn-bg: var(--dse-base-color-light);
   --bs-btn-border-color: var(--dse-base-color);
   --bs-btn-hover-bg: var(--dse-base-color);
   --bs-btn-hover-border-color: var(--dse-base-color);
