@@ -220,6 +220,7 @@
                                         <div class="ps-4">
                                             <xsl:for-each
                                                 select="distinct-values(.//tei:rs[@type = 'keyword']/@ref)">
+                                                <xsl:sort select="." order="ascending"/>
                                                 <xsl:variable name="label">
                                                   <xsl:value-of
                                                   select="replace(replace(., '#', ''), '_', ' ')"/>
@@ -246,6 +247,7 @@
 
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:person[@xml:id]">
+                                            <xsl:sort select="normalize-space(persName[1])" order="ascending"/>
                                                 <div class="form-check">
                                                   <input class="form-check-input" type="checkbox"
                                                   onchange="toggleHighlight(this)" value="{@xml:id}"
@@ -265,6 +267,7 @@
                                         <h3 class="fs-4 p-1">Places</h3>
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:place[@xml:id]">
+                                            <xsl:sort select="normalize-space(placeName[1])" order="ascending"/>
                                                 <div class="form-check">
                                                   <input class="form-check-input" type="checkbox"
                                                   onchange="toggleHighlight(this)" value="{@xml:id}"
@@ -283,16 +286,20 @@
                                         <h3 class="fs-4 p-1">Artworks</h3>
                                         <div class="ps-4">
                                             <xsl:for-each select=".//tei:back//tei:bibl[@xml:id]">
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox"
-                                                  onchange="toggleHighlight(this)" value="{@xml:id}"
-                                                  id="check-{@xml:id}"/>
-                                                  <label class="form-check-label"
-                                                  for="check-{@xml:id}">
-                                                  <xsl:value-of select="./tei:title/text()"/>
-                                                  </label>
-                                                </div>
-                                            </xsl:for-each>
+                                            <xsl:sort select="normalize-space(tei:title)" order="ascending"/>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    onchange="toggleHighlight(this)"
+                                                    value="{@xml:id}"
+                                                    id="check-{@xml:id}"/>
+
+                                                <label class="form-check-label"
+                                                    for="check-{@xml:id}">
+                                                    <xsl:value-of select="tei:title"/>
+                                                </label>
+                                            </div>
+                                        </xsl:for-each>
+
                                         </div>
                                     </div>
                                 </xsl:if>

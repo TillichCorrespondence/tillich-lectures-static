@@ -180,6 +180,7 @@
         </div>
     </xsl:template>
  
+ <!-- Painting details modal -->
     <xsl:template match="tei:bibl[@xml:id]">
         <xsl:variable name="selfLink" select="concat(@xml:id, '.html')"/>
         <xsl:variable name="label" select="tei:title[1]"/>
