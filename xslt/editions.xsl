@@ -121,7 +121,7 @@
                         <div class="row">                            
                             <div class="d-none d-lg-block col-lg-6 border-end position-relative" id="facs-container">
                                 <h2 class="visually-hidden">Facs</h2>
-                                 <div class="d-flex justify-content-end">
+                                 <div class="d-none d-lg-flex justify-content-end">
                                     <button
                                         class="btn btn-outline-primary position-absolute top-0 end-0 m-2 z-1"
                                         id="toggle-facs"
