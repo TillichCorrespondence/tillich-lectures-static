@@ -5,11 +5,28 @@
     
     
     <xsl:template match="tei:bibl" name="painting_detail">
-        <xsl:variable name="selfLink" select="concat(@xml:id, '.html')"/>
-        <xsl:variable name="image" select="string(.//tei:ref[@type='wikidata_image'])"/>
+        <xsl:variable name="selfLink" select="concat(@xml:id, '.html')"/>   
         <xsl:variable name="title" select="normalize-space(.//tei:title)"/>
         <xsl:variable name="author" select="normalize-space(.//tei:author)"/>
         <xsl:variable name="title_aut" select="concat($title, ' — ', $author)"/>
+
+        <!-- Generate thumbnail URL from Wikidata image reference -->
+        <xsl:variable name="image" select="string(.//tei:ref[@type='wikidata_image'])"/>
+        <xsl:variable name="filename" select="tokenize($image, '/')[last()]"/>
+        <xsl:variable name="path"
+            select="string-join(tokenize($image, '/')[position() = last()-2 or position() = last()-1], '/')"/>
+        <xsl:variable name="thumb-width" select="'400'"/> <!-- Set desired thumbnail width i.e. 400px -->
+
+        <xsl:variable name="thumbnail"
+            select="
+            concat(
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/',
+                $path, '/',
+                $filename, '/',
+                $thumb-width, 'px-',
+                $filename
+            )
+            "/>
         
         <table class="table entity-table">
             <tbody>
@@ -52,7 +69,7 @@
                 </dl>                
                  <xsl:if test="tei:ref[@type='wikidata_image']">
                      <figure class="painting-figure">
-                         <img src="{$image}" alt="{$title_aut}"/>                         
+                         <img src="{$thumbnail}" alt="{$title_aut}"/>                         
                          <figcaption>
                              <xsl:value-of select="$title_aut"/>
                              <xsl:text> via  </xsl:text>
