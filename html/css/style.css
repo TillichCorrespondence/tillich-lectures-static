@@ -9,6 +9,11 @@ html {
   scroll-behavior: smooth;
 }
 
+.bg-dse-base {
+  background-color: var(--dse-base-color);
+  color: white;
+}
+
 /* needed for interactive map in listplace.xsl */
 div#map {
   height: 50vh;

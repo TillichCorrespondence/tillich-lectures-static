@@ -6,13 +6,10 @@
     exclude-result-prefixes="#all"
     version="2.0">
     <xsl:template match="/" name="html_footer">
-        <footer class="py-3 bg-body-tertiary">
+        <footer class="pt-3 bg-body-tertiary">
             
             <div class="container text-center">
-                <!-- <div class="pb-2">
-                    <span class="fs-5">Kontakt</span>
-                </div> -->
-                <div class="row justify-content-md-center pt-2">
+                <div class="row justify-content-md-evenly p-2">
                     <div class="col-lg">
                         <div>
                             <a href="https://www.oeaw.ac.at/acdh/acdh-home">
@@ -45,26 +42,23 @@
                             <a href="mailto:christian.danz@univie.ac.at">christian.danz@univie.ac.at</a>
                         </div>
                     </div>
-                </div>
-                <!-- <div class="pb-2 pt-2">
-                    <span class="fs-5">Förderinstitutionen</span>
-                </div> -->
-                <div class="row justify-content-md-center">
-                    
                     <div class="col-lg">
                         <img src="./images/fwf-logo.svg" alt="Austrian Science Fund logo" class="footerlogo"/>
                         <div class="text-center">
-                            Funded by the Austrian Science Fund (FWF) <a href="https://www.fwf.ac.at/forschungsradar/10.55776/P37167" class="dse-dotted">10.55776/P37167</a>
+                            Funded by the Austrian Science Fund (FWF)
+                            <br/><a href="https://www.fwf.ac.at/forschungsradar/10.55776/P37167" class="dse-dotted">10.55776/P37167</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center py-3">
-                <a href="{$github_url}">
-                    <i aria-hidden="true" class="bi bi-github fs-2"></i>
-                    <span class="visually-hidden">GitHub repo</span>
+            <div class="text-center py-1 bg-dse-base d-flex gap-3 justify-content-center align-items-center ">
+                <span>&#169;Copyright OEAW</span>
+                <a href="{$github_url}" class="text-white">
+                    <i aria-hidden="true" class="bi bi-github fs-1"></i>
+                    <span class="visually-hidden">GitHub repo</span>                    
                 </a>
+                <a href="imprint.html" class="text-white">Imprint</a>
             </div>
         </footer>
         <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
