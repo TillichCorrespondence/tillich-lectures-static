@@ -44,8 +44,9 @@
                         <table id="myTable">
                             <thead>
                                 <tr>
-                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Name</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="200">Name</th>
                                     <th scope="col" tabulator-visible="false" tabulator-download="true">Name_</th>
+                                    <th scope="col" tabulator-headerFilter="input" tabulator-minWidth="200">Citation</th>
                                     <th scope="col" tabulator-headerFilter="input" tabulator-maxWidth="200">Mentions</th>
                                     <th scope="col" tabulator-visible="false">ID</th>
                                 </tr>
@@ -65,7 +66,9 @@
                                         <td>
                                             <xsl:value-of select="./tei:term/@xml:id"/>
                                         </td>
-                                        
+                                        <td>
+                                            <xsl:value-of select="./tei:noteGrp/tei:note/tei:cit/tei:quote"/>
+                                        </td>
                                         <td>
                                             <xsl:value-of select="count(.//tei:noteGrp//tei:note)"/>
                                         </td>
@@ -104,7 +107,7 @@
                                     <a href="index.html"><xsl:value-of select="$project_short_title"/></a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="listkeywords.html">Keywords</a>
+                                    <a href="listbible.html">Biblical citations</a>
                                 </li>
                             </ol>
                         </nav>
@@ -122,6 +125,12 @@
                                                 <a href="{replace(./@target, '.xml', '.html')}">
                                                     <xsl:value-of select="./text()"/>
                                                 </a>
+                                                <xsl:if test="tei:cit/tei:quote">
+                                                    <xsl:text> - Quote: </xsl:text>
+                                                    <em>
+                                                        <xsl:value-of select="string-join(tei:cit/tei:quote, '; ')"/>
+                                                    </em>
+                                                </xsl:if>
                                             </li>
                                         </xsl:for-each>
                                     </ul>
