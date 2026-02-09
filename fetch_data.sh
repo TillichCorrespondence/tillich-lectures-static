@@ -30,12 +30,13 @@ echo "search and replace 'Paul-Tillich-Korrespondenz:' with 'Paul Tillich Lectur
 find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespondenz:/Paul Tillich Lectures:/g' {} +
 
 python make_keyword_index.py
-python make_bible_index.py
 add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
 
 echo "denormalizing indices" 
 denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
+
+python make_bible_index.py
 
 echo "remove notegroups from editions"
 python remove_notegrp_from_back.py
