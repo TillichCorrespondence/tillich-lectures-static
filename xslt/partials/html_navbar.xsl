@@ -46,13 +46,9 @@
                                     <li>
                                         <a class="dropdown-item" href="listpainting.html">Artworks</a>
                                     </li>
-                                    <!--<li>
-                                        <a class="dropdown-item" href="listplace.html">Orte</a>
+                                   <li>
+                                        <a class="dropdown-item" href="listbible.html">Biblical citations</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="listorg.html">Organisationen</a>
-                                    </li>
-                                    -->
                                 </ul>
                             </li>
 

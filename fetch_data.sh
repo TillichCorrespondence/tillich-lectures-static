@@ -30,6 +30,7 @@ echo "search and replace 'Paul-Tillich-Korrespondenz:' with 'Paul Tillich Lectur
 find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespondenz:/Paul Tillich Lectures:/g' {} +
 
 python make_keyword_index.py
+python make_bible_index.py
 add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
 

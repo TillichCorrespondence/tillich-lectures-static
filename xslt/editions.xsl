@@ -335,7 +335,7 @@
                                         </div>
                                     </div>
                                 </xsl:if>
-                                <!-- <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
+                                <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
                                      <div class="border rounded card-body mb-3 p-2">
                                         <h3 class="fs-4 p-1">Bibelstellen</h3>
                                         <div class="ps-4">
@@ -359,7 +359,7 @@
                                         </div>
                                     </div> 
                                 </xsl:if>
-                               -->
+                        
                             </div></div>
                             
                         </div>
