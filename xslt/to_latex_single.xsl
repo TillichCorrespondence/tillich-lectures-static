@@ -230,7 +230,7 @@ Harvard University, 1955-56}
      <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
 </xsl:template>
 
-<xsl:template match="tei:hi[@style='ont-style: italic;']">
+<xsl:template match="tei:hi[@style='font-style: italic;']">
      <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
 </xsl:template>
 
