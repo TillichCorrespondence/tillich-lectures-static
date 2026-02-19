@@ -9,7 +9,11 @@
     <xsl:template match="/">
 \documentclass[12pt,a4paper,oneside]{book}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+
+\usepackage{fontspec}        % For font management
+\usepackage{polyglossia}     % For multilingual support
+\setmainlanguage{german}  % Set main language
+\setotherlanguage{greek}  % Set other language
 \usepackage{fancyhdr} 
 \usepackage{geometry} 
 \usepackage{titlesec}
@@ -338,12 +342,26 @@ Harvard University, 1955-56}
      <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
 </xsl:template>
 
+<xsl:template match="tei:hi[@style='ont-style: italic;']">
+     <xsl:text>\textit {</xsl:text><xsl:apply-templates/><xsl:text>}</xsl:text>  
+</xsl:template>
+
+ <!-- Foreign text (Greek) -->
+<xsl:template match="tei:foreign[@xml:lang='grc']">
+    <xsl:text>\begin{greek}</xsl:text><xsl:apply-templates/><xsl:text>\end{greek}</xsl:text>
+</xsl:template>
+
 <xsl:template match="tei:note">
 \footnote{<xsl:apply-templates/>}
 </xsl:template>
     
     <xsl:template match="tei:head[@type='lecture']">
         <!-- Skip lecture heads in body since we use them in chapter titles -->
+    </xsl:template>
+
+    <xsl:template match="tei:title[@type='lecture']">
+        <xsl:apply-templates/>
+        <xsl:text>\par&#xA;</xsl:text>
     </xsl:template>
     
 </xsl:stylesheet>
