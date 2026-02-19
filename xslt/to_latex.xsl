@@ -359,9 +359,8 @@ Harvard University, 1955-56}
         <!-- Skip lecture heads in body since we use them in chapter titles -->
     </xsl:template>
 
-    <xsl:template match="tei:title[@type='lecture']">
-        <xsl:apply-templates/>
-        <xsl:text>\par&#xA;</xsl:text>
+   <xsl:template match="tei:title[@type='lecture']">
+        <!-- skip -->
     </xsl:template>
     
 </xsl:stylesheet>
