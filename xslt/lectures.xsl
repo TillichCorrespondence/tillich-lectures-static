@@ -5,7 +5,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   version="2.0"
   exclude-result-prefixes="tei xs">
-
+ <!-- script to merge page-level TEI into lecture-level TEI -->
   <xsl:output method="xml" indent="yes"/>
 
   <!-- directory with page-level TEI -->

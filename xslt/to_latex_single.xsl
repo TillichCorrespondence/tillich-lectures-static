@@ -12,7 +12,17 @@
     </xsl:template>
     
     <!-- BODY TEMPLATE -->
-    <xsl:template match="tei:body">
+    <xsl:template match="tei:body">        
+        
+        <!-- Get main title from titleStmt -->
+        <xsl:variable name="lecture-title-raw"
+            select="root()//tei:titleStmt/tei:title[@type='main'][1]"/>
+        
+        <!-- Extract just "Lecture II" without (Nr. XXXX) -->
+        <xsl:variable name="lectureTitle" 
+            select="replace($lecture-title-raw, '^((Lecture|Preface) [IVXL]+[a-z]?).*$', '$1')"/>
+        
+        
         \documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 
@@ -37,7 +47,8 @@
 \fancyfoot[C]{\thepage} % Center footer shows page number
 \renewcommand{\headrulewidth}{0.4pt} % Add line under header
  
-\title{Religion and Culture by Paul Tillich\\[0.5cm]
+\title{Religion and Culture by Paul Tillich:
+\subtitle <xsl:value-of select="$lectureTitle"/> \\[0.5cm]
 \large A digital edition of Paul Tillich's Lecture “Religion and Culture”\\
 Harvard University, 1955-56}
 
@@ -50,8 +61,10 @@ Harvard University, 1955-56}
 
         \begin{document}
         
-        \maketitle        
-        <xsl:apply-templates/>    
+        \maketitle 
+              
+        <xsl:apply-templates/>  
+          
 \end{document}
     </xsl:template>
     

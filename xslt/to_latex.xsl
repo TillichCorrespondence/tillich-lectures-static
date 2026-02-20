@@ -97,7 +97,7 @@ Harvard University, 1955-56}
 
         <!-- Group by lecture number extracted from title -->
         <xsl:for-each-group select="current-group()" 
-            group-by="replace(.//tei:titleStmt/tei:title[@type='main'][1], '^((Lecture|Preface) [IVXL]+).*$', '$1')">
+            group-by="replace(.//tei:titleStmt/tei:title[@type='main'][1], '^((Lecture|Preface) [IVXL]+[a-z]?).*$', '$1')">
             <xsl:sort select="current-group()[1]/@xml:id"/>
             
             <!-- Get the first page (the one with subtype='first_page') -->
@@ -114,7 +114,7 @@ Harvard University, 1955-56}
 
 <!-- Extract just "Lecture I" or "Preface I" without the (Nr. XXXX) -->
 <xsl:variable name="lecture-title-clean" 
-    select="replace($lecture-title-raw, '^((Lecture|Preface) [IVXL]+).*$', '$1')"/>
+    select="replace($lecture-title-raw, '^((Lecture|Preface) [IVXL]+[a-z]?).*$', '$1')"/>
 
 <xsl:variable name="lecture-title">
     <xsl:call-template name="escape_character_latex">
