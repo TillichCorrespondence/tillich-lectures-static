@@ -347,7 +347,7 @@ Harvard University, 1955-56}
 </xsl:template>
 
  <!-- Foreign text (Greek) -->
-<xsl:template match="tei:foreign[@xml:lang='grc']">
+<xsl:template match="tei:foreign[@xml:lang='gre']">
     <xsl:text>\begin{greek}</xsl:text><xsl:apply-templates/><xsl:text>\end{greek}</xsl:text>
 </xsl:template>
 
