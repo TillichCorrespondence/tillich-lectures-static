@@ -31,6 +31,8 @@
 \setmainlanguage{german}  % Set main language
 \setotherlanguage{greek}  % Set other language
 
+\newfontfamily\greekfont{FreeSerif}
+
 \usepackage{fancyhdr} 
 \usepackage{geometry} 
 \usepackage{titlesec}
