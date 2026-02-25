@@ -207,6 +207,10 @@ footer a {
   width: auto;
   display: block;
 }
+/* add some spacing to the imprint and about  page */
+.impressum {
+  padding-top: 40px;
+}
 
 /* Algolia search */
 
