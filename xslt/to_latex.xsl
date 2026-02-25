@@ -14,7 +14,8 @@
 \usepackage{polyglossia}     % For multilingual support
 \setmainlanguage{german}  % Set main language
 \setotherlanguage{greek}  % Set other language
-\newfontfamily\greekfont{FreeSerif}
+\setotherlanguage[variant=ancient]{greek}
+\newfontfamily\greekfont[Script=Greek]{FreeSerif}
 
 \usepackage{fancyhdr} 
 \usepackage{geometry} 

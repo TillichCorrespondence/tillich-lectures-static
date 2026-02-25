@@ -42,8 +42,8 @@ jobs:
           python-version: "3.12"
       - name: install python things
         run: pip install -r requirements.txt
-      - name: Install Latex
-        run: sudo apt-get update && sudo apt-get install texlive-xetex texlive-latex-extra -y
+      - name: Install Latex and lang packages
+        run: sudo apt-get update && sudo apt-get install texlive-xetex texlive-humanities texlive-lang-german texlive-lang-french texlive-lang-english texlive-lang-greek fonts-freefont-ttf fonts-dejavu texlive-fonts-recommended openjdk-11-jre-headless ant -y
       - name: Fetch the data
         run: ./fetch_data.sh
       - name: Typesense Index
