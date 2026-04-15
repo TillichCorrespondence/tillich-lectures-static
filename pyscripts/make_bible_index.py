@@ -74,9 +74,7 @@ for key, value in sorted(d.items()):
     notegrp = ET.Element(f"{{{NS}}}noteGrp")
     item.append(notegrp)
 
-    for xml_id, src_title, citation in (
-        v.split("|", 2) for v in sorted(value)
-    ):
+    for xml_id, src_title, citation in (v.split("|", 2) for v in sorted(value)):
         note = ET.Element(f"{{{NS}}}note")
         note.attrib["type"] = "mentions"
         note.attrib["target"] = xml_id
@@ -92,7 +90,6 @@ for key, value in sorted(d.items()):
         note.append(cit)
 
         notegrp.append(note)
-
 
 
 doc.tree_to_file("./data/indices/listbible.xml")
