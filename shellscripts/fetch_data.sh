@@ -23,6 +23,7 @@ rm ./data/indices/listbibl.xml
 wget https://raw.githubusercontent.com/TillichCorrespondence/tillich-zotero/refs/heads/main/listbibl.xml -P ./data/indices
 
 uv run add-attributes -g "./data/editions/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+uv run add-attributes -g "./data/additional/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 uv run add-attributes -g "./data/meta/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 uv run add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
@@ -34,7 +35,7 @@ uv run add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acd
 
 
 echo "denormalizing indices" 
-uv run denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
+uv run denormalize-indices -f "./data/*/*.xml" -i "./data/indices/*.xml"
 
 uv run pyscripts/make_bible_index.py
 

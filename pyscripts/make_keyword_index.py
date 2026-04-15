@@ -1,11 +1,11 @@
 import glob
-import lxml.etree as ET
 from collections import defaultdict
+
+import lxml.etree as ET
 from acdh_tei_pyutils.tei import TeiReader
 from acdh_tei_pyutils.utils import check_for_hash
 
-
-files = sorted(glob.glob("./data/editions/*xml"))
+files = sorted(glob.glob("./data/*/*xml"))
 d = defaultdict(set)
 
 for x in files:

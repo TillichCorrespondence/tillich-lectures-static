@@ -1,19 +1,19 @@
 import glob
 import os
 
-from typesense.api_call import ObjectNotFound
-from acdh_cfts_pyutils import TYPESENSE_CLIENT as client, CFTS_COLLECTION
+from acdh_cfts_pyutils import CFTS_COLLECTION
+from acdh_cfts_pyutils import TYPESENSE_CLIENT as client
 from acdh_tei_pyutils.tei import TeiReader
 from acdh_tei_pyutils.utils import (
-    extract_fulltext,
     check_for_hash,
+    extract_fulltext,
     get_xmlid,
     make_entity_label,
 )
 from tqdm import tqdm
+from typesense.api_call import ObjectNotFound
 
-
-files = glob.glob("./data/editions/*.xml")
+files = glob.glob("./data/*/*.xml")
 tag_blacklist = ["{http://www.tei-c.org/ns/1.0}abbr"]
 
 COLLECTION_NAME = "tillich-lectures"
