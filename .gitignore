@@ -9,6 +9,7 @@ data/indices/*.xml
 data/editions/*.xml
 data/lectures/*.xml
 data/meta/*.xml
+data/additional/*.xml
 
 /html/oai-pmh/*.xml
 .DS_Store
