@@ -36,18 +36,14 @@ jobs:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: install python things
-        run: pip install -r requirements.txt
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v8.0.0
       - name: Install Latex and lang packages
         run: sudo apt-get update && sudo apt-get install texlive-xetex texlive-humanities texlive-lang-german texlive-lang-french texlive-lang-english texlive-lang-greek fonts-freefont-ttf fonts-dejavu texlive-fonts-recommended openjdk-11-jre-headless ant -y
       - name: Fetch the data
-        run: ./fetch_data.sh
+        run: ./shellscripts/fetch_data.sh
       - name: Typesense Index
-        run: python make_ts_index.py
+        run: uv run pyscripts/make_ts_index.py
       - name: Build the app
         run: ant
       - name: Create PDF

@@ -22,27 +22,27 @@ rm -rf tillich-entities-main
 rm ./data/indices/listbibl.xml
 wget https://raw.githubusercontent.com/TillichCorrespondence/tillich-zotero/refs/heads/main/listbibl.xml -P ./data/indices
 
-add-attributes -g "./data/editions/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
-add-attributes -g "./data/meta/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
-add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+uv run add-attributes -g "./data/editions/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+uv run add-attributes -g "./data/meta/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+uv run add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
 echo "search and replace 'Paul-Tillich-Korrespondenz:' with 'Paul Tillich Lectures:' in indices"
 find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespondenz:/Paul Tillich Lectures:/g' {} +
 
-python make_keyword_index.py
-add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
+uv run pyscripts/make_keyword_index.py
+uv run add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
 
 echo "denormalizing indices" 
-denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
+uv run denormalize-indices -f "./data/editions/*.xml" -i "./data/indices/*.xml"
 
-python make_bible_index.py
+uv run pyscripts/make_bible_index.py
 
 echo "remove notegroups from editions"
-python remove_notegrp_from_back.py
+uv run pyscripts/remove_notegrp_from_back.py
 
 echo "fetching imprint data"
 ./shellscripts/dl_imprint.sh
 
 echo "OAI-PMH"
-python oai-pmh/make_files.py
+uv run oai-pmh/make_files.py
