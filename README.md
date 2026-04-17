@@ -9,20 +9,10 @@
 ## Setup
 
 ### Prerequisites
-* Python 3.x installed (`python3 --version` to check)
+* uv installed
 * Java (for running Saxon/Ant)
 * curl, wget, unzip
 
-### Create and activate venv
-```bash
-   python3 -m venv venv
-   source venv/bin/activate
-```
-
-### Install dependencies - (one time) setup
-```bash
-   pip install -r requirements.txt
-```
 
 ### Download Saxon and imprint data - (one time) setup
 ```bash
