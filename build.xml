@@ -67,6 +67,12 @@
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <classpath location="${basedir}/saxon/saxon9he.jar"/>
         </xslt>
+        <xslt style="./xslt/additionals.xsl" basedir="./data/additional" destdir="${target}"
+            includes="*.xml">
+            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+            <classpath location="${basedir}/saxon/saxon9he.jar"/>
+        </xslt>
+
  <xslt in="${index}" out="${target}/toc.html" style="./xslt/toc.xsl">
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <classpath location="${basedir}/saxon/saxon9he.jar"/>

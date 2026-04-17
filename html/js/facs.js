@@ -1,30 +1,42 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const source = document.getElementById("url").textContent;
+document.addEventListener('DOMContentLoaded', function () {
 
-  // Automatically load the viewer on large screens (d-lg-block)
-  if (window.innerWidth >= 992) {  // This is the breakpoint for large screens (lg)
-    loadOpenSeadragonViewer(source);
-  }
+  // function to initialize ONE viewer
+  function initViewer(el) {
+    if (el.classList.contains('osd-loaded')) return; // duplicate init
 
-  // Load OpenSeadragon on button click for small screens
-  document.getElementById('btn-facsimile').addEventListener('click', function() {
-    loadOpenSeadragonViewer(source);
-  });
-
-  // Function to initialize OpenSeadragon viewer
-  function loadOpenSeadragonViewer(imageSource) {
-    var viewer = OpenSeadragon({
-      id: "osd_viewer",
+    OpenSeadragon({
+      element: el,
       tileSources: {
         type: "image",
-        url: imageSource
+        url: el.dataset.image
       },
       prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/"
     });
 
-    // Show the facsimile container if it was hidden (on small screens before button click)
-    document.getElementById("facs-container").classList.toggle('d-none');
+    el.classList.add('osd-loaded');
   }
+
+  // LARGE SCREENS: load all immediately
+  if (window.innerWidth >= 992) {
+    document.querySelectorAll('[id^="osd_viewer_"]').forEach(initViewer);
+  }
+
+  // SMALL SCREENS: load on button click
+  document.querySelectorAll('.btn-facsimile, .toggle-facs').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+
+      const container = this.closest('.facs-container');
+      const viewer = container.querySelector('[id^="osd_viewer_"]');
+
+      if (viewer) {
+        initViewer(viewer);
+      }
+
+      // optional toggle
+      container.classList.toggle('d-none');
+    });
+  });
+
 });
 
 // Toggle facsimile visibility on large screens
