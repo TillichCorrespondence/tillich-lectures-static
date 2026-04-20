@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  // function to initialize ONE viewer
   function initViewer(el) {
-    if (el.classList.contains('osd-loaded')) return; // duplicate init
+    if (el.classList.contains('osd-loaded')) return;
 
     OpenSeadragon({
       element: el,
@@ -16,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
     el.classList.add('osd-loaded');
   }
 
-  // LARGE SCREENS: load all immediately
+  // init all on large screens
   if (window.innerWidth >= 992) {
-    document.querySelectorAll('[id^="osd_viewer_"]').forEach(initViewer);
+    document.querySelectorAll('[id^="osd_viewer"]').forEach(initViewer);
   }
 
-  // SMALL SCREENS: load on button click
-  document.querySelectorAll('.btn-facsimile, .toggle-facs').forEach(function (btn) {
+  // toggle + lazy load
+  document.querySelectorAll('.toggle-facs').forEach(btn => {
     btn.addEventListener('click', function () {
 
       const container = this.closest('.facs-container');
@@ -43,31 +42,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.getElementById("toggle-facs");
-  const label = document.getElementById("toggle-facs-label");
-  const facs = document.getElementById("facs-content");
-  const trans = document.getElementById("pdf-transcript");
-  const facsContainer = document.getElementById("facs-container");
+
+  const toggleBtn = document.querySelector("#toggle-facs");
+  if (!toggleBtn) return;
+  
+  let isHidden = false 
   const icon = toggleBtn.querySelector("i");
+  const label = toggleBtn.querySelector(".toggle-facs-label");
 
   toggleBtn.addEventListener("click", () => {
-    // toggle facsimile content
-    facs.classList.toggle("d-none");
+    isHidden = !isHidden;
+    const facsContents = document.querySelectorAll(".facs-content");
+    const facsContainers = document.querySelectorAll(".facs-container");
+    const transcripts = document.querySelectorAll(".pdf-transcript");
 
-    // toggle transcript width
-    trans.classList.toggle("col-lg-4");
-    trans.classList.toggle("col-lg-9");
+    // toggle all facsimiles
+    facsContents.forEach(el => el.classList.toggle("d-none"));
 
-    // toggle facsimile column width
-    facsContainer.classList.toggle("col-lg-6");
-    facsContainer.classList.toggle("col-lg-1");
+    // adjust all layout columns
+    facsContainers.forEach(el => {
+      el.classList.toggle("col-lg-6");
+      el.classList.toggle("col-lg-1");
+    });
 
-    // toggle icon direction
+    transcripts.forEach(el => {
+      el.classList.toggle("col-lg-6");
+      el.classList.toggle("col-lg-9");
+    });
+
+    // toggle icon
     icon.classList.toggle("bi-caret-left-fill");
     icon.classList.toggle("bi-caret-right-fill");
 
-     // toggle label text
-    label.textContent = facs.classList.contains("d-none") ? "Show facsimile" : "Hide facsimile";
+    // update label (based on FIRST element state)
+    label.textContent = isHidden ? "Show facsimile" : "Hide facsimile";
   });
-});
 
+});

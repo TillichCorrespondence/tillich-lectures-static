@@ -71,25 +71,39 @@
                                     <h1 id="pdf-title">
                                         <xsl:value-of select="$doc_title"/>
                                     </h1>
-                                    <div>
-                                        <a href="{$teiSource}">
-                                            <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
-                                                visually-hidden="true">
-                                                <span class="visually-hidden">Go to TEI/XML document</span>
-                                            </i>
-                                        </a>
-                                      <!--  <a href="{$link_pdf}">
-                                            <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current lecture as a PDF"
-                                                visually-hidden="true">
-                                                <span class="visually-hidden">Download lecture as a PDF</span>
-                                            </i>
-                                        </a>-->
-                                        <a href="tillich-lectures.pdf">
-                                            <i class="ps-1 bi bi-book fs-2" title="Download all lectures as a single PDF"
-                                                visually-hidden="true">
-                                                <span class="visually-hidden">Download all lectures as a PDF</span>
-                                            </i>
-                                        </a>
+                                    <div class="container"> 
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <button
+                                                    class="btn btn-outline-primary btn-sm"
+                                                    id="toggle-facs"
+                                                    title="Hide / show facsimile"
+                                                    aria-label="Toggle facsimile">
+                                                    <span class="toggle-facs-label">Hide facsimile</span>
+                                                    <i class="bi bi-caret-left-fill"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-10">
+                                                <a href="{$teiSource}">
+                                                    <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Go to TEI/XML document</span>
+                                                    </i>
+                                                </a>
+                                               <!-- <a href="{$link_pdf}">
+                                                    <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current lecture as a PDF"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Download lecture as a PDF</span>
+                                                    </i>
+                                                </a>-->
+                                                <a href="tillich-lectures.pdf">
+                                                    <i class="ps-1 bi bi-book fs-2" title="Download all lectures as a single PDF"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Download all lectures as a PDF</span>
+                                                    </i>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-2 text-start">
@@ -118,18 +132,6 @@
                         </div>
                         <div class="row">                          
                           <div class="d-none d-lg-block col-lg-10 border-end position-relative">
-                                <h2 class="visually-hidden">Facs</h2>
-                                 <!--<div class="d-none d-lg-flex justify-content-end">
-                                    <button
-                                        class="btn btn-outline-primary position-absolute top-0 end-0 m-2 z-1"
-                                        id="toggle-facs"
-                                        title="Hide / show facsimile"
-                                        aria-label="Toggle facsimile">
-                                        <span id="toggle-facs-label">Hide facsimile</span>
-                                        <i class="bi bi-caret-left-fill"></i>
-                                    </button>
-                                </div>-->
-                                <div class="p-2">
                                    
                         <xsl:for-each-group select="//tei:body//tei:pb | //tei:body//tei:p" group-starting-with="tei:pb">
                             
@@ -145,29 +147,27 @@
                             <xsl:variable name="facsUrl"
                                 select="//tei:surface[@xml:id = $facsId]/tei:graphic[2]/@url"/>
                             
-                            <div class="row">
+                            <div class="row border-bottom border-primary">
                                 
                                 <!-- Facsimile -->
                                 <div class="d-none d-lg-block col-lg-6 border-end position-relative facs-container">
                                     <h2 class="visually-hidden">Facs</h2>                                 
-                                    <div class="p-2">
+                                    <div class="d-flex flex-column justify-content-center facs-content">
                                         <div style="width: 100%; height: 800px" id="osd_viewer_{$facsId}" data-image="{$facsUrl}">
                                         </div>
                                             <span class="figure-caption text-center">Tillich
                                             Lectures (<xsl:value-of select="$pnN"/>)</span>
-                                    </div>      
+                                    </div>  
                                 </div> 
                                 
                                 <!-- Transcript -->
                                 <div class="col-12 col-lg-6 pt-5 mx-auto p-lg-5 pdf-transcript">
                                     <xsl:apply-templates select="current-group()[self::tei:p]"/>
-                                    <hr/>
                                 </div>
                                 
                             </div>
                             
                         </xsl:for-each-group>
-                            </div>
                             </div>
                             <div class="col-lg-2 mb-5">
                             <hr class="d-lg-none"/>
