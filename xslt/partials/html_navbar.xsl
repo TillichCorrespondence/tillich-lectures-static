@@ -30,6 +30,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="toc.html">Lectures</a>
                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="toc-additional.html">Additional Materials</a>
+                            </li>
 
                             <li class="nav-item dropdown disabled">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Indices</a>

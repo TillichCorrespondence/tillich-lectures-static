@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const label = toggleBtn.querySelector(".toggle-facs-label");
 
   toggleBtn.addEventListener("click", () => {
+    console.log("Toggling facsimiles visibility");
     isHidden = !isHidden;
     const facsContents = document.querySelectorAll(".facs-content");
     const facsContainers = document.querySelectorAll(".facs-container");

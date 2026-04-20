@@ -77,6 +77,10 @@
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <classpath location="${basedir}/saxon/saxon9he.jar"/>
         </xslt>
+        <xslt in="${index}" out="${target}/toc-additional.html" style="./xslt/toc-additional.xsl">
+            <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+            <classpath location="${basedir}/saxon/saxon9he.jar"/>
+        </xslt>
 
         <replace dir="${target}" value="">
             <include name="*.html"/>

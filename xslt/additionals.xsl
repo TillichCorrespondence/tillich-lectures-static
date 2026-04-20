@@ -150,7 +150,7 @@
                             <div class="row border-bottom border-primary">
                                 
                                 <!-- Facsimile -->
-                                <div class="d-none d-lg-block col-lg-6 border-end position-relative facs-container">
+                                <div class="d-none d-lg-block col-lg-6  position-relative facs-container">
                                     <h2 class="visually-hidden">Facs</h2>                                 
                                     <div class="d-flex flex-column justify-content-center facs-content">
                                         <div style="width: 100%; height: 800px" id="osd_viewer_{$facsId}" data-image="{$facsUrl}">
