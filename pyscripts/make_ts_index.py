@@ -13,7 +13,10 @@ from acdh_tei_pyutils.utils import (
 from tqdm import tqdm
 from typesense.api_call import ObjectNotFound
 
-files = glob.glob("./data/*/*.xml")
+
+files = []
+files.extend(glob.glob("./data/additional/*.xml"))
+files.extend(glob.glob("./data/editions/*.xml"))
 tag_blacklist = ["{http://www.tei-c.org/ns/1.0}abbr"]
 
 COLLECTION_NAME = "tillich-lectures"

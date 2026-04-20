@@ -23,15 +23,12 @@
     <xsl:variable name="teiSource">
         <xsl:value-of select="data(tei:TEI/@xml:id)"/>
     </xsl:variable>
-    <xsl:variable name="lecture">
-        <xsl:value-of select="data(.//tei:title[@type='main']/@n)"/>
-    </xsl:variable>
-    <xsl:variable name="link">
-        <xsl:value-of select="concat($lecture, '.xml')"/>
-    </xsl:variable>
-    <xsl:variable name="link_pdf">
-        <xsl:value-of select="concat('lectures/', $lecture, '.pdf')"/>
-    </xsl:variable>
+    <!--<xsl:variable name="link">
+        <xsl:value-of select="concat($teiSource, '.xml')"/>
+    </xsl:variable>-->
+    <!--<xsl:variable name="link_pdf">
+        <xsl:value-of select="concat('additionals/', $additional, '.pdf')"/>
+    </xsl:variable>-->
     <xsl:variable name="doc_title">
         <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
     </xsl:variable>
@@ -75,38 +72,38 @@
                                         <xsl:value-of select="$doc_title"/>
                                     </h1>
                                     <div class="container"> 
-                                       <div class="row">
-                                           <div class="col-2">
-                                           <button
-                                        class="btn btn-outline-primary btn-sm"
-                                         id="toggle-facs"
-                                         title="Hide / show facsimile"
-                                         aria-label="Toggle facsimile">
-                                         <span class="toggle-facs-label">Hide facsimile</span>
-                                         <i class="bi bi-caret-left-fill"></i>
-                                        </button>
-                                       </div>
-                                        <div class="col-10">
-                                            <a href="{$link}">
-                                                <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
-                                                    visually-hidden="true">
-                                                    <span class="visually-hidden">Go to TEI/XML document</span>
-                                                </i>
-                                            </a>
-                                            <a href="{$link_pdf}">
-                                                <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current lecture as a PDF"
-                                                    visually-hidden="true">
-                                                    <span class="visually-hidden">Download lecture as a PDF</span>
-                                                </i>
-                                            </a>
-                                            <a href="tillich-lectures.pdf">
-                                                <i class="ps-1 bi bi-book fs-2" title="Download all lectures as a single PDF"
-                                                    visually-hidden="true">
-                                                    <span class="visually-hidden">Download all lectures as a PDF</span>
-                                                </i>
-                                            </a>
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <button
+                                                    class="btn btn-outline-primary btn-sm"
+                                                    id="toggle-facs"
+                                                    title="Hide / show facsimile"
+                                                    aria-label="Toggle facsimile">
+                                                    <span class="toggle-facs-label">Hide facsimile</span>
+                                                    <i class="bi bi-caret-left-fill"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-10">
+                                                <a href="{$teiSource}">
+                                                    <i class="bi bi-filetype-xml fs-2" title="Go to TEI/XML document"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Go to TEI/XML document</span>
+                                                    </i>
+                                                </a>
+                                               <!-- <a href="{$link_pdf}">
+                                                    <i class="ps-1 bi bi-filetype-pdf fs-2" title="Download current lecture as a PDF"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Download lecture as a PDF</span>
+                                                    </i>
+                                                </a>-->
+                                                <a href="tillich-lectures.pdf">
+                                                    <i class="ps-1 bi bi-book fs-2" title="Download all lectures as a single PDF"
+                                                        visually-hidden="true">
+                                                        <span class="visually-hidden">Download all lectures as a PDF</span>
+                                                    </i>
+                                                </a>
+                                            </div>
                                         </div>
-                                       </div>
                                     </div>
                                 </div>
                                 <div class="col-2 text-start">
@@ -126,109 +123,51 @@
                                 </div>
                             </div>
                         </div>
+<!--                        small screens button for facs load -->
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
                             <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
                             <xsl:if test=".//tei:rs[@type = 'keyword' and @ref] or .//tei:back//tei:bibl[@xml:id] or .//tei:back//tei:person[@xml:id] or .//tei:back//tei:place[@xml:id] or .//tei:back//tei:biblStruct[@xml:id]">
                             <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>
                             </xsl:if>
                         </div>
-                        <div class="row">                            
+                        <div class="row">                          
+                          <div class="d-none d-lg-block col-lg-10 border-end position-relative">
+                                   
+                        <xsl:for-each-group select="//tei:body//tei:pb | //tei:body//tei:p" group-starting-with="tei:pb">
                             
-                            <div class="d-none d-lg-block col-lg-6 border-end position-relative facs-container">                                
-                                <div class="facs-content">
-                                    <h2 class="visually-hidden">Facs</h2>   
-                                    <div
-                                        style="width: 100%; height: 800px"
-                                        id="osd_viewer_single"
-                                        data-image="{$facs-url}">
-                                    </div>
-                                    
-                                    <figcaption class="figure-caption text-center">
-                                        Tillich Lectures
-                                    </figcaption></div>
+                            <!-- the pb of this group -->
+                            <xsl:variable name="pb" select="current-group()[1]"/>
+                            
+                            <xsl:variable name="pnN" select="$pb/@n"/>
+                            
+                            <!-- extract facs id from pb -->
+                            <xsl:variable name="facsId" select="substring-after($pb/@facs, '#')"/>
+                            
+                            <!-- get image -->
+                            <xsl:variable name="facsUrl"
+                                select="//tei:surface[@xml:id = $facsId]/tei:graphic[2]/@url"/>
+                            
+                            <div class="row border-bottom border-primary">
+                                
+                                <!-- Facsimile -->
+                                <div class="d-none d-lg-block col-lg-6  position-relative facs-container">
+                                    <h2 class="visually-hidden">Facs</h2>                                 
+                                    <div class="d-flex flex-column justify-content-center facs-content">
+                                        <div style="width: 100%; height: 800px" id="osd_viewer_{$facsId}" data-image="{$facsUrl}">
+                                        </div>
+                                            <span class="figure-caption text-center">Tillich
+                                            Lectures (<xsl:value-of select="$pnN"/>)</span>
+                                    </div>  
+                                </div> 
+                                
+                                <!-- Transcript -->
+                                <div class="col-12 col-lg-6 pt-5 mx-auto p-lg-5 pdf-transcript">
+                                    <xsl:apply-templates select="current-group()[self::tei:p]"/>
+                                </div>
+                                
                             </div>
-                            <div class="col-12 col-lg-4 pt-5 mx-auto p-lg-5 pdf-transcript">
-                                <h2 class="visually-hidden">Transcript</h2>
-                                <xsl:apply-templates select=".//tei:body"/>
-                                 <hr/>
-                                <div class="pt-3">
-                                    <div class="ps-5 pe-5" id="pdf-footnotes">
-                                        <h2 class="visually-hidden">Footnotes, Editorial notes</h2>
-                                        <xsl:for-each select=".//tei:note[@type='ea' or @type='eb']">
-                                            <div class="footnotes">
-                                                <xsl:element name="a">
-                                                    <xsl:attribute name="name">
-                                                        <xsl:text>fn</xsl:text>
-                                                        <xsl:number level="any" format="1" count="tei:note"
-                                                        />
-                                                    </xsl:attribute>
-                                                    <a>
-                                                        <xsl:attribute name="href">
-                                                            <xsl:text>#fna_</xsl:text>
-                                                            <xsl:number level="any" format="1"
-                                                                count="tei:note"/>
-                                                        </xsl:attribute>
-                                                        <span
-                                                            style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
-                                                            <xsl:number level="any" format="1"
-                                                                count="tei:note"/>
-                                                        </span>
-                                                    </a>
-                                                </xsl:element>
-                                                <xsl:apply-templates/>
-                                            </div>
-                                        </xsl:for-each>
-                                    </div>
-                                </div>
-                                <div class="pt-3">
-                                <!-- Entities for pdf -->
-                                    <div class="ps-5 pe-5 visually-hidden" id="pdf-entities">
-                                        <h2 class="visually-hidden">Register</h2>
-                                        <xsl:for-each select=".//tei:rs[starts-with(@ref, '#') and @type]">
-                                            <xsl:variable name="rstype" select="@type"/>
-                                            <xsl:variable name="rsid" select="replace(@ref, '#', '')"/>
-                                            <xsl:variable name="ent" select="root()//tei:back//*[@xml:id=$rsid]"/>
-                                            <xsl:variable name="idxlabel">
-                                                <xsl:choose>
-                                                    <xsl:when test="$rstype=('person','place')">
-                                                        <xsl:value-of select="$ent/*[contains(name(), 'Name')][1]"/>
-                                                    </xsl:when>
-                                                    <xsl:when test="$rstype='work'">
-                                                        <xsl:value-of select="$ent/@n"/>
-                                                    </xsl:when>
-                                                   
-                                                    <xsl:when test="$rstype='bible'">
-                                                        <xsl:value-of select="./@ref"/>
-                                                    </xsl:when>
-                                                    <xsl:when test="$rstype='letter'">
-                                                        <xsl:value-of select="$ent//text()"/>
-                                                    </xsl:when>
-                                                    <xsl:when test="$rstype='keyword'">
-                                                        <xsl:value-of select="$rsid"/>
-                                                    </xsl:when>
-                                                </xsl:choose>
-                                            </xsl:variable>
-                                            <div>
-                                                <xsl:attribute name="id">
-                                                    <xsl:value-of select="$rsid"/>
-                                                    <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
-                                                    <xsl:text>endnote</xsl:text>
-                                                </xsl:attribute>
-                                                <sup>
-                                                    <a>
-                                                        <xsl:attribute name="href">
-                                                            <xsl:value-of select="concat('#', $rsid)"/>
-                                                            <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
-                                                            <xsl:text>anchor</xsl:text>
-                                                        </xsl:attribute>
-                                                        <xsl:number level="any" format="a" count="tei:rs[starts-with(@ref, '#') and @type]"/>
-                                                    </a>
-                                                </sup>
-                                                <span class="ps-1"><xsl:value-of select="$idxlabel"/></span>
-                                            </div>
-                                        </xsl:for-each>
-                                    </div>
-                                </div>
+                            
+                        </xsl:for-each-group>
                             </div>
                             <div class="col-lg-2 mb-5">
                             <hr class="d-lg-none"/>
@@ -370,46 +309,13 @@
                                     </div> 
                                 </xsl:if>
                         
-                            </div></div>
+                            </div>
                             
                         </div>
                     </div>
+                    </div>
                     <div class="tei-back">
-<!--                        NO modal for keywords - dont have info to display -->
-                       <!-- <xsl:for-each select="distinct-values(.//tei:rs[@type = 'keyword']/@ref)">
-                            <xsl:variable name="label">
-                                <xsl:value-of select="replace(replace(., '#', ''), '_', ' ')"/>
-                            </xsl:variable>
-                            <xsl:variable name="id">
-                                <xsl:value-of select="replace(., '#', '')"/>
-                            </xsl:variable>
-                            <xsl:variable name="selfLink">
-                                <xsl:value-of select="concat($id, '.html')"/>
-                            </xsl:variable>
-                            <div class="modal modal fade" id="{$id}" data-bs-keyboard="true"
-                                tabindex="-1" aria-label="{$label}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                <a href="{$selfLink}">
-                                                  <xsl:value-of select="$label"/>
-                                                </a>
-                                            </h1>
-                                            <button type="button" class="btn-close"
-                                                data-bs-dismiss="modal" aria-label="Close"/>
-                                        </div>
-                                        <div class="modal-body"/>
 
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary"
-                                                data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </xsl:for-each>-->
                         <xsl:for-each select="//tei:back">
                             <xsl:apply-templates/>
                         </xsl:for-each>
