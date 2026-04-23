@@ -76,7 +76,7 @@
                                     </h1>
                                     <div class="container"> 
                                        <div class="row">
-                                           <div class="col-2">
+                                           <div class="d-none d-lg-block col-2">
                                            <button
                                         class="btn btn-outline-primary btn-sm"
                                          id="toggle-facs"
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="d-lg-none d-flex justify-content-center gap-3 mx-auto">
-                            <button class="btn btn-primary btn-sm" id="btn-facsimile">Facsimile</button>
+                            <button class="btn btn-primary btn-sm toggle-facs" id="btn-facsimile">Facsimile</button>
                             <xsl:if test=".//tei:rs[@type = 'keyword' and @ref] or .//tei:back//tei:bibl[@xml:id] or .//tei:back//tei:person[@xml:id] or .//tei:back//tei:place[@xml:id] or .//tei:back//tei:biblStruct[@xml:id]">
                             <a href="#pdf-entities" class="btn btn-primary btn-sm" id="btn-entities">Entities</a>
                             </xsl:if>

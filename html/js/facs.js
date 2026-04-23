@@ -23,17 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // toggle + lazy load
   document.querySelectorAll('.toggle-facs').forEach(btn => {
     btn.addEventListener('click', function () {
-
-      const container = this.closest('.facs-container');
-      const viewer = container.querySelector('[id^="osd_viewer_"]');
-
-      if (viewer) {
-        initViewer(viewer);
-      }
-
-      // optional toggle
-      container.classList.toggle('d-none');
-    });
+const facsContainers = document.querySelectorAll(".facs-container");
+      //const container = this.closest('.facs-container');
+       const viewers = facsContainer.forEach(container => initViewer(container.querySelector('[id^="osd_viewer_"]')));
+      
+      });
   });
 
 });
@@ -42,6 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
+  const showFacs = document.querySelector("#btn-facsimile");
+    showFacs.addEventListener("click", () => {
+        const facsContainers = document.querySelectorAll(".facs-container");
+        const facsContent = document.querySelectorAll('[id^="osd_viewer_"]');
+        facsContainers.forEach(el => el.classList.toggle("d-none"))
+        facsContent.forEach
+    })
 
   const toggleBtn = document.querySelector("#toggle-facs");
   if (!toggleBtn) return;
