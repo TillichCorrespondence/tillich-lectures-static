@@ -44,6 +44,7 @@
                                 <tr>                                    
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Document</th>
                                     <th tabulator-visible="false" tabulator-download="true">_name</th>
+                                    <th tabulator-visible="true" tabulator-headerFilter="input" tabulator-download="true" tabulator-sorter="number">order</th>
                                     <th tabulator-visible="true" tabulator-headerFilter="input" tabulator-download="true">id</th>        
                                 </tr>
                             </thead>
@@ -62,6 +63,9 @@
                                         <td>
                                             <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
                                         </td>
+                                        <td>
+                                            <xsl:value-of select=".//tei:titleStmt/tei:title[@type='order']/text()"/>
+                                        </td>
                                         <td>                                        
                                             <xsl:value-of select="$href"/>
                                         </td>
@@ -73,7 +77,10 @@
                     </div>
                 </main>
                 <xsl:call-template name="html_footer"/>
-                <xsl:call-template name="tabulator_js"/>
+                <xsl:call-template name="tabulator_js">
+                    <xsl:with-param name="initial_sort_column" select="'order'"/>
+                    <xsl:with-param name="initial_sort_dir" select="'asc'"/>
+                </xsl:call-template>
             </body>
         </html>
     </xsl:template>
