@@ -50,7 +50,7 @@
                             <tbody>
                                 <xsl:for-each
                                     select="collection('../data/additional?select=*.xml')//tei:TEI">
-                                    <xsl:sort select="@xml:id"/>
+                                    <xsl:sort select="./tei:title[@type='order']/text()"/>
                                     <xsl:variable name="href"
                                         select="replace(@xml:id, '.xml', '.html')"/>
                                     <tr>

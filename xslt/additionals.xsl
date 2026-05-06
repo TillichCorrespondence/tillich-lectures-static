@@ -32,9 +32,7 @@
     <xsl:variable name="doc_title">
         <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
     </xsl:variable>
-    <xsl:variable name="facs-url">
-        <xsl:value-of select="data(.//tei:graphic[2]/@url)"/>
-    </xsl:variable>
+    
     
 
 
@@ -145,7 +143,7 @@
                             
                             <!-- get image -->
                             <xsl:variable name="facsUrl"
-                                select="//tei:surface[@xml:id = $facsId]/tei:graphic[2]/@url"/>
+                                select="//tei:surface[@xml:id = $facsId]/tei:graphic[1]/@url"/>
                             
                             <div class="row border-bottom border-primary">
                                 
@@ -320,10 +318,7 @@
                             <xsl:apply-templates/>
                         </xsl:for-each>
                     </div>
-                    <span id="url" class="visually-hidden" aria-hidden="true"><xsl:value-of select="$facs-url"/></span>
-                    <span id="filename" class="visually-hidden"><xsl:value-of select="replace($teiSource, '.xml', '.pdf')"/></span>
-                    <span id="prev-url" class="visually-hidden"><xsl:value-of select="$prev"/></span>
-                    <span id="next-url" class="visually-hidden"><xsl:value-of select="$next"/></span>
+                   
                 </main>
                 <xsl:call-template name="html_footer"/>
                 <script src="js/main.js"/>
@@ -332,5 +327,11 @@
                 <script src="js/swipe.js"/>
             </body>
         </html>
+    </xsl:template>
+    
+    <xsl:template match="tei:p">
+        <p>
+            <xsl:apply-templates/>
+        </p>
     </xsl:template>
 </xsl:stylesheet>
