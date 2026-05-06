@@ -43,27 +43,26 @@
                             <thead>
                                 <tr>                                    
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Document</th>
-                                    <th tabulator-visible="false">id</th>
-                                    
+                                    <th tabulator-visible="false" tabulator-download="true">_name</th>
+                                    <th tabulator-visible="false" tabulator-download="true">id</th>        
                                 </tr>
                             </thead>
                             <tbody>
                                 <xsl:for-each
                                     select="collection('../data/additional?select=*.xml')//tei:TEI">
                                     <xsl:sort select="@xml:id"/>
-                                   
-                                    
-                                    <!-- filename converted to .html -->
                                     <xsl:variable name="href"
-                                        select="replace(@xml:id, '\.xml$', '.html')"/>
+                                        select="replace(@xml:id, '.xml', '.html')"/>
                                     <tr>
                                         <td>
                                             <a href="{$href}">
-                                                <xsl:value-of
-                                                    select="tokenize(.//tei:titleStmt/tei:title[1], '\(')[1]"/>
+                                                <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
                                             </a>
                                         </td>
                                         <td>
+                                            <xsl:value-of select=".//tei:titleStmt/tei:title[1]/text()"/>
+                                        </td>
+                                        <td>                                        
                                             <xsl:value-of select="$href"/>
                                         </td>
                                     </tr>
