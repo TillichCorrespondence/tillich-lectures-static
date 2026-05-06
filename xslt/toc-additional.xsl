@@ -44,7 +44,7 @@
                                 <tr>                                    
                                     <th scope="col" tabulator-headerFilter="input" tabulator-formatter="html" tabulator-download="false" tabulator-minWidth="350">Document</th>
                                     <th tabulator-visible="false" tabulator-download="true">_name</th>
-                                    <th tabulator-visible="false" tabulator-download="true">id</th>        
+                                    <th tabulator-visible="true" tabulator-headerFilter="input" tabulator-download="true">id</th>        
                                 </tr>
                             </thead>
                             <tbody>
