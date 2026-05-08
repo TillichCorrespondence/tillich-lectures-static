@@ -13,10 +13,17 @@
         <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
         <script src="tabulator-js/config.js"></script>
         <script>
-            var table = new Tabulator("#myTable", config);
+           
+            var tableEl = document.getElementById("myTable");
+            if (!tableEl || typeof Tabulator === "undefined") {
+            return;
+            }
+
             <xsl:if test="normalize-space($initial_sort_column) != ''">
-                table.setSort([{column: "<xsl:value-of select="$initial_sort_column"/>", dir: "<xsl:value-of select="$initial_sort_dir"/>"}]);
+                config.initialSort = [{column: "<xsl:value-of select="$initial_sort_column"/>", dir: "<xsl:value-of select="$initial_sort_dir"/>"}];
             </xsl:if>
+            var table = new Tabulator(tableEl, config);
+            
             //trigger download of data.csv file
             document.getElementById("download-csv").addEventListener("click", function(){
             table.download("csv", "data.csv");
@@ -51,7 +58,7 @@
             table.on("dataFiltered", function (filters, data) {
             var el = document.getElementById("counter1");
             el.innerHTML = `${data.length}`;
-            }); 
+            });
         </script>
     </xsl:template>
 </xsl:stylesheet>
