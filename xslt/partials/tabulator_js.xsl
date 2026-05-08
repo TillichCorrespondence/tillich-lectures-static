@@ -13,11 +13,8 @@
         <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
         <script src="tabulator-js/config.js"></script>
         <script>
-           
             var tableEl = document.getElementById("myTable");
-            if (!tableEl || typeof Tabulator === "undefined") {
-            return;
-            }
+           
 
             <xsl:if test="normalize-space($initial_sort_column) != ''">
                 config.initialSort = [{column: "<xsl:value-of select="$initial_sort_column"/>", dir: "<xsl:value-of select="$initial_sort_dir"/>"}];
