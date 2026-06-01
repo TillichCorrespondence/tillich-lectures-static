@@ -23,12 +23,13 @@ for x in files:
             new_key = key
         else:
             new_key = f"tl-bible-id__{slugify(key)}"
-
         try:
-            data[new_key]["docs"][xml_id].add(extract_fulltext(rs))
             data[new_key]["label"] = key
         except KeyError:
             data[new_key] = {"label": key, "docs": {xml_id: set()}}
+        try:
+            data[new_key]["docs"][xml_id].add(extract_fulltext(rs))
+        except KeyError:
             data[new_key]["docs"][xml_id].add(extract_fulltext(rs))
         rs.attrib["ref"] = f"#{new_key}"
     doc.tree_to_file(x)

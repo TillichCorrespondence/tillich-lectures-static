@@ -33,10 +33,11 @@ find ./data/indices -type f -name "*.xml" -exec sed -i 's/Paul-Tillich-Korrespon
 uv run pyscripts/make_keyword_index.py
 uv run add-attributes -g "./data/indices/*.xml" -b "https://tillich-lectures.acdh.oeaw.ac.at"
 
-uv run pyscripts/make_bible_index.py
 
 echo "denormalizing indices" 
 uv run denormalize-indices -f "./data/*/*.xml" -i "./data/indices/*.xml"
+
+uv run pyscripts/make_bible_index.py
 
 
 echo "remove notegroups from editions"
