@@ -122,20 +122,17 @@
                                     <ul>
                                         <xsl:for-each select=".//tei:noteGrp//tei:note">
                                             <li>
+                                                <xsl:text> - Quote: </xsl:text>
                                                 <a href="{replace(./@target, '.xml', '.html')}">
-                                                    <xsl:value-of select="./text()"/>
-                                                </a>
-                                                <xsl:if test="tei:cit/tei:quote">
-                                                    <xsl:text> - Quote: </xsl:text>
                                                     <em>
                                                         <xsl:value-of select="string-join(tei:cit/tei:quote, '; ')"/>
                                                     </em>
-                                                </xsl:if>
+                                                </a>
                                             </li>
                                         </xsl:for-each>
                                     </ul>
                                 </xsl:if>
-                                  
+
                             </div>
                         </main>
                         <xsl:call-template name="html_footer"/>

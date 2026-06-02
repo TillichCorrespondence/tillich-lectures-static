@@ -39,10 +39,10 @@
     
     <xsl:template match="tei:rs[@ref and @type='bible']">
         <xsl:variable name="biblId">
-            <xsl:value-of select="lower-case(replace(replace(./@ref, ',', '-'), ' ', ''))"/>
+            <xsl:value-of select="replace(./@ref, '#', '')"/>
         </xsl:variable>
         <xsl:variable name="entType" select="@type"/>
-        <span class="{$entType} entity" data-bs-target="{'#'||$biblId}">
+        <span class="{$entType} entity" data-bs-target="{'#'||$biblId}" data-bs-toggle="tooltip" data-bs-title="{data(./@n)}">
             <xsl:apply-templates/>
         </span>
     </xsl:template>

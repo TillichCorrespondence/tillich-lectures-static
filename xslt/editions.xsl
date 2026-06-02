@@ -198,7 +198,7 @@
                                                     </xsl:when>
                                                    
                                                     <xsl:when test="$rstype='bible'">
-                                                        <xsl:value-of select="./@ref"/>
+                                                        <xsl:value-of select="./@n"/>
                                                     </xsl:when>
                                                     <xsl:when test="$rstype='letter'">
                                                         <xsl:value-of select="$ent//text()"/>
@@ -347,13 +347,13 @@
                                 </xsl:if>
                                 <xsl:if test=".//tei:rs[@type = 'bible' and @ref]">
                                      <div class="border rounded card-body mb-3 p-2">
-                                        <h3 class="fs-4 p-1">Bibelstellen</h3>
+                                        <h3 class="fs-4 p-1">Bible passages</h3>
                                         <div class="ps-4">
                                             <xsl:for-each
-                                                select="distinct-values(.//tei:rs[@type = 'bible' and @ref]/@ref)">
+                                                select=".//tei:rs[@type = 'bible' and @ref]">
                                                 <xsl:variable name="biblId">
                                                   <xsl:value-of
-                                                  select="lower-case(replace(replace(., ',', '-'), ' ', ''))"
+                                                  select="replace(data(./@ref), '#', '')"
                                                   />
                                                 </xsl:variable>
                                                 <div class="form-check">
@@ -362,7 +362,7 @@
                                                   id="check-{$biblId}"/>
                                                   <label class="form-check-label"
                                                   for="check-{$biblId}">
-                                                  <xsl:value-of select="."/>
+                                                  <xsl:value-of select="./@n"/>
                                                   </label>
                                                 </div>
                                             </xsl:for-each>
@@ -424,6 +424,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"/>
                 <script src="js/facs.js"/>
                 <script src="js/swipe.js"/>
+                <script src="js/tooltip.js"/>
             </body>
         </html>
     </xsl:template>
