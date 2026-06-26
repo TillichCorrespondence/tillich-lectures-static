@@ -13,7 +13,6 @@ from acdh_tei_pyutils.utils import (
 from tqdm import tqdm
 from typesense.api_call import ObjectNotFound
 
-
 files = []
 files.extend(glob.glob("./data/additional/*.xml"))
 files.extend(glob.glob("./data/editions/*.xml"))
@@ -30,6 +29,11 @@ except ObjectNotFound:
 current_schema = {
     "name": COLLECTION_NAME,
     "enable_nested_fields": True,
+    "metadata": {
+        "owners": ["Peter Andorfer", "Thomas Klamplf"],
+        "description": "'Max Kalbeck Tagebuch' (https://github.com/TillichCorrespondence/tillich-lectures-static)",
+        "service_ids": [23501],
+    },
     "fields": [
         {"name": "id", "type": "string", "sort": True},
         {"name": "rec_id", "type": "string", "sort": True},
