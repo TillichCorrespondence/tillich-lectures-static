@@ -30,7 +30,7 @@ current_schema = {
     "name": COLLECTION_NAME,
     "enable_nested_fields": True,
     "metadata": {
-        "owners": ["Peter Andorfer", "Thomas Klamplf"],
+        "owners": ["Peter Andorfer", "Thomas Klampfl"],
         "description": "'Max Kalbeck Tagebuch' (https://github.com/TillichCorrespondence/tillich-lectures-static)",
         "service_ids": [23501],
     },
