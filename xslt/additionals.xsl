@@ -131,7 +131,7 @@
                         <div class="row">                          
                           <div class="col-lg-10 border-end position-relative">
                                    
-                        <xsl:for-each-group select="//tei:body//tei:pb | //tei:body//tei:p" group-starting-with="tei:pb">
+                        <xsl:for-each-group select="//tei:body//tei:pb | //tei:body//tei:p | //tei:body//tei:list" group-starting-with="tei:pb">
                             
                             <!-- the pb of this group -->
                             <xsl:variable name="pb" select="current-group()[1]"/>
@@ -160,7 +160,7 @@
                                 
                                 <!-- Transcript -->
                                 <div class="col-12 col-lg-6 pt-5 mx-auto p-lg-5 pdf-transcript">
-                                    <xsl:apply-templates select="current-group()[self::tei:p]"/>
+                                    <xsl:apply-templates select="current-group()[self::tei:p | self::tei:list]"/>
                                 </div>
                                 
                             </div>
@@ -329,9 +329,141 @@
         </html>
     </xsl:template>
     
-    <xsl:template match="tei:p">
+    <xsl:template match="tei:p[not(exists(@rend)) and not(exists(@style))]">
         <p>
             <xsl:apply-templates/>
         </p>
     </xsl:template>
+    
+    <xsl:template match="tei:p[exists(@rend) or exists(@style)]">
+        <xsl:element name="p">
+            <xsl:choose>
+                <xsl:when test="@rend = 'heading handwritten'">
+                    <xsl:attribute name="class" select="'additional-heading-handwritten'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'heading'">
+                    <xsl:attribute name="class" select="'additional-heading'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'quote'">
+                    <xsl:attribute name="class" select="'additional-quote'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'without-space'">
+                    <xsl:attribute name="class" select="'additional-without-space'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'without-space-before'">
+                    <xsl:attribute name="class" select="'additional-without-space-before'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'without-space-after'">
+                    <xsl:attribute name="class" select="'additional-without-space-after'"/>
+                </xsl:when>
+                <xsl:when test="@rend = 'handwritten'">
+                    <xsl:attribute name="class" select="'additional-handwritten'"/>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:if test="exists(@style)">
+                <xsl:attribute name="style" select="@style"/>
+            </xsl:if>
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="tei:list[@type = 'index']">
+        <xsl:if test="@rend = 'none'">
+            <xsl:element name="ul">
+                <xsl:attribute name="class" select="'additional-list-without-sign'"/>
+                <xsl:apply-templates select="child::node()"/>
+            </xsl:element>
+        </xsl:if>
+        <xsl:if test="@rend = 'number-arabic'">
+            <xsl:element name="ol">
+                <xsl:apply-templates select="child::node()"/>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+    
+    <xsl:template match="tei:item[parent::tei:list]">
+        <xsl:element name="li">
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="tei:span[@rend = 'handwritten']">
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+    
+    <xsl:template match="tei:del">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'additional-deletion'"/>
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="tei:add[not(exists(@place))]">
+        <xsl:text>\</xsl:text>
+        <xsl:apply-templates select="child::node()"/>
+        <xsl:text>/</xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:add[exists(@place) and (@place = 'below')]">
+        <xsl:text>/</xsl:text>
+        <xsl:apply-templates select="child::node()"/>
+        <xsl:text>\</xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:hi">
+        <xsl:element name="span">
+            <xsl:if test="exists(@style)">
+                <xsl:attribute name="style" select="@style"/>
+            </xsl:if>
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="tei:gap">
+        <xsl:text>[</xsl:text>
+        <xsl:if test="exists(@quantity)">
+            <xsl:value-of select="@quantity"/>
+            <xsl:text> characters missing</xsl:text>
+        </xsl:if>
+        <xsl:text>]</xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:unclear">
+        <xsl:text>[</xsl:text>
+        <xsl:if test="exists(@quantity)">
+            <xsl:value-of select="@quantity"/>
+            <xsl:text> characters not readable</xsl:text>
+        </xsl:if>
+        <xsl:if test="not(exists(@quantity))">
+            <xsl:text>some characters not readable</xsl:text>
+        </xsl:if>
+        <xsl:text>]</xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:emph">
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+    
+    <xsl:template match="tei:choice">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'additional-deletion'"/>
+            <xsl:apply-templates select="child::tei:orig"/>
+        </xsl:element>
+        <xsl:text>|</xsl:text>
+        <xsl:apply-templates select="child::tei:corr"/>
+        <xsl:text>|</xsl:text>
+    </xsl:template>
+    
+    <xsl:template match="tei:orig">
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+    
+    <xsl:template match="tei:corr">
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+    
+    <xsl:template match="tei:foreign[@xml:lang = 'grc']">
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+    
 </xsl:stylesheet>
