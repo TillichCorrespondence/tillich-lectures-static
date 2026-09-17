@@ -15,7 +15,7 @@
         <xsl:variable name="filename" select="tokenize($image, '/')[last()]"/>
         <xsl:variable name="path"
             select="string-join(tokenize($image, '/')[position() = last()-2 or position() = last()-1], '/')"/>
-        <xsl:variable name="thumb-width" select="'400'"/> <!-- Set desired thumbnail width i.e. 400px -->
+        <xsl:variable name="thumb-width" select="'330'"/> <!-- Set desired thumbnail width i.e. 400px -->
 
         <xsl:variable name="thumbnail"
             select="

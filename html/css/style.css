@@ -372,3 +372,8 @@ span.additional-deletion {
 ul.additional-list-without-sign {
     list-style-type: none;
 }
+
+p.meta-toc-entry-spacing {
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+}
