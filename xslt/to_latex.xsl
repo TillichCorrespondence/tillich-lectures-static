@@ -215,7 +215,7 @@ Harvard University, 1955-56}
    <xsl:template name="escape_character_latex">
         <xsl:param name="context"/>
         <xsl:analyze-string select="$context" 
-            regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))|([\\])|([~])|([\^])|([|])">
+            regex="([&amp;])|([_])|([$])|([%])|([{{])|([}}])|([#])|((\w)\-(\w))|([/])|([§] +)|((\d{{1,2}}\.)\s+(\d{{1,2}}\.)\s+([21][8901]\d{{2}}))|([\\])|([~])|([\^])|([|])|([—]\s*)">
             
             <xsl:matching-substring>
                 <xsl:choose>
@@ -270,6 +270,7 @@ Harvard University, 1955-56}
                     <xsl:when test="regex-group(20)">
                         <xsl:text>\textbar{}</xsl:text>
                     </xsl:when>
+                    <xsl:when test="regex-group(21)"><xsl:value-of select="'—'"/></xsl:when>
                     <xsl:otherwise/>
                 </xsl:choose>
             </xsl:matching-substring>
@@ -288,6 +289,7 @@ Harvard University, 1955-56}
         <xsl:when test="@rend='lb-show'">
         <xsl:text>\\</xsl:text>
         </xsl:when>
+        <xsl:when test="matches(preceding-sibling::text()[1],'—\s*$')"/>
         <xsl:otherwise>
             <xsl:text> </xsl:text>
         </xsl:otherwise>
