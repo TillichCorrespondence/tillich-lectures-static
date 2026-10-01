@@ -28,8 +28,7 @@
             )
             "/>
         
-        <table class="table entity-table">
-            <tbody>
+        <div>
                 <dl>
                      <dt>Artist:</dt>
                     <dd>
@@ -76,8 +75,7 @@
                              <a href="{$image}">Wikimedia Commons (Public Domain) <i class="bi bi-box-arrow-up-right"></i></a>                                
                          </figcaption>                         
                      </figure>                     
-                 </xsl:if>                
-            </tbody>
-        </table>
+                 </xsl:if>
+        </div>
     </xsl:template>
 </xsl:stylesheet>
