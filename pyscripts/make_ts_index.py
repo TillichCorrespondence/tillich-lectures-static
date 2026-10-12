@@ -11,7 +11,7 @@ from acdh_tei_pyutils.utils import (
     make_entity_label,
 )
 from tqdm import tqdm
-from typesense.api_call import ObjectNotFound
+from typesense.exceptions import ObjectNotFound
 
 files = []
 files.extend(glob.glob("./data/additional/*.xml"))
