@@ -123,5 +123,33 @@
          <xsl:text>...</xsl:text>
     </xsl:template>
     
-    
+    <xsl:template match="tei:choice[exists(child::tei:sic) and exists(child::tei:corr)]">
+        <xsl:variable name="identifier" select="generate-id(.)"/>
+        <xsl:apply-templates select="tei:sic | tei:corr" mode="choice-with-sic-and-corr">
+            <xsl:with-param name="identifier" select="$identifier"/>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="tei:sic" mode="choice-with-sic-and-corr">
+        <xsl:param name="identifier"/>
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'sic-hidden'"/>
+            <xsl:attribute name="id" select="$identifier"/>
+            <xsl:text> |</xsl:text>
+            <xsl:apply-templates select="child::node()"/>
+            <xsl:text>| </xsl:text>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="tei:corr" mode="choice-with-sic-and-corr">
+        <xsl:param name="identifier"/>
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'corr-cursor'"/>
+            <xsl:attribute name="aria-controls" select="$identifier"/>
+            <xsl:text> ⸂</xsl:text>
+            <xsl:apply-templates select="child::node()"/>
+            <xsl:text>⸃ </xsl:text>
+        </xsl:element>
+    </xsl:template>
+
 </xsl:stylesheet>

@@ -377,3 +377,11 @@ p.meta-toc-entry-spacing {
     margin-top: 0pt;
     margin-bottom: 0pt;
 }
+
+span.sic-hidden {
+    display: none;
+}
+
+span.corr-cursor {
+    cursor: pointer;
+}

@@ -37,7 +37,16 @@ function replaceCurrentDate() {
     }
   }
   
+  function makeSicAndCorrActive() {
+    $('[aria-controls]').on('click', function() {
+        let targetId = $(this).attr('aria-controls');
+        $('#' + targetId).toggle();
+        $(this).attr('aria-expanded', 'true');
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     replaceCurrentDate();
     replaceCurrentDateYYYYMMDD();
+    makeSicAndCorrActive();
   });
