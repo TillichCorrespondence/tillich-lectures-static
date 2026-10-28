@@ -367,5 +367,15 @@ Harvard University, 1955-56}
    <xsl:template match="tei:title[@type='lecture']">
         <!-- skip -->
     </xsl:template>
+
+<xsl:template match="tei:choice[exists(child::tei:sic) and exists(child::tei:corr)]">
+<xsl:apply-templates select="child::node()" mode="choice-with-sic-and-corr"/>
+</xsl:template>
+
+<xsl:template match="tei:sic" mode="choice-with-sic-and-corr"/>
+
+<xsl:template match="tei:corr" mode="choice-with-sic-and-corr">
+<xsl:apply-templates select="child::node()"/>
+</xsl:template>
     
 </xsl:stylesheet>
