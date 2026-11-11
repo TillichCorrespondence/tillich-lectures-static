@@ -153,7 +153,7 @@ Harvard University, 1955-56}
 </xsl:template>
 
 <!-- Regular paragraphs with punctuation/capitalization check -->
-<xsl:template match="tei:p[not(@rend='tei-authorship')]">
+<xsl:template match="tei:p[not(@rend='tei-authorship') and not(@rend='tei-p-no-indent')]">
   <!-- Get the full text content of the paragraph -->
   <xsl:variable name="para-text" select="normalize-space(string(.))"/>
   <!-- Get first character (after trimming whitespace) -->
