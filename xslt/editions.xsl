@@ -169,7 +169,7 @@
                                                                 count="tei:note"/>
                                                         </xsl:attribute>
                                                         <span
-                                                            style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
+                                                            style="font-size:7pt;vertical-align:super; margin-right: 0.0em">
                                                             <xsl:number level="any" format="1"
                                                                 count="tei:note"/>
                                                         </span>
