@@ -124,31 +124,43 @@
     </xsl:template>
     
     <xsl:template match="tei:choice[exists(child::tei:sic) and exists(child::tei:corr)]">
-        <xsl:variable name="identifier" select="generate-id(.)"/>
+        <xsl:variable name="text-of-sic-for-tooltip">
+            <xsl:apply-templates select="child::tei:sic" mode="get-text-of-sic"/>
+        </xsl:variable>
         <xsl:apply-templates select="tei:sic | tei:corr" mode="choice-with-sic-and-corr">
-            <xsl:with-param name="identifier" select="$identifier"/>
+            <xsl:with-param name="text-of-sic-for-tooltip" select="$text-of-sic-for-tooltip"/>
         </xsl:apply-templates>
     </xsl:template>
 
+    <xsl:template match="tei:sic" mode="get-text-of-sic">
+        <xsl:text>sic: </xsl:text>
+        <xsl:apply-templates select="child::node()"/>
+    </xsl:template>
+
     <xsl:template match="tei:sic" mode="choice-with-sic-and-corr">
-        <xsl:param name="identifier"/>
+        <xsl:param name="text-of-sic-for-tooltip"/>
         <xsl:element name="span">
             <xsl:attribute name="class" select="'sic-hidden'"/>
-            <xsl:attribute name="id" select="$identifier"/>
-            <xsl:text> |</xsl:text>
             <xsl:apply-templates select="child::node()"/>
-            <xsl:text>| </xsl:text>
         </xsl:element>
     </xsl:template>
 
     <xsl:template match="tei:corr" mode="choice-with-sic-and-corr">
-        <xsl:param name="identifier"/>
+        <xsl:param name="text-of-sic-for-tooltip"/>
         <xsl:element name="span">
             <xsl:attribute name="class" select="'corr-cursor'"/>
-            <xsl:attribute name="aria-controls" select="$identifier"/>
+            <xsl:attribute name="data-bs-toggle" select="'tooltip'"/>
+            <xsl:attribute name="data-bs-title" select="$text-of-sic-for-tooltip"/>
             <xsl:text> ⸂</xsl:text>
             <xsl:apply-templates select="child::node()"/>
             <xsl:text>⸃ </xsl:text>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="tei:foreign[@xml:lang = 'ru']">
+        <xsl:element name="span">
+            <xsl:attribute name="class" select="'russian-font'"/>
+            <xsl:apply-templates select="child::node()"/>
         </xsl:element>
     </xsl:template>
 

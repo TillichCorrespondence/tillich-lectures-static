@@ -385,3 +385,9 @@ span.sic-hidden {
 span.corr-cursor {
     cursor: pointer;
 }
+
+span.russian-font {
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+}
