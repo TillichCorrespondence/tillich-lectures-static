@@ -119,6 +119,20 @@ button.entity {
   text-underline-offset: 4px;
 }
 
+button.entity-italic {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 0.1em;
+  font: inherit;
+  font-style: italic;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  text-decoration: dotted underline;
+  text-underline-offset: 4px;
+}
+
 button.highlight {
   background-color: var(--dse-base-color);
   color: white;

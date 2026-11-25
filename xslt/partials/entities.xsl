@@ -9,9 +9,19 @@
     <xsl:template match="tei:rs[starts-with(@ref, '#') and @type and not(@type='keyword')]">
         <xsl:variable name="entType" select="@type"/>
         <xsl:variable name="entId" select="./@ref"/>
-        <button class="{$entType} entity dse-dotted" data-bs-toggle="modal" data-bs-target="{@ref}">
-            <xsl:apply-templates/>
-        </button>
+        <xsl:element name="button">
+            <xsl:attribute name="data-bs-toggle" select="'modal'"/>
+            <xsl:attribute name="data-bs-target" select="@ref"/>
+            <xsl:choose>
+                <xsl:when test="exists(@rend) and (@rend = 'italics')">
+                    <xsl:attribute name="class" select="concat($entType,' ','entity-italic',' ','dse-dooted')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="class" select="concat($entType,' ','entity',' ','dse-dotted')"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>
             <a class="pdf-entitiy-footnote-markers visually-hidden">
                 <xsl:attribute name="name">
                     <xsl:value-of select="replace($entId, '#', '')"/>
@@ -32,9 +42,18 @@
     <xsl:template match="tei:rs[starts-with(@ref, '#') and @type='keyword']">
         <xsl:variable name="entType" select="@type"/>
         <xsl:variable name="entId" select="./@ref"/>
-        <span class="{$entType} entity" data-bs-target="{@ref}">
-            <xsl:apply-templates/>
-        </span>        
+        <xsl:element name="span">
+            <xsl:attribute name="data-bs-target" select="@ref"/>
+            <xsl:choose>
+                <xsl:when test="exists(@rend) and (@rend = 'italics')">
+                    <xsl:attribute name="class" select="concat($entType,' ','entity-italic')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="class" select="concat($entType,' ','entity')"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="child::node()"/>
+        </xsl:element>       
     </xsl:template>
     
     <xsl:template match="tei:rs[@ref and @type='bible']">
